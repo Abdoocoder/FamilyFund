@@ -1,4 +1,6 @@
 export type PaymentStatus = 'paid' | 'unpaid' | 'pending';
+export type UserRole = 'admin' | 'member';
+export type ApprovalStatus = 'pending' | 'approved' | 'rejected';
 
 export interface Member {
   id: string;
@@ -9,6 +11,9 @@ export interface Member {
   status: 'active' | 'archived';
   subscriptionAmount: number; // e.g., 200 JOD/month or 1000 JOD/year
   createdAt: string;
+  role?: UserRole;
+  approvalStatus?: ApprovalStatus;
+  clerkUserId?: string;
 }
 
 export type MonthNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -35,7 +40,7 @@ export interface Transaction {
   note?: string;
 }
 
-export type ActiveTab = 'dashboard' | 'payments' | 'members' | 'history';
+export type ActiveTab = 'dashboard' | 'payments' | 'members' | 'history' | 'admin';
 
 export interface AuditLog {
   id: string;
