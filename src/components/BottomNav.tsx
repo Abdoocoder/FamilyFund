@@ -2,7 +2,11 @@ import React from 'react';
 import { useFund } from '../context/FundContext';
 import { ActiveTab } from '../types';
 
-export const BottomNav: React.FC = () => {
+interface BottomNavProps {
+  isAdmin: boolean;
+}
+
+export const BottomNav: React.FC<BottomNavProps> = ({ isAdmin }) => {
   const { activeTab, setActiveTab } = useFund();
 
   const navItems: { id: ActiveTab; label: string; icon: string }[] = [
@@ -35,6 +39,22 @@ export const BottomNav: React.FC = () => {
               </button>
             );
           })}
+
+          {isAdmin && (
+            <button
+              onClick={() => setActiveTab('admin')}
+              className={`flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-200 ${
+                activeTab === 'admin'
+                  ? 'bg-amber-100 text-amber-800 font-semibold shadow-lg shadow-amber-100/20'
+                  : 'text-fund-muted hover:bg-fund-accent'
+              }`}
+            >
+              <span className={`material-symbols-outlined text-[22px] ${activeTab === 'admin' ? 'filled' : ''}`}>
+                admin_panel_settings
+              </span>
+              <span className="text-[10px] mt-0.5 tracking-wide">الإدارة</span>
+            </button>
+          )}
         </div>
       </div>
     </nav>

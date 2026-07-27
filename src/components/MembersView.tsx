@@ -6,9 +6,10 @@ import gsap from 'gsap';
 interface MembersViewProps {
   onOpenAddMember: () => void;
   onEditMember: (member: Member) => void;
+  isAdmin: boolean;
 }
 
-export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEditMember }) => {
+export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEditMember, isAdmin }) => {
   const { members, toggleMemberArchive } = useFund();
   const [search, setSearch] = useState('');
   const [tabFilter, setTabFilter] = useState<'active' | 'archived' | 'all'>('active');
@@ -71,13 +72,15 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
           </p>
         </div>
 
-        <button
-          onClick={onOpenAddMember}
-          className="bg-fund-green hover:bg-fund-green-light text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 shadow-sm hover:shadow-md hover:shadow-fund-green/15 active:scale-[0.97] cursor-pointer"
-        >
-          <span className="material-symbols-outlined text-[20px]">add</span>
-          <span>إضافة عضو جديد</span>
-        </button>
+        {isAdmin && (
+          <button
+            onClick={onOpenAddMember}
+            className="bg-fund-green hover:bg-fund-green-light text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 shadow-sm hover:shadow-md hover:shadow-fund-green/15 active:scale-[0.97] cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[20px]">add</span>
+            <span>إضافة عضو جديد</span>
+          </button>
+        )}
       </div>
 
       {/* Search & Filter Tabs */}
@@ -162,13 +165,15 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                 <div className="flex items-center gap-2 mt-4 pt-3 border-t border-fund-border/40 relative z-10">
                   {isActive ? (
                     <>
-                      <button
-                        onClick={() => onEditMember(member)}
-                        className="flex-1 bg-white border border-fund-green/30 text-fund-green hover:bg-fund-accent text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
-                      >
-                        <span className="material-symbols-outlined text-[16px]">edit</span>
-                        تعديل
-                      </button>
+                      {isAdmin && (
+                        <button
+                          onClick={() => onEditMember(member)}
+                          className="flex-1 bg-white border border-fund-green/30 text-fund-green hover:bg-fund-accent text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
+                        >
+                          <span className="material-symbols-outlined text-[16px]">edit</span>
+                          تعديل
+                        </button>
+                      )}
                       <button
                         onClick={() => {
                           if (window.confirm(`هل أنت متأكد من أرشفة العضو "${member.name}"؟`)) {

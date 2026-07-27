@@ -7,9 +7,10 @@ import { UndoToast } from './UndoToast';
 
 interface PaymentMatrixProps {
   onOpenNewPayment: () => void;
+  isAdmin: boolean;
 }
 
-export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayment }) => {
+export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayment, isAdmin }) => {
   const {
     members,
     payments,
@@ -121,13 +122,15 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
             <span>تصدير Excel</span>
           </button>
 
-          <button
-            onClick={onOpenNewPayment}
-            className="flex items-center gap-2 px-4 py-2.5 bg-fund-green hover:bg-fund-green-light text-white rounded-xl transition-all duration-300 text-sm font-semibold shadow-sm hover:shadow-md hover:shadow-fund-green/15 active:scale-[0.97]"
-          >
-            <span className="material-symbols-outlined text-lg">add</span>
-            <span>دفعة جديدة</span>
-          </button>
+          {isAdmin && (
+            <button
+              onClick={onOpenNewPayment}
+              className="flex items-center gap-2 px-4 py-2.5 bg-fund-green hover:bg-fund-green-light text-white rounded-xl transition-all duration-300 text-sm font-semibold shadow-sm hover:shadow-md hover:shadow-fund-green/15 active:scale-[0.97]"
+            >
+              <span className="material-symbols-outlined text-lg">add</span>
+              <span>دفعة جديدة</span>
+            </button>
+          )}
         </div>
       </div>
 

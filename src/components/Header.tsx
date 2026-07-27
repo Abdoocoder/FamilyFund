@@ -4,9 +4,10 @@ import { useUser, SignInButton, UserButton } from '@clerk/react';
 
 interface HeaderProps {
   onOpenNewPayment?: () => void;
+  isAdmin: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment, isAdmin }) => {
   const { auditLogs, setActiveTab } = useFund();
   const { isSignedIn } = useUser();
   const [showNotifications, setShowNotifications] = useState(false);
@@ -57,6 +58,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
         </div>
 
         <div className="flex items-center gap-2">
+          {isAdmin && (
+            <button
+              className="flex items-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-800 px-3 py-2 rounded-lg text-sm font-medium"
+            >
+              <span className="material-symbols-outlined text-lg">admin_panel_settings</span>
+              <span>الإدارة</span>
+            </button>
+          )}
+
           {onOpenNewPayment && (
             <button
               onClick={onOpenNewPayment}

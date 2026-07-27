@@ -2,7 +2,11 @@ import React from 'react';
 import { useFund } from '../context/FundContext';
 import { ActiveTab } from '../types';
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isAdmin: boolean;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ isAdmin }) => {
   const { activeTab, setActiveTab, members } = useFund();
 
   const navItems: { id: ActiveTab; label: string; icon: string }[] = [
@@ -50,6 +54,24 @@ export const Sidebar: React.FC = () => {
               </li>
             );
           })}
+
+          {isAdmin && (
+            <li>
+              <button
+                onClick={() => setActiveTab('admin')}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                  activeTab === 'admin'
+                    ? 'bg-amber-100 text-amber-800 shadow-lg shadow-amber-100/15'
+                    : 'text-fund-muted hover:bg-fund-accent hover:text-fund-text hover:translate-x-[-2px]'
+                }`}
+              >
+                <span className={`material-symbols-outlined text-[20px] ${activeTab === 'admin' ? 'filled' : ''}`}>
+                  admin_panel_settings
+                </span>
+                <span className="tracking-wide">لوحة الإدارة</span>
+              </button>
+            </li>
+          )}
         </ul>
       </div>
 
