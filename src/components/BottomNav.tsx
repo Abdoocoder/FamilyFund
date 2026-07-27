@@ -13,27 +13,29 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full bg-white border-t border-[#e2e8f0] shadow-[0px_-4px_12px_rgba(45,90,39,0.05)] z-50 rounded-t-xl py-2 px-2">
-      <div className="flex flex-row-reverse justify-around items-center">
-        {navItems.map(item => {
-          const isActive = activeTab === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`flex flex-col items-center justify-center px-3 py-1.5 rounded-lg transition-all ${
-                isActive
-                  ? 'bg-[#2d5a27] text-white font-semibold scale-100 shadow-xs'
-                  : 'text-[#42493e] hover:bg-[#eff4ff]'
-              }`}
-            >
-              <span className={`material-symbols-outlined text-[22px] ${isActive ? 'filled' : ''}`}>
-                {item.icon}
-              </span>
-              <span className="text-xs mt-0.5">{item.label}</span>
-            </button>
-          );
-        })}
+    <nav className="md:hidden fixed bottom-4 left-4 right-4 z-50">
+      <div className="glass-strong rounded-2xl border border-white/30 shadow-lg shadow-black/8 px-2 py-2">
+        <div className="flex flex-row-reverse justify-around items-center">
+          {navItems.map(item => {
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-300 ${
+                  isActive
+                    ? 'bg-fund-green text-white font-semibold shadow-lg shadow-fund-green/20 scale-105'
+                    : 'text-fund-muted hover:bg-fund-accent active:scale-95'
+                }`}
+              >
+                <span className={`material-symbols-outlined text-[22px] ${isActive ? 'filled' : ''}`}>
+                  {item.icon}
+                </span>
+                <span className="text-[10px] mt-0.5 tracking-wide">{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );

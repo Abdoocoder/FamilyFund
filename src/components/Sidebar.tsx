@@ -15,33 +15,33 @@ export const Sidebar: React.FC = () => {
   const activeMembersCount = members.filter(m => m.status === 'active').length;
 
   return (
-    <aside className="hidden md:flex flex-col w-64 bg-white border-l border-[#e2e8f0] h-screen sticky top-0 shrink-0 shadow-[4px_0_12px_rgba(45,90,39,0.03)] z-30">
-      <div className="p-6 border-b border-[#e2e8f0]">
-        <h1 className="text-2xl text-[#154212] font-bold">صندوق العائلة</h1>
-        <p className="text-xs text-[#42493e] mt-1">الإدارة المالية والاشتراكات</p>
+    <aside className="hidden md:flex flex-col w-64 glass-strong border-l border-white/20 h-screen sticky top-0 shrink-0 z-30">
+      <div className="p-6 border-b border-fund-border/50">
+        <h1 className="text-2xl text-fund-green font-bold tracking-tight">صندوق العائلة</h1>
+        <p className="text-[11px] text-fund-muted mt-1 tracking-wide">الإدارة المالية والاشتراكات</p>
       </div>
 
-      <div className="flex-1 overflow-y-auto py-4 px-3">
-        <ul className="space-y-1.5">
+      <div className="flex-1 overflow-y-auto py-5 px-3">
+        <ul className="space-y-1">
           {navItems.map(item => {
             const isActive = activeTab === item.id;
             return (
               <li key={item.id}>
                 <button
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                     isActive
-                      ? 'bg-[#2d5a27] text-white shadow-xs'
-                      : 'text-[#42493e] hover:bg-[#eff4ff]'
+                      ? 'bg-fund-green text-white shadow-lg shadow-fund-green/15 glow-green'
+                      : 'text-fund-muted hover:bg-fund-accent hover:text-fund-text hover:translate-x-[-2px]'
                   }`}
                 >
-                  <span className={`material-symbols-outlined ${isActive ? 'filled' : ''}`}>
+                  <span className={`material-symbols-outlined text-[20px] ${isActive ? 'filled' : ''}`}>
                     {item.icon}
                   </span>
-                  <span>{item.label}</span>
+                  <span className="tracking-wide">{item.label}</span>
                   {item.id === 'members' && (
-                    <span className={`mr-auto px-2 py-0.5 text-xs rounded-full font-bold ${
-                      isActive ? 'bg-white/20 text-white' : 'bg-[#e5eeff] text-[#154212]'
+                    <span className={`mr-auto px-2.5 py-0.5 text-[11px] rounded-full font-bold tabular-nums ${
+                      isActive ? 'bg-white/20 text-white' : 'bg-fund-accent text-fund-green'
                     }`}>
                       {activeMembersCount}
                     </span>
@@ -53,14 +53,14 @@ export const Sidebar: React.FC = () => {
         </ul>
       </div>
 
-      <div className="p-4 border-t border-[#e2e8f0] bg-[#f8f9ff]">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-[#2d5a27] text-white flex items-center justify-center font-bold shrink-0">
+      <div className="p-4 border-t border-fund-border/50">
+        <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-fund-accent/50 transition-colors duration-300 cursor-pointer">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-fund-green to-fund-green-light text-white flex items-center justify-center font-bold shrink-0 shadow-sm text-sm">
             أ.ع
           </div>
           <div className="overflow-hidden">
-            <p className="text-sm font-bold text-[#0b1c30] truncate">سعيد محمود أبوكف</p>
-            <p className="text-xs text-[#42493e]">مدير الصندوق / المحاسب</p>
+            <p className="text-sm font-bold text-fund-text truncate tracking-wide">سعيد محمود أبوكف</p>
+            <p className="text-[11px] text-fund-muted">مدير الصندوق / المحاسب</p>
           </div>
         </div>
       </div>

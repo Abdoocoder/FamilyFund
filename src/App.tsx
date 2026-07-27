@@ -29,30 +29,31 @@ const MainContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8f9ff] text-[#0b1c30]">
+    <div className="min-h-screen flex flex-col">
       <Header onOpenNewPayment={() => setIsNewPaymentOpen(true)} />
 
       <div className="flex-1 flex max-w-7xl w-full mx-auto">
         <Sidebar />
 
-        <main className="flex-1 min-w-0 p-4 md:p-8">
-          {activeTab === 'dashboard' && <DashboardView />}
-          {activeTab === 'payments' && (
-            <PaymentMatrixView onOpenNewPayment={() => setIsNewPaymentOpen(true)} />
-          )}
-          {activeTab === 'members' && (
-            <MembersView
-              onOpenAddMember={handleOpenAddMember}
-              onEditMember={handleEditMember}
-            />
-          )}
-          {activeTab === 'history' && <HistoryView />}
+        <main className="flex-1 min-w-0 p-4 md:p-6 lg:p-8" key={activeTab}>
+          <div className="view-enter">
+            {activeTab === 'dashboard' && <DashboardView />}
+            {activeTab === 'payments' && (
+              <PaymentMatrixView onOpenNewPayment={() => setIsNewPaymentOpen(true)} />
+            )}
+            {activeTab === 'members' && (
+              <MembersView
+                onOpenAddMember={handleOpenAddMember}
+                onEditMember={handleEditMember}
+              />
+            )}
+            {activeTab === 'history' && <HistoryView />}
+          </div>
         </main>
       </div>
 
       <BottomNav />
 
-      {/* Modals */}
       <AddMemberModal
         isOpen={isAddMemberOpen}
         onClose={() => setIsAddMemberOpen(false)}
@@ -70,7 +71,9 @@ const MainContent: React.FC = () => {
 export default function App() {
   return (
     <FundProvider>
-      <MainContent />
+      <main className="overflow-x-hidden w-full max-w-full">
+        <MainContent />
+      </main>
     </FundProvider>
   );
 }

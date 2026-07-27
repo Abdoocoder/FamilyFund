@@ -124,24 +124,12 @@ export const seedPayments = internalMutation({
   },
 });
 
-// Run full seed (members + payments)
-export const seedAll = internalMutation({
-  args: {},
-  handler: async (ctx) => {
-    // Seed members
-    const memberResults = await seedMembers(ctx, {});
-    console.log(`Seeded ${memberResults.length} members`);
-
-    // Seed payments
-    const paymentResults = await seedPayments(ctx, {});
-    console.log(`Seeded ${paymentResults.length} payments`);
-
-    return {
-      members: memberResults.length,
-      payments: paymentResults.length,
-    };
-  },
-});
+// To seed the database, run these commands separately:
+//   npx convex run seed:seedMembers
+//   npx convex run seed:seedPayments
+//
+// Or to set the admin role after seeding:
+//   npx convex run seed:setAdminRole
 
 // Set admin role for سعيد محمود أبوكف
 export const setAdminRole = internalMutation({

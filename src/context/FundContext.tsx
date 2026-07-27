@@ -115,9 +115,10 @@ export const FundProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
     setMembers(prev => [newMember, ...prev]);
 
-    // Create 12 month payment slots for 2024, 2025, 2026
+    // Create 12 month payment slots for the current year and next year
+    const currentYear = new Date().getFullYear();
     const newRecords: PaymentRecord[] = [];
-    [2024, 2025, 2026].forEach(yr => {
+    [currentYear - 1, currentYear, currentYear + 1].forEach(yr => {
       for (let m = 1; m <= 12; m++) {
         newRecords.push({
           memberId: id,
@@ -217,17 +218,19 @@ export const FundProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const getYearStats = (year: number) => {
     const activeMembers = members.filter(m => m.status === 'active');
-    const totalActiveCount = activeMembers.length || 48;
 
-    // Expected for full year = active Members * 12 months * 200 JOD
-    const expected = totalActiveCount * 12 * 200;
+    // Expected for full year = sum of each active member's annual subscription
+    const expected = activeMembers.reduce(
+      (sum, m) => sum + m.subscriptionAmount * 12,
+      0
+    );
 
     const yearPayments = payments.filter(p => p.year === year && p.status === 'paid');
-    const collected = yearPayments.reduce((sum, p) => sum + (p.amount || 200), 0);
+    const collected = yearPayments.reduce((sum, p) => sum + p.amount, 0);
     const remaining = Math.max(0, expected - collected);
 
     const paidSlots = yearPayments.length;
-    const totalSlots = totalActiveCount * 12;
+    const totalSlots = activeMembers.length * 12;
     const complianceRate = totalSlots > 0 ? Math.round((paidSlots / totalSlots) * 100) : 0;
 
     return { expected, collected, remaining, complianceRate };

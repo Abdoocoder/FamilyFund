@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useFund } from '../../context/FundContext';
 import { Member } from '../../types';
+import gsap from 'gsap';
 
 interface AddMemberModalProps {
   isOpen: boolean;
@@ -10,6 +11,8 @@ interface AddMemberModalProps {
 
 export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose, memberToEdit }) => {
   const { addMember, updateMember } = useFund();
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('+966 5');
@@ -30,50 +33,73 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
     }
   }, [memberToEdit, isOpen]);
 
+  // GSAP entrance animation
+  useEffect(() => {
+    if (isOpen && overlayRef.current && panelRef.current) {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+        gsap.fromTo(panelRef.current, {
+          opacity: 0,
+          scale: 0.95,
+          y: 12,
+        }, {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.35,
+          ease: 'power3.out',
+          delay: 0.05,
+        });
+      });
+      return () => ctx.revert();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
+
+  const handleClose = () => {
+    if (overlayRef.current && panelRef.current) {
+      const ctx = gsap.context(() => {
+        gsap.to(panelRef.current, { opacity: 0, scale: 0.97, y: 8, duration: 0.2, ease: 'power2.in' });
+        gsap.to(overlayRef.current, { opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: onClose });
+      });
+      // Cleanup context after animation
+      setTimeout(() => ctx.revert(), 300);
+    } else {
+      onClose();
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    // Derive initials e.g. "أحمد عبدالله" => "أ.ع"
     const nameParts = name.trim().split(' ');
     const initials = nameParts.length >= 2
       ? `${nameParts[0].charAt(0)}.${nameParts[1].charAt(0)}`
       : `${name.charAt(0)}`;
 
     if (memberToEdit) {
-      updateMember(memberToEdit.id, {
-        name,
-        phone,
-        branch,
-        subscriptionAmount: Number(subscriptionAmount) || 200,
-        initials,
-      });
+      updateMember(memberToEdit.id, { name, phone, branch, subscriptionAmount: Number(subscriptionAmount) || 200, initials });
     } else {
-      addMember({
-        name,
-        phone,
-        branch,
-        subscriptionAmount: Number(subscriptionAmount) || 200,
-        initials,
-        status: 'active',
-      });
+      addMember({ name, phone, branch, subscriptionAmount: Number(subscriptionAmount) || 200, initials, status: 'active' });
     }
 
-    onClose();
+    handleClose();
   };
 
+  const inputClass = "w-full bg-fund-accent/40 border border-fund-border/60 rounded-xl px-3.5 py-2.5 text-sm text-fund-text focus:ring-2 focus:ring-fund-green/20 focus:border-fund-green outline-none transition-all placeholder-fund-muted/50";
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#e2e8f0] animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex justify-between items-center mb-5 pb-3 border-b border-[#e2e8f0]">
-          <h3 className="text-xl font-bold text-[#154212]">
+    <div ref={overlayRef} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+      <div ref={panelRef} className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-fund-border/30">
+        <div className="flex justify-between items-center mb-5 pb-3 border-b border-fund-border/40">
+          <h3 className="text-xl font-bold text-fund-green tracking-tight">
             {memberToEdit ? 'تعديل بيانات العضو' : 'إضافة عضو جديد للصندوق'}
           </h3>
           <button
-            onClick={onClose}
-            className="text-[#72796e] hover:bg-[#eff4ff] p-1.5 rounded-full transition-colors"
+            onClick={handleClose}
+            className="text-fund-muted hover:bg-fund-accent p-1.5 rounded-xl transition-colors duration-300 hover:scale-110 active:scale-90"
           >
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -81,47 +107,62 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-[#0b1c30] mb-1">الاسم الكامل *</label>
+            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">الاسم الكامل *</label>
             <input
               type="text"
               required
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="مثال: أحمد عبدالله المحمد"
-              className="w-full bg-[#f8f9ff] border border-[#c2c9bb] rounded-xl px-3.5 py-2 text-sm text-[#0b1c30] focus:ring-2 focus:ring-[#154212] focus:border-[#154212] outline-none"
+              className={inputClass}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0b1c30] mb-1">رقم الهاتف الجوال *</label>
+            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">رقم الهاتف الجوال *</label>
             <input
               type="text"
               required
               value={phone}
               onChange={e => setPhone(e.target.value)}
               placeholder="+966 50 123 4567"
-              className="w-full bg-[#f8f9ff] border border-[#c2c9bb] rounded-xl px-3.5 py-2 text-sm text-[#0b1c30] dir-ltr text-right focus:ring-2 focus:ring-[#154212] focus:border-[#154212] outline-none"
+              className={`${inputClass} dir-ltr text-right`}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0b1c30] mb-1">فرع العائلة / اللقب</label>
-            <select
+            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">فرع العائلة / اللقب</label>
+            <input
+              type="text"
               value={branch}
               onChange={e => setBranch(e.target.value)}
-              className="w-full bg-[#f8f9ff] border border-[#c2c9bb] rounded-xl px-3.5 py-2 text-sm text-[#0b1c30] focus:ring-2 focus:ring-[#154212] focus:border-[#154212] outline-none cursor-pointer"
-            >
-              <option value="فرع عبد الله">فرع عبد الله</option>
-              <option value="فرع محمد">فرع محمد</option>
-              <option value="فرع عبد العزيز">فرع عبد العزيز</option>
-              <option value="فرع فهد">فرع فهد</option>
-              <option value="فرع صالح">فرع صالح</option>
-              <option value="فرع علي">فرع علي</option>
-            </select>
+              list="branch-suggestions"
+              placeholder="مثال: فرع محمد"
+              className={inputClass}
+            />
+            <datalist id="branch-suggestions">
+              <option value="فرع سالم" />
+              <option value="فرع محمد" />
+              <option value="فرع محمود" />
+              <option value="فرع جمال" />
+              <option value="فرع فراس" />
+              <option value="فرع فاس" />
+              <option value="فرع عليان" />
+              <option value="فرع هاشم" />
+              <option value="فرع عطا" />
+              <option value="فرع خليل" />
+              <option value="فرع سلمان" />
+              <option value="فرع سليمان" />
+              <option value="فرع موسى" />
+              <option value="فرع حسن" />
+              <option value="فرع صالح" />
+              <option value="فرع علي" />
+              <option value="فرع كريم" />
+            </datalist>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0b1c30] mb-1">مبلغ الاشتراك الشهري (دينار أردني)</label>
+            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">مبلغ الاشتراك الشهري (دينار أردني)</label>
             <input
               type="number"
               min="50"
@@ -129,21 +170,21 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
               required
               value={subscriptionAmount}
               onChange={e => setSubscriptionAmount(Number(e.target.value))}
-              className="w-full bg-[#f8f9ff] border border-[#c2c9bb] rounded-xl px-3.5 py-2 text-sm text-[#0b1c30] focus:ring-2 focus:ring-[#154212] focus:border-[#154212] outline-none"
+              className={`${inputClass} font-bold text-fund-green`}
             />
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-4 border-t border-[#e2e8f0]">
+          <div className="flex items-center justify-end gap-2 pt-4 border-t border-fund-border/40">
             <button
               type="button"
-              onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-[#42493e] hover:bg-[#eff4ff] rounded-xl transition-colors"
+              onClick={handleClose}
+              className="px-4 py-2 text-xs font-semibold text-fund-muted hover:bg-fund-accent rounded-xl transition-colors duration-300"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold bg-[#154212] hover:bg-[#2d5a27] text-white rounded-xl transition-colors shadow-xs"
+              className="px-5 py-2 text-xs font-bold bg-fund-green hover:bg-fund-green-light text-white rounded-xl transition-all duration-300 shadow-sm hover:shadow-md active:scale-[0.97]"
             >
               {memberToEdit ? 'حفظ التعديلات' : 'إضافة العضو'}
             </button>
