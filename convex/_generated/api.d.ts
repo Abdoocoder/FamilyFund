@@ -10,6 +10,7 @@
 
 import type * as auditLogs from "../auditLogs.js";
 import type * as members from "../members.js";
+import type * as migrateFromLocalStorage from "../migrateFromLocalStorage.js";
 import type * as payments from "../payments.js";
 import type * as seed from "../seed.js";
 
@@ -22,6 +23,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   auditLogs: typeof auditLogs;
   members: typeof members;
+  migrateFromLocalStorage: typeof migrateFromLocalStorage;
   payments: typeof payments;
   seed: typeof seed;
 }>;
