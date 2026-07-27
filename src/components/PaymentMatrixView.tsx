@@ -106,7 +106,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
       {/* Header & Controls */}
       <div ref={headerRef} className="surface-elevated p-5 md:p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-fund-text tracking-tight">جدول المدفوعات</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-fund-text tracking-tight" style={{ textWrap: 'balance' }}>جدول المدفوعات</h2>
           <p className="text-sm text-fund-muted mt-1 tracking-wide">
             إدارة ومتابعة اشتراكات الأعضاء السنوية لعام {selectedYear}
           </p>
@@ -143,6 +143,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="البحث عن عضو..."
+              aria-label="البحث عن عضو"
               className="w-full bg-white border border-fund-border/60 text-fund-text text-sm rounded-xl py-2.5 pr-10 pl-4 focus:ring-2 focus:ring-fund-green/20 focus:border-fund-green transition-all placeholder-fund-muted/60 shadow-sm"
             />
           </div>
@@ -172,7 +173,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
             <button
               key={chip.mode}
               onClick={() => setFilterMode(chip.mode)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold border transition-all duration-300 ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none ${
                 filterMode === chip.mode
                   ? `${chip.color} shadow-sm`
                   : 'bg-white text-fund-muted border-fund-border/60 hover:bg-fund-accent hover:border-fund-green/20'
@@ -247,7 +248,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                             <button
                               onClick={() => handleTogglePayment(member.id, selectedYear, monthNum)}
                               aria-label={`${member.name} — ${ARABIC_MONTHS[idx]} ${selectedYear}: ${isPaid ? 'مسدد، انقر للإلغاء' : 'غير مسدد، انقر للسداد'}`}
-                              className={`payment-toggle w-full min-h-[44px] rounded-lg border text-xs font-bold flex items-center justify-center ${
+                              className={`payment-toggle w-full min-h-[44px] rounded-lg border text-xs font-bold flex items-center justify-center focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none ${
                                 isPaid
                                   ? 'bg-fund-green text-white border-fund-green shadow-sm shadow-fund-green/15 hover:bg-fund-green-light'
                                   : isPending

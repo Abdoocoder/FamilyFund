@@ -67,7 +67,7 @@ export const HistoryView: React.FC = () => {
       <section ref={headerRef} className="surface-elevated p-6 rounded-2xl flex flex-col gap-1">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-fund-text tracking-tight">سجل المدفوعات</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-fund-text tracking-tight" style={{ textWrap: 'balance' }}>سجل المدفوعات</h2>
             <p className="text-sm md:text-base text-fund-muted mt-1.5 tracking-wide">
               متابعة مدفوعاتك الشخصية وحالة الصندوق العامة لعام {historyYear}.
             </p>
@@ -81,7 +81,7 @@ export const HistoryView: React.FC = () => {
                   setHistoryYear(yr);
                   setSelectedYear(yr);
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none ${
                   historyYear === yr
                     ? 'bg-fund-green text-white shadow-sm shadow-fund-green/20'
                     : 'text-fund-muted hover:bg-white/60'
@@ -172,7 +172,7 @@ export const HistoryView: React.FC = () => {
         {/* Global Member Status (Full Width) */}
         <div className="md:col-span-12 surface-elevated rounded-2xl overflow-hidden flex flex-col">
           <div className="px-6 py-4 bg-fund-accent/50 border-b border-fund-border/40 flex flex-wrap justify-between items-center gap-3">
-            <h3 className="text-lg font-bold text-fund-text tracking-tight">
+            <h3 className="text-lg font-bold text-fund-text tracking-tight" style={{ textWrap: 'balance' }}>
               حالة دفع الأعضاء ({ARABIC_MONTHS[historyMonth - 1]} {historyYear})
             </h3>
 

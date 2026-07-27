@@ -78,33 +78,6 @@
     0 0 0 1px rgba(226, 232, 240, 0.6);
 }
 
-.surface-float {
-  box-shadow:
-    0 2px 4px rgba(11, 28, 48, 0.04),
-    0 8px 24px rgba(45, 90, 39, 0.06),
-    0 0 0 1px rgba(226, 232, 240, 0.5);
-}
-
-/* GSAP Animation foundations */
-.gsap-fade-up {
-  opacity: 0;
-  transform: translateY(24px);
-}
-
-.gsap-fade-in {
-  opacity: 0;
-}
-
-.gsap-scale-in {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-.gsap-stagger {
-  opacity: 0;
-  transform: translateY(16px);
-}
-
 /* Payment toggle micro-interaction */
 .payment-toggle {
   transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);

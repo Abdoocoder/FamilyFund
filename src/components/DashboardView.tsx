@@ -125,7 +125,7 @@ export const DashboardView: React.FC = () => {
       {/* Welcome Header */}
       <section ref={welcomeRef} className="surface-elevated p-6 md:p-8 rounded-2xl relative overflow-hidden">
         <div className="relative z-10">
-          <h2 className="text-2xl md:text-3xl text-fund-green font-bold tracking-tight">
+          <h2 className="text-2xl md:text-3xl text-fund-green font-bold tracking-tight" style={{ textWrap: 'balance' }}>
             مرحباً بعودتك، المحاسب
           </h2>
           <p className="text-sm md:text-base text-fund-muted mt-1.5 tracking-wide">
@@ -181,7 +181,7 @@ export const DashboardView: React.FC = () => {
         {/* Chart Section */}
         <div ref={chartRef} className="lg:col-span-2 surface-elevated rounded-2xl p-5 md:p-6 flex flex-col">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-fund-green tracking-tight">تقدم التحصيل الشهري</h3>
+            <h3 className="text-lg font-bold text-fund-green tracking-tight" style={{ textWrap: 'balance' }}>تقدم التحصيل الشهري</h3>
             <div className="flex items-center gap-1.5 bg-fund-accent/50 p-1 rounded-xl">
               {[2024, 2025, 2026].map(yr => (
                 <button
@@ -190,7 +190,7 @@ export const DashboardView: React.FC = () => {
                     setChartYear(yr);
                     setSelectedYear(yr);
                   }}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none ${
                     chartYear === yr
                       ? 'bg-fund-green text-white shadow-sm shadow-fund-green/20'
                       : 'text-fund-muted hover:bg-white/60'
@@ -228,7 +228,7 @@ export const DashboardView: React.FC = () => {
                     <div
                       className={`chart-bar w-full rounded-t-md transition-all duration-700 ${
                         hasData
-                          ? 'bg-gradient-to-t from-fund-green to-fund-green-light group-hover:from-fund-green-light group-hover:to-[#3a7230]'
+                          ? 'bg-gradient-to-t from-fund-green to-fund-green-light group-hover:from-fund-green-light group-hover:to-fund-green'
                           : 'bg-fund-border/60'
                       }`}
                       style={{ height: `${Math.max(heightPct, 4)}%` }}
@@ -254,7 +254,7 @@ export const DashboardView: React.FC = () => {
         {/* Recent Activity */}
         <div className="surface-elevated rounded-2xl p-5 md:p-6 flex flex-col">
           <div className="flex justify-between items-center mb-5">
-            <h3 className="text-lg font-bold text-fund-green tracking-tight">أحدث العمليات</h3>
+            <h3 className="text-lg font-bold text-fund-green tracking-tight" style={{ textWrap: 'balance' }}>أحدث العمليات</h3>
             <button
               onClick={() => setActiveTab('history')}
               className="text-fund-green text-xs font-bold hover:bg-fund-accent px-3 py-1.5 rounded-lg transition-colors duration-300 flex items-center gap-1 hover:gap-2"

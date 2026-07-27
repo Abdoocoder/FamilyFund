@@ -15,7 +15,6 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
 
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
 
   const filteredMembers = members.filter(member => {
     const matchesTab = tabFilter === 'all' ? true : member.status === tabFilter;
@@ -64,7 +63,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
       {/* Header */}
       <div ref={headerRef} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 surface-elevated p-6 rounded-2xl">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-fund-text tracking-tight">إدارة الأعضاء</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-fund-text tracking-tight" style={{ textWrap: 'balance' }}>إدارة الأعضاء</h1>
           <p className="text-sm text-fund-muted mt-1.5 tracking-wide">
             إجمالي الأعضاء المسجلين:{' '}
             <strong className="text-fund-green font-bold">{members.length}</strong>{' '}
@@ -92,6 +91,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="البحث بالاسم، رقم الهاتف، أو فرع العائلة..."
+            aria-label="البحث عن عضو"
             className="w-full bg-white border border-fund-border/60 text-sm text-fund-text rounded-xl py-2.5 pr-10 pl-4 focus:ring-2 focus:ring-fund-green/20 focus:border-fund-green transition-all placeholder-fund-muted/60 shadow-sm"
           />
         </div>
@@ -101,7 +101,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
             <button
               key={tab.id}
               onClick={() => setTabFilter(tab.id)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all duration-300 ${
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all duration-300 focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none ${
                 tabFilter === tab.id
                   ? 'bg-fund-green text-white shadow-sm shadow-fund-green/20'
                   : 'text-fund-muted hover:bg-fund-accent'
@@ -164,7 +164,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                     <>
                       <button
                         onClick={() => onEditMember(member)}
-                        className="flex-1 bg-white border border-fund-green/30 text-fund-green hover:bg-fund-accent text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97]"
+                        className="flex-1 bg-white border border-fund-green/30 text-fund-green hover:bg-fund-accent text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
                       >
                         <span className="material-symbols-outlined text-[16px]">edit</span>
                         تعديل
@@ -175,7 +175,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                             toggleMemberArchive(member.id);
                           }
                         }}
-                        className="flex-1 bg-white border border-status-danger/30 text-status-danger hover:bg-status-danger-surface text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97]"
+                        className="flex-1 bg-white border border-status-danger/30 text-status-danger hover:bg-status-danger-surface text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
                       >
                         <span className="material-symbols-outlined text-[16px]">archive</span>
                         أرشفة
@@ -188,7 +188,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                           toggleMemberArchive(member.id);
                         }
                       }}
-                      className="w-full bg-fund-green text-white hover:bg-fund-green-light text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97]"
+                      className="w-full bg-fund-green text-white hover:bg-fund-green-light text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
                     >
                       <span className="material-symbols-outlined text-[16px]">unarchive</span>
                       استعادة العضو
