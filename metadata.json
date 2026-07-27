@@ -1,0 +1,6 @@
+{
+  "name": "صندوق العائلة - Family Fund",
+  "description": "تطبيق إدارة وتتبع مدفوعات واشتراكات صندوق العائلة وتسهيل المحاسبة والشفافية المالية",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

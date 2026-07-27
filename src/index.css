@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background-color: #f8f9ff;
+    color: #0b1c30;
+  }
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.fill,
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Custom scrollbar for horizontal payment matrix */
+.matrix-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.matrix-scroll::-webkit-scrollbar-track {
+  background: #e5eeff;
+  border-radius: 9999px;
+}
+.matrix-scroll::-webkit-scrollbar-thumb {
+  background: #c2c9bb;
+  border-radius: 9999px;
+}
+.matrix-scroll::-webkit-scrollbar-thumb:hover {
+  background: #72796e;
+}
+
+/* Toggle Button Animations */
+.payment-toggle {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.payment-toggle.paid {
+  background-color: #154212;
+  color: #ffffff;
+  border-color: #154212;
+}
+.payment-toggle.unpaid {
+  background-color: #eff4ff;
+  color: #42493e;
+  border-color: #c2c9bb;
+}
