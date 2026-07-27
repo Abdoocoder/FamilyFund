@@ -112,5 +112,5 @@ graph TB
 ### Helper Functions (initialMembers.ts)
 - `getMonthlyPaymentStatus()`: Computes payment status for a member in a given month
 - `getPaymentStatusForMonth()`: Returns payment status for display
-- `formatCurrency()`: Formats amount as SAR currency
+- `formatCurrency()`: Formats amount as JOD currency
 - `generateId()`: Generates unique IDs for members and payments

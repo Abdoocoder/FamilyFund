@@ -13,7 +13,7 @@ export default defineSchema({
     branch: v.optional(v.string()), // e.g. آل محمد, آل عبد العزيز
     is_active: v.boolean(),
     role: v.optional(v.string()), // "admin" or "member" (default)
-    subscription_amount: v.number(), // e.g., 500 SAR/month
+    subscription_amount: v.number(), // e.g., 200 JOD/month
     clerk_user_id: v.optional(v.string()), // Links to Clerk auth user
     created_at: v.number(),
     created_by: v.string(), // user ID who created the member

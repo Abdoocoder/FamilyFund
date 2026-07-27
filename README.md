@@ -103,7 +103,7 @@ interface Member {
   phone: string;
   joinDate: string;         // ISO date
   status: "active" | "archived";
-  monthlyAmount: number;    // Default 500 SAR
+  monthlyAmount: number;    // Default 500 JOD
 }
 ```
 

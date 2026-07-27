@@ -121,7 +121,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0b1c30] mb-1">مبلغ الاشتراك الشهري (ريال سعودي)</label>
+            <label className="block text-xs font-bold text-[#0b1c30] mb-1">مبلغ الاشتراك الشهري (دينار أردني)</label>
             <input
               type="number"
               min="50"

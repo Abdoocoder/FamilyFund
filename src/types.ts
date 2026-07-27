@@ -7,7 +7,7 @@ export interface Member {
   initials: string;
   branch?: string; // e.g. آل محمد, آل عبد العزيز
   status: 'active' | 'archived';
-  subscriptionAmount: number; // e.g., 200 SAR/month or 1000 SAR/year
+  subscriptionAmount: number; // e.g., 200 JOD/month or 1000 JOD/year
   createdAt: string;
 }
 

@@ -181,7 +181,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
 
                 {/* Total Column */}
                 <th className="py-3.5 px-4 text-center text-[#154212] text-xs font-bold border-b border-[#e2e8f0] min-w-[110px]">
-                  الإجمالي (ر.س)
+                  الإجمالي (د.أ)
                 </th>
               </tr>
             </thead>
@@ -244,9 +244,9 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                         );
                       })}
 
-                      {/* Total SAR */}
+                      {/* Total JOD */}
                       <td className="py-2.5 px-4 text-center font-bold text-sm text-[#154212] bg-white group-hover:bg-[#f8f9ff]">
-                        {memberTotal.toLocaleString('ar-SA')}
+                        {memberTotal.toLocaleString('ar-JO')}
                       </td>
                     </tr>
                   );
@@ -272,7 +272,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                 })}
 
                 <td className="py-3.5 px-4 text-center text-base text-[#154212]">
-                  {grandTotal.toLocaleString('ar-SA')} ر.س
+                  {grandTotal.toLocaleString('ar-JO')} د.أ
                 </td>
               </tr>
             </tfoot>

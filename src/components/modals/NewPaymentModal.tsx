@@ -107,7 +107,7 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0b1c30] mb-1">المبلغ المدفوع (ريال سعودي) *</label>
+            <label className="block text-xs font-bold text-[#0b1c30] mb-1">المبلغ المدفوع (دينار أردني) *</label>
             <input
               type="number"
               min="10"
@@ -118,7 +118,7 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
             />
             {selectedMember && (
               <p className="text-[11px] text-[#72796e] mt-1">
-                الاشتراك الشهري المحدد للعضو: {selectedMember.subscriptionAmount} ر.س
+                الاشتراك الشهري المحدد للعضو: {selectedMember.subscriptionAmount} د.أ
               </p>
             )}
           </div>

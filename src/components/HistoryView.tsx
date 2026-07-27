@@ -17,11 +17,11 @@ export const HistoryView: React.FC = () => {
   const myPaidCount = myPayments.filter(p => p.status === 'paid').length;
   const myPendingCount = myPayments.filter(p => p.status === 'pending').length;
   const myRemainingCount = 12 - myPaidCount - myPendingCount;
-  const myTotalPaidSAR = myPayments.filter(p => p.status === 'paid').reduce((sum, p) => sum + (p.amount || 200), 0);
+  const myTotalPaidJOD = myPayments.filter(p => p.status === 'paid').reduce((sum, p) => sum + (p.amount || 200), 0);
 
   // Fund health stats for historyYear
   const activeMembers = members.filter(m => m.status === 'active');
-  const totalFundTarget = activeMembers.length * 12 * 200; // e.g. 120,000 SAR
+  const totalFundTarget = activeMembers.length * 12 * 200; // e.g. 120,000 JOD
   const totalFundCollected = payments
     .filter(p => p.year === historyYear && p.status === 'paid')
     .reduce((sum, p) => sum + (p.amount || 200), 0);
@@ -76,7 +76,7 @@ export const HistoryView: React.FC = () => {
             <div className="flex flex-col">
               <span className="text-sm text-[#42493e] font-medium mb-1">مدفوعاتك هذا العام</span>
               <span className="text-3xl font-bold text-[#154212]">
-                {myTotalPaidSAR.toLocaleString('ar-SA')} <span className="text-base text-[#42493e] font-normal">ر.س</span>
+                {myTotalPaidJOD.toLocaleString('ar-JO')} <span className="text-base text-[#42493e] font-normal">د.أ</span>
               </span>
             </div>
 
@@ -132,14 +132,14 @@ export const HistoryView: React.FC = () => {
               إجمالي التحصيل
             </span>
             <span className="text-2xl md:text-3xl font-bold text-[#0b1c30]">
-              {totalFundCollected.toLocaleString('ar-SA')} <span className="text-sm font-normal text-[#42493e]">ر.س</span>
+              {totalFundCollected.toLocaleString('ar-JO')} <span className="text-sm font-normal text-[#42493e]">د.أ</span>
             </span>
           </div>
 
           <div className="bg-[#f8f9ff] p-3 rounded-xl flex items-center justify-between border border-[#e2e8f0]">
             <div className="flex flex-col">
               <span className="text-xs text-[#72796e]">الهدف السنوي</span>
-              <span className="text-sm font-bold text-[#154212]">{totalFundTarget.toLocaleString('ar-SA')} ر.س</span>
+              <span className="text-sm font-bold text-[#154212]">{totalFundTarget.toLocaleString('ar-JO')} د.أ</span>
             </div>
 
             <div className="w-12 h-12 rounded-full border-3 border-[#154212] border-t-transparent flex items-center justify-center relative bg-white">
@@ -186,7 +186,7 @@ export const HistoryView: React.FC = () => {
             <div className="hidden md:grid grid-cols-4 gap-4 px-6 py-2.5 bg-[#f8f9ff] text-xs font-bold text-[#42493e]">
               <div className="col-span-2">العضو</div>
               <div className="text-center">حالة الدفع</div>
-              <div className="text-left font-mono">المبلغ (ر.س)</div>
+              <div className="text-left font-mono">المبلغ (د.أ)</div>
             </div>
 
             {/* Member Rows */}
@@ -204,7 +204,7 @@ export const HistoryView: React.FC = () => {
 
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold text-[#0b1c30]">{member.name}</span>
-                    <span className="text-xs text-[#72796e] md:hidden">{amount} ر.س</span>
+                    <span className="text-xs text-[#72796e] md:hidden">{amount} د.أ</span>
                   </div>
                 </div>
 
@@ -229,7 +229,7 @@ export const HistoryView: React.FC = () => {
                 </div>
 
                 <div className="hidden md:block text-left font-mono text-sm font-bold text-[#0b1c30]">
-                  {amount.toLocaleString('ar-SA')}
+                  {amount.toLocaleString('ar-JO')}
                 </div>
               </div>
             ))}

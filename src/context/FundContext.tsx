@@ -207,7 +207,7 @@ export const FundProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     setTransactions(prev => [newTx, ...prev]);
-    addAuditLog('تسجيل دفعة جديدة', `استلام ${data.amount} ر.س من ${member.name} لشهر ${ARABIC_MONTHS[data.month - 1]} ${data.year}`);
+    addAuditLog('تسجيل دفعة جديدة', `استلام ${data.amount} د.أ من ${member.name} لشهر ${ARABIC_MONTHS[data.month - 1]} ${data.year}`);
   };
 
   const getMemberYearTotal = (memberId: string, year: number) => {
@@ -219,7 +219,7 @@ export const FundProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const activeMembers = members.filter(m => m.status === 'active');
     const totalActiveCount = activeMembers.length || 48;
 
-    // Expected for full year = active Members * 12 months * 200 SAR
+    // Expected for full year = active Members * 12 months * 200 JOD
     const expected = totalActiveCount * 12 * 200;
 
     const yearPayments = payments.filter(p => p.year === year && p.status === 'paid');
@@ -236,7 +236,7 @@ export const FundProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const exportToCSV = () => {
     const activeMembers = members.filter(m => m.status === 'active');
     let csv = '\uFEFF'; // UTF-8 BOM for Arabic support in Excel
-    csv += 'العضو,الهاتف,الفرع,مجموع ' + selectedYear + ' (ر.س),' + ARABIC_MONTHS.join(',') + '\n';
+    csv += 'العضو,الهاتف,الفرع,مجموع ' + selectedYear + ' (د.أ),' + ARABIC_MONTHS.join(',') + '\n';
 
     activeMembers.forEach(member => {
       const row = [

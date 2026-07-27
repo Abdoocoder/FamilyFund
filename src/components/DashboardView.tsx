@@ -10,7 +10,7 @@ export const DashboardView: React.FC = () => {
 
   // Format number with Arabic locale or comma separation
   const formatAmount = (num: number) => {
-    return num.toLocaleString('ar-SA');
+    return num.toLocaleString('ar-JO');
   };
 
   // Calculate monthly collection for the chart
@@ -44,7 +44,7 @@ export const DashboardView: React.FC = () => {
           </div>
           <div>
             <div className="text-2xl md:text-3xl text-[#154212] font-bold">{formatAmount(stats.expected)}</div>
-            <div className="text-xs text-[#72796e] mt-1">ريال سعودي (سنوياً)</div>
+            <div className="text-xs text-[#72796e] mt-1">دينار أردني (سنوياً)</div>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export const DashboardView: React.FC = () => {
           </div>
           <div>
             <div className="text-2xl md:text-3xl text-[#154212] font-bold">{formatAmount(stats.collected)}</div>
-            <div className="text-xs text-[#72796e] mt-1">ريال سعودي (حتى الآن)</div>
+            <div className="text-xs text-[#72796e] mt-1">دينار أردني (حتى الآن)</div>
           </div>
         </div>
 
@@ -72,7 +72,7 @@ export const DashboardView: React.FC = () => {
           </div>
           <div>
             <div className="text-2xl md:text-3xl text-[#ba1a1a] font-bold">{formatAmount(stats.remaining)}</div>
-            <div className="text-xs text-[#72796e] mt-1">ريال سعودي (مستحق)</div>
+            <div className="text-xs text-[#72796e] mt-1">دينار أردني (مستحق)</div>
           </div>
         </div>
 
@@ -143,7 +143,7 @@ export const DashboardView: React.FC = () => {
                 <div key={monthName} className="w-full flex flex-col items-center gap-2 relative z-10 group">
                   {/* Tooltip */}
                   <div className="absolute -top-9 opacity-0 group-hover:opacity-100 transition-opacity bg-[#0b1c30] text-white text-[10px] px-2 py-1 rounded shadow-md pointer-events-none whitespace-nowrap z-20">
-                    {amount.toLocaleString('ar-SA')} ر.س
+                    {amount.toLocaleString('ar-JO')} د.أ
                   </div>
                   
                   <div className="w-full max-w-[28px] bg-[#e5eeff] rounded-t-md h-full flex items-end overflow-hidden">
@@ -163,8 +163,8 @@ export const DashboardView: React.FC = () => {
           </div>
 
           <div className="mt-4 flex items-center justify-between text-xs text-[#72796e]">
-            <span>إجمالي تحصيل العام: <strong className="text-[#154212]">{formatAmount(stats.collected)} ر.س</strong></span>
-            <span>الهدف السنوي: {formatAmount(stats.expected)} ر.س</span>
+            <span>إجمالي تحصيل العام: <strong className="text-[#154212]">{formatAmount(stats.collected)} د.أ</strong></span>
+            <span>الهدف السنوي: {formatAmount(stats.expected)} د.أ</span>
           </div>
         </div>
 
@@ -197,7 +197,7 @@ export const DashboardView: React.FC = () => {
                 </div>
 
                 <div className="text-left">
-                  <div className="text-sm font-bold text-[#154212]">+{tx.amount.toLocaleString('ar-SA')} ر.س</div>
+                  <div className="text-sm font-bold text-[#154212]">+{tx.amount.toLocaleString('ar-JO')} د.أ</div>
                   <span className={`inline-block text-[10px] px-2 py-0.5 rounded-full font-semibold mt-0.5 ${
                     tx.status === 'completed'
                       ? 'bg-[#d1fae5] text-[#065f46]'

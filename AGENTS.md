@@ -70,7 +70,7 @@ interface Member {
   phone: string;            // Phone number
   joinDate: string;         // ISO date string
   status: "active" | "archived";
-  monthlyAmount: number;    // Default 500 SAR
+  monthlyAmount: number;    // Default 500 JOD
 }
 ```
 
