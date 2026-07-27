@@ -10,8 +10,14 @@ export const getAllAuditLogs = query({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Unauthorized");
 
-    // TODO: Check if user has admin role
-    // if (identity.role !== "admin") throw new Error("Forbidden");
+    // Admin check
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_clerk_user_id", (q) => q.eq("clerk_user_id", identity.subject))
+      .first();
+    if (!member || member.role !== "admin") {
+      throw new Error("Forbidden: admin role required");
+    }
 
     const limit = args.limit ?? 50;
 

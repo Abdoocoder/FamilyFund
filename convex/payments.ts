@@ -110,6 +110,15 @@ export const togglePayment = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Unauthorized");
 
+    // Admin check
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_clerk_user_id", (q) => q.eq("clerk_user_id", identity.subject))
+      .first();
+    if (!member || member.role !== "admin") {
+      throw new Error("Forbidden: admin role required");
+    }
+
     // Check if payment record exists
     const existingPayment = await ctx.db
       .query("payments")
@@ -198,8 +207,14 @@ export const batchUpdatePayments = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Unauthorized");
 
-    // TODO: Check if user has admin role
-    // if (identity.role !== "admin") throw new Error("Forbidden");
+    // Admin check
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_clerk_user_id", (q) => q.eq("clerk_user_id", identity.subject))
+      .first();
+    if (!member || member.role !== "admin") {
+      throw new Error("Forbidden: admin role required");
+    }
 
     const results = [];
     for (const update of args.updates) {
