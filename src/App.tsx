@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useUser } from '@clerk/react';
 import { FundProvider, useFund } from './context/FundContext';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -9,6 +10,7 @@ import { MembersView } from './components/MembersView';
 import { HistoryView } from './components/HistoryView';
 import { AddMemberModal } from './components/modals/AddMemberModal';
 import { NewPaymentModal } from './components/modals/NewPaymentModal';
+import { LandingPage } from './components/LandingPage';
 import { Member } from './types';
 
 const MainContent: React.FC = () => {
@@ -67,6 +69,18 @@ const MainContent: React.FC = () => {
 };
 
 export default function App() {
+  const { isSignedIn } = useUser();
+
+  if (!isSignedIn) {
+    return (
+      <FundProvider>
+        <main className="overflow-x-hidden w-full max-w-full">
+          <LandingPage />
+        </main>
+      </FundProvider>
+    );
+  }
+
   return (
     <FundProvider>
       <main className="overflow-x-hidden w-full max-w-full">
