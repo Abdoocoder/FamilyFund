@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFund } from '../context/FundContext';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/react';
+import { useUser, SignInButton, UserButton } from '@clerk/react';
 
 interface HeaderProps {
   onOpenNewPayment?: () => void;
@@ -8,6 +8,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
   const { auditLogs } = useFund();
+  const { isSignedIn } = useUser();
 
   return (
     <header className="bg-white border-b border-[#e2e8f0] sticky top-0 z-40 w-full transition-colors">
@@ -51,16 +52,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
             </button>
           </div>
 
-          <SignedIn>
+          {isSignedIn ? (
             <UserButton afterSignOutUrl="/" />
-          </SignedIn>
-          <SignedOut>
+          ) : (
             <SignInButton mode="modal">
               <button className="bg-[#154212] hover:bg-[#2d5a27] text-white text-sm font-medium px-3.5 py-1.5 rounded-lg transition-colors">
                 تسجيل الدخول
               </button>
             </SignInButton>
-          </SignedOut>
+          )}
         </div>
       </div>
     </header>
