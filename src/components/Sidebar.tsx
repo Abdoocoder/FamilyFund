@@ -59,7 +59,7 @@ export const Sidebar: React.FC = () => {
             أ.ع
           </div>
           <div className="overflow-hidden">
-            <p className="text-sm font-bold text-[#0b1c30] truncate">أحمد العبدالله</p>
+            <p className="text-sm font-bold text-[#0b1c30] truncate">سعيد محمود أبوكف</p>
             <p className="text-xs text-[#42493e]">مدير الصندوق / المحاسب</p>
           </div>
         </div>
