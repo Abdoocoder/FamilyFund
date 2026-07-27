@@ -15,7 +15,7 @@ export const Sidebar: React.FC = () => {
   const activeMembersCount = members.filter(m => m.status === 'active').length;
 
   return (
-    <aside className="hidden md:flex flex-col w-64 glass-strong border-l border-white/20 h-screen sticky top-0 shrink-0 z-30">
+    <aside className="hidden md:flex flex-col w-64 bg-white border-l border-fund-border/40 h-screen sticky top-0 shrink-0 z-30">
       <div className="p-6 border-b border-fund-border/50">
         <h1 className="text-2xl text-fund-green font-bold tracking-tight">صندوق العائلة</h1>
         <p className="text-[11px] text-fund-muted mt-1 tracking-wide">الإدارة المالية والاشتراكات</p>

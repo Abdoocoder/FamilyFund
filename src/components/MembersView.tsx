@@ -81,7 +81,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
       </div>
 
       {/* Search & Filter Tabs */}
-      <div className="glass p-3 rounded-2xl border border-white/20 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+      <div className="bg-white p-3 rounded-2xl border border-fund-border/40 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
         <div className="relative flex-1">
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-fund-muted">
             <span className="material-symbols-outlined text-lg">search</span>
@@ -155,7 +155,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                     </div>
 
                     <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold ${
-                      isActive ? 'bg-[#d1fae5] text-[#065f46]' : 'bg-[#fee2e2] text-[#991b1b]'
+                      isActive ? 'bg-status-paid-bg text-status-paid' : 'bg-status-danger-bg text-status-danger'
                     }`}>
                       {isActive ? 'نشط' : 'مؤرشف'}
                     </span>
@@ -175,7 +175,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                       </button>
                       <button
                         onClick={() => toggleMemberArchive(member.id)}
-                        className="flex-1 bg-white border border-[#ba1a1a]/30 text-[#ba1a1a] hover:bg-[#ffdad6] text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97]"
+                        className="flex-1 bg-white border border-status-danger/30 text-status-danger hover:bg-status-danger-surface text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97]"
                       >
                         <span className="material-symbols-outlined text-[16px]">archive</span>
                         أرشفة

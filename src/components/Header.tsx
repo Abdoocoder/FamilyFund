@@ -11,7 +11,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
   const { isSignedIn } = useUser();
 
   return (
-    <header className="glass-strong sticky top-0 z-40 w-full border-b border-white/20">
+    <header className="sticky top-0 z-40 w-full bg-white/88 border-b border-fund-border/40">
       <div className="flex flex-row-reverse justify-between items-center px-4 md:px-12 py-3 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-3.5">
           <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/40 shrink-0 bg-gradient-to-br from-fund-green to-fund-green-light flex items-center justify-center shadow-sm">
@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
             <button className="text-fund-green hover:bg-fund-accent p-2.5 rounded-xl transition-all duration-300 relative flex items-center justify-center hover:scale-105 active:scale-95">
               <span className="material-symbols-outlined">notifications</span>
               {auditLogs.length > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#ba1a1a] rounded-full border-2 border-white animate-pulse" />
+                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-status-danger rounded-full border-2 border-white animate-pulse" />
               )}
             </button>
           </div>

@@ -108,7 +108,7 @@ export const HistoryView: React.FC = () => {
               </span>
             </div>
 
-            <div className="bg-[#d1fae5] text-[#065f46] px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
+            <div className="bg-status-paid-bg text-status-paid px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
               <span className="material-symbols-outlined text-[16px]">check_circle</span>
               <span>منتظم</span>
             </div>
@@ -131,7 +131,7 @@ export const HistoryView: React.FC = () => {
               />
               {myPendingCount > 0 && (
                 <div
-                  className="h-full bg-[#fef3c7] transition-all duration-1000 ease-out"
+                  className="h-full bg-status-pending-bg transition-all duration-1000 ease-out"
                   style={{ width: `${(myPendingCount / 12) * 100}%` }}
                 />
               )}
@@ -139,7 +139,7 @@ export const HistoryView: React.FC = () => {
 
             <div className="flex justify-between text-[11px] text-fund-muted px-1 mt-1">
               <span className="font-bold text-fund-green">تم الدفع: {myPaidCount} أشهر</span>
-              {myPendingCount > 0 && <span className="font-bold text-[#92400e]">قيد الانتظار: {myPendingCount} شهر</span>}
+                {myPendingCount > 0 && <span className="font-bold text-status-pending">قيد الانتظار: {myPendingCount} شهر</span>}
               <span className="text-fund-muted/60">المتبقي: {myRemainingCount} أشهر</span>
             </div>
           </div>
@@ -216,7 +216,7 @@ export const HistoryView: React.FC = () => {
               >
                 <div className="col-span-2 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 transition-all duration-300 group-hover:scale-110 ${
-                    status === 'paid' ? 'bg-fund-green text-white' : (status === 'pending' ? 'bg-[#fef3c7] text-[#92400e]' : 'bg-[#ffdad6] text-[#93000a]')
+                    status === 'paid' ? 'bg-fund-green text-white' : (status === 'pending' ? 'bg-status-pending-bg text-status-pending' : 'bg-status-danger-surface text-status-danger')
                   }`}>
                     {member.initials || member.name.charAt(0)}
                   </div>
@@ -229,17 +229,17 @@ export const HistoryView: React.FC = () => {
 
                 <div className="text-left md:text-center">
                   {status === 'paid' && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[#d1fae5] text-[#065f46] text-xs font-bold">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-status-paid-bg text-status-paid text-xs font-bold">
                       مسدد
                     </span>
                   )}
                   {status === 'pending' && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[#fef3c7] text-[#92400e] text-xs font-bold">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-status-pending-bg text-status-pending text-xs font-bold">
                       قيد المراجعة
                     </span>
                   )}
                   {status === 'unpaid' && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[#fee2e2] text-[#991b1b] text-xs font-bold">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-status-danger-bg text-status-danger text-xs font-bold">
                       غير مسدد
                     </span>
                   )}

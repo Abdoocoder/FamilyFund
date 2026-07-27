@@ -113,7 +113,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
       </div>
 
       {/* Toolbar */}
-      <div className="glass p-4 rounded-2xl border border-white/20 flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+      <div className="bg-white p-4 rounded-2xl border border-fund-border/40 flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
         <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-3">
           <div className="relative w-full sm:w-64">
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-fund-muted">
@@ -148,7 +148,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
           {[
             { mode: 'all' as const, label: `الكل (${activeMembers.length})`, color: 'bg-fund-green-light text-white border-fund-green-light' },
             { mode: 'fully_paid' as const, label: 'مدفوع بالكامل', color: 'bg-fund-green text-white border-fund-green' },
-            { mode: 'overdue' as const, label: 'متأخرات', color: 'bg-[#ba1a1a] text-white border-[#ba1a1a]' },
+            { mode: 'overdue' as const, label: 'متأخرات', color: 'bg-status-danger text-white border-status-danger' },
           ].map(chip => (
             <button
               key={chip.mode}
@@ -206,7 +206,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                       <td className="sticky right-0 bg-white group-hover:bg-fund-accent/30 py-2.5 px-4 border-l border-fund-border/40 shadow-[1px_0_3px_rgba(0,0,0,0.02)] transition-colors z-10">
                         <div className="flex items-center gap-3">
                           <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 transition-all duration-300 group-hover:scale-110 ${
-                            isFullyPaid ? 'bg-[#d1fae5] text-[#065f46]' : 'bg-fund-accent text-fund-green'
+                            isFullyPaid ? 'bg-status-paid-bg text-status-paid' : 'bg-fund-accent text-fund-green'
                           }`}>
                             {member.initials || member.name.charAt(0)}
                           </div>
@@ -228,11 +228,11 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                             <button
                               onClick={() => togglePayment(member.id, selectedYear, monthNum)}
                               title={`${member.name} - ${ARABIC_MONTHS[idx]} ${selectedYear}: ${isPaid ? 'مسدد (انقر للإلغاء)' : 'غير مسدد (انقر للسداد)'}`}
-                              className={`payment-toggle w-full h-8 rounded-lg border text-xs font-bold flex items-center justify-center ${
+                              className={`payment-toggle w-full min-h-[44px] rounded-lg border text-xs font-bold flex items-center justify-center ${
                                 isPaid
                                   ? 'bg-fund-green text-white border-fund-green shadow-sm shadow-fund-green/15 hover:bg-fund-green-light'
                                   : isPending
-                                  ? 'bg-[#fef3c7] text-[#92400e] border-[#fef3c7]/80 hover:bg-[#fde68a]'
+                                  ? 'bg-status-pending-bg text-status-pending border-status-pending-bg/80 hover:bg-status-pending-bg/80'
                                   : 'bg-fund-accent/60 text-fund-muted border-fund-border/40 hover:bg-fund-accent hover:text-fund-text hover:border-fund-green/20'
                               }`}
                             >

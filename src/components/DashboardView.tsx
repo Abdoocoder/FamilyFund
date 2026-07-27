@@ -18,11 +18,14 @@ export const DashboardView: React.FC = () => {
     return num.toLocaleString('ar-JO');
   };
 
-  const monthlyTotals = Array.from({ length: 12 }, (_, i) => {
-    const month = i + 1;
-    const monthPayments = payments.filter(p => p.year === chartYear && p.month === month && p.status === 'paid');
-    return monthPayments.reduce((sum, p) => sum + (p.amount || 200), 0);
-  });
+  const monthlyTotals = React.useMemo(() =>
+    Array.from({ length: 12 }, (_, i) => {
+      const month = i + 1;
+      const monthPayments = payments.filter(p => p.year === chartYear && p.month === month && p.status === 'paid');
+      return monthPayments.reduce((sum, p) => sum + (p.amount || 200), 0);
+    }),
+    [payments, chartYear]
+  );
 
   const maxMonthVal = Math.max(...monthlyTotals, 10000);
 
@@ -91,7 +94,7 @@ export const DashboardView: React.FC = () => {
       suffix: 'د.أ',
       sub: 'حتى الآن',
       icon: 'savings',
-      iconBg: 'bg-[#e5eeff] text-fund-green-light',
+      iconBg: 'bg-status-paid-bg text-status-paid',
       valueColor: 'text-fund-green',
     },
     {
@@ -100,8 +103,8 @@ export const DashboardView: React.FC = () => {
       suffix: 'د.أ',
       sub: 'مستحق',
       icon: 'pending_actions',
-      iconBg: 'bg-[#ffdad6] text-[#ba1a1a]',
-      valueColor: 'text-[#ba1a1a]',
+      iconBg: 'bg-status-danger-surface text-status-danger',
+      valueColor: 'text-status-danger',
     },
     {
       label: 'نسبة الالتزام',
@@ -109,7 +112,7 @@ export const DashboardView: React.FC = () => {
       suffix: '',
       sub: null,
       icon: 'trending_up',
-      iconBg: 'bg-[#d1fae5] text-[#065f46]',
+      iconBg: 'bg-status-paid-bg text-status-paid',
       valueColor: 'text-fund-green',
       hasProgress: true,
       progressPct: Math.min(stats.complianceRate, 100),
@@ -120,7 +123,7 @@ export const DashboardView: React.FC = () => {
   return (
     <div className="space-y-6 pb-24 md:pb-8">
       {/* Welcome Header */}
-      <section ref={welcomeRef} className="surface-elevated p-6 md:p-8 rounded-2xl relative overflow-hidden ambient-dots">
+      <section ref={welcomeRef} className="surface-elevated p-6 md:p-8 rounded-2xl relative overflow-hidden">
         <div className="relative z-10">
           <h2 className="text-2xl md:text-3xl text-fund-green font-bold tracking-tight">
             مرحباً بعودتك، المحاسب
@@ -269,9 +272,9 @@ export const DashboardView: React.FC = () => {
                 style={{ animationDelay: `${idx * 60}ms` }}
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110 ${
-                  tx.status === 'completed' ? 'bg-[#d1fae5] text-[#065f46]' :
-                  tx.status === 'processing' ? 'bg-[#fef3c7] text-[#92400e]' :
-                  'bg-[#ffdad6] text-[#ba1a1a]'
+                  tx.status === 'completed' ? 'bg-status-paid-bg text-status-paid' :
+                  tx.status === 'processing' ? 'bg-status-pending-bg text-status-pending' :
+                  'bg-status-danger-surface text-status-danger'
                 }`}>
                   <span className="material-symbols-outlined text-lg">
                     {tx.status === 'completed' ? 'check_circle' : tx.status === 'processing' ? 'schedule' : 'error'}

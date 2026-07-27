@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useFund } from '../../context/FundContext';
 import { Member } from '../../types';
-import gsap from 'gsap';
 
 interface AddMemberModalProps {
   isOpen: boolean;
@@ -11,13 +10,25 @@ interface AddMemberModalProps {
 
 export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose, memberToEdit }) => {
   const { addMember, updateMember } = useFund();
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const firstInputRef = useRef<HTMLInputElement>(null);
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('+966 5');
   const [branch, setBranch] = useState('فرع عبد الله');
   const [subscriptionAmount, setSubscriptionAmount] = useState(200);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen) {
+      dialog.showModal();
+      requestAnimationFrame(() => firstInputRef.current?.focus());
+    } else {
+      dialog.close();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (memberToEdit) {
@@ -32,43 +43,6 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
       setSubscriptionAmount(200);
     }
   }, [memberToEdit, isOpen]);
-
-  // GSAP entrance animation
-  useEffect(() => {
-    if (isOpen && overlayRef.current && panelRef.current) {
-      const ctx = gsap.context(() => {
-        gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
-        gsap.fromTo(panelRef.current, {
-          opacity: 0,
-          scale: 0.95,
-          y: 12,
-        }, {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.35,
-          ease: 'power3.out',
-          delay: 0.05,
-        });
-      });
-      return () => ctx.revert();
-    }
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
-  const handleClose = () => {
-    if (overlayRef.current && panelRef.current) {
-      const ctx = gsap.context(() => {
-        gsap.to(panelRef.current, { opacity: 0, scale: 0.97, y: 8, duration: 0.2, ease: 'power2.in' });
-        gsap.to(overlayRef.current, { opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: onClose });
-      });
-      // Cleanup context after animation
-      setTimeout(() => ctx.revert(), 300);
-    } else {
-      onClose();
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,21 +59,26 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
       addMember({ name, phone, branch, subscriptionAmount: Number(subscriptionAmount) || 200, initials, status: 'active' });
     }
 
-    handleClose();
+    onClose();
   };
 
   const inputClass = "w-full bg-fund-accent/40 border border-fund-border/60 rounded-xl px-3.5 py-2.5 text-sm text-fund-text focus:ring-2 focus:ring-fund-green/20 focus:border-fund-green outline-none transition-all placeholder-fund-muted/50";
 
   return (
-    <div ref={overlayRef} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-      <div ref={panelRef} className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-fund-border/30">
+    <dialog
+      ref={dialogRef}
+      onClose={onClose}
+      onCancel={onClose}
+      className="backdrop:bg-black/40 rounded-2xl p-0 max-w-md w-full shadow-2xl border border-fund-border/30"
+    >
+      <div className="bg-white rounded-2xl p-6">
         <div className="flex justify-between items-center mb-5 pb-3 border-b border-fund-border/40">
           <h3 className="text-xl font-bold text-fund-green tracking-tight">
             {memberToEdit ? 'تعديل بيانات العضو' : 'إضافة عضو جديد للصندوق'}
           </h3>
           <button
-            onClick={handleClose}
-            className="text-fund-muted hover:bg-fund-accent p-1.5 rounded-xl transition-colors duration-300 hover:scale-110 active:scale-90"
+            onClick={onClose}
+            className="text-fund-muted hover:bg-fund-accent p-1.5 rounded-xl transition-colors"
           >
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -107,8 +86,10 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">الاسم الكامل *</label>
+            <label htmlFor="member-name" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">الاسم الكامل *</label>
             <input
+              ref={firstInputRef}
+              id="member-name"
               type="text"
               required
               value={name}
@@ -119,8 +100,9 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">رقم الهاتف الجوال *</label>
+            <label htmlFor="member-phone" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">رقم الهاتف الجوال *</label>
             <input
+              id="member-phone"
               type="text"
               required
               value={phone}
@@ -131,8 +113,9 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">فرع العائلة / اللقب</label>
+            <label htmlFor="member-branch" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">فرع العائلة / اللقب</label>
             <input
+              id="member-branch"
               type="text"
               value={branch}
               onChange={e => setBranch(e.target.value)}
@@ -162,8 +145,9 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">مبلغ الاشتراك الشهري (دينار أردني)</label>
+            <label htmlFor="member-amount" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">مبلغ الاشتراك الشهري (دينار أردني)</label>
             <input
+              id="member-amount"
               type="number"
               min="50"
               step="50"
@@ -177,20 +161,20 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
           <div className="flex items-center justify-end gap-2 pt-4 border-t border-fund-border/40">
             <button
               type="button"
-              onClick={handleClose}
-              className="px-4 py-2 text-xs font-semibold text-fund-muted hover:bg-fund-accent rounded-xl transition-colors duration-300"
+              onClick={onClose}
+              className="px-4 py-2 text-xs font-semibold text-fund-muted hover:bg-fund-accent rounded-xl transition-colors"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold bg-fund-green hover:bg-fund-green-light text-white rounded-xl transition-all duration-300 shadow-sm hover:shadow-md active:scale-[0.97]"
+              className="px-5 py-2 text-xs font-bold bg-fund-green hover:bg-fund-green-light text-white rounded-xl transition-all shadow-sm hover:shadow-md active:scale-[0.97]"
             >
               {memberToEdit ? 'حفظ التعديلات' : 'إضافة العضو'}
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </dialog>
   );
 };
