@@ -8,6 +8,16 @@
   --color-fund-muted: #5c6357;
   --color-fund-text: #0b1c30;
   --color-fund-accent: #eff4ff;
+  --color-shadow: rgba(11, 28, 48, 0.04);
+  --color-shadow-green: rgba(45, 90, 39, 0.03);
+  --color-border-subtle: rgba(226, 232, 240, 0.6);
+  --color-glow-green: rgba(21, 66, 18, 0.1);
+  --color-glow-green-soft: rgba(21, 66, 18, 0.12);
+  --color-glow-green-deep: rgba(21, 66, 18, 0.08);
+  --color-selection: rgba(21, 66, 18, 0.12);
+  --color-scrollbar-track: rgba(229, 238, 255, 0.5);
+  --color-scrollbar-thumb: rgba(194, 201, 187, 0.6);
+  --color-scrollbar-hover: rgba(114, 121, 110, 0.6);
   --font-family-arabic: 'IBM Plex Sans Arabic', sans-serif;
 }
 
@@ -34,8 +44,8 @@
 
   /* Selection styling */
   ::selection {
-    background-color: rgba(21, 66, 18, 0.12);
-    color: #0b1c30;
+    background-color: var(--color-selection);
+    color: var(--color-fund-text);
   }
 }
 
@@ -73,9 +83,9 @@
 .surface-elevated {
   background: var(--color-fund-surface);
   box-shadow:
-    0 1px 2px rgba(11, 28, 48, 0.04),
-    0 4px 12px rgba(45, 90, 39, 0.03),
-    0 0 0 1px rgba(226, 232, 240, 0.6);
+    0 1px 2px var(--color-shadow),
+    0 4px 12px var(--color-shadow-green),
+    0 0 0 1px var(--color-border-subtle);
 }
 
 /* Payment toggle micro-interaction */
@@ -94,25 +104,25 @@
 }
 
 .matrix-scroll::-webkit-scrollbar-track {
-  background: rgba(229, 238, 255, 0.5);
+  background: var(--color-scrollbar-track);
   border-radius: 9999px;
 }
 
 .matrix-scroll::-webkit-scrollbar-thumb {
-  background: rgba(194, 201, 187, 0.6);
+  background: var(--color-scrollbar-thumb);
   border-radius: 9999px;
 }
 
 .matrix-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(114, 121, 110, 0.6);
+  background: var(--color-scrollbar-hover);
 }
 
 /* Ambient glow for active elements */
 .glow-green {
   box-shadow:
-    0 0 0 1px rgba(21, 66, 18, 0.1),
-    0 0 20px -4px rgba(21, 66, 18, 0.12),
-    0 8px 32px -8px rgba(21, 66, 18, 0.08);
+    0 0 0 1px var(--color-glow-green),
+    0 0 20px -4px var(--color-glow-green-soft),
+    0 8px 32px -8px var(--color-glow-green-deep);
 }
 
 /* Semantic color tokens for status indicators */

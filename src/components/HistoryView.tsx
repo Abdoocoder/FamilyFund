@@ -208,7 +208,7 @@ export const HistoryView: React.FC = () => {
               <div className="text-left font-mono">المبلغ (د.أ)</div>
             </div>
 
-            {memberMonthStatusList.slice(0, 10).map(({ member, status, amount }) => (
+            {memberMonthStatusList.map(({ member, status, amount }) => (
               <div
                 key={member.id}
                 className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 py-3.5 items-center hover:bg-fund-accent/20 transition-colors duration-200 group"
@@ -256,7 +256,7 @@ export const HistoryView: React.FC = () => {
               onClick={() => setActiveTab('payments')}
               className="text-fund-green text-xs font-bold hover:bg-fund-accent px-4 py-2 rounded-xl transition-all duration-300 flex items-center gap-1.5 cursor-pointer hover:gap-2.5"
             >
-              <span>عرض جميع الأعضاء ({activeMembers.length})</span>
+              <span>فتح جدول المدفوعات الكامل</span>
               <span className="material-symbols-outlined text-[18px]">arrow_back</span>
             </button>
           </div>
