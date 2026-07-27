@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { SignInButton } from '@clerk/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface LandingPageProps {}
 
@@ -73,6 +74,7 @@ export const LandingPage: React.FC = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
       // Hero entrance
       gsap.from('.hero-badge', {
