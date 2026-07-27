@@ -179,3 +179,21 @@ export const getCurrentMember = query({
     return member;
   },
 });
+
+// List all users (for admin to link accounts)
+export const listUsers = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    // Get all members with their linked user IDs
+    const members = await ctx.db.query("members").collect();
+    return members.map(m => ({
+      _id: m._id,
+      full_name: m.full_name,
+      clerk_user_id: m.clerk_user_id,
+      role: m.role,
+    }));
+  },
+});
