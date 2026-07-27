@@ -198,3 +198,104 @@ export const listUsers = query({
     }));
   },
 });
+
+// Register a new user (creates pending member record)
+export const registerUser = mutation({
+  args: {
+    full_name: v.string(),
+    phone: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    // Check if user already registered
+    const existing = await ctx.db
+      .query("members")
+      .withIndex("by_clerk_user_id", (q) => q.eq("clerk_user_id", identity.subject))
+      .first();
+    
+    if (existing) throw new Error("User already registered");
+
+    const memberId = await ctx.db.insert("members", {
+      full_name: args.full_name,
+      phone: args.phone,
+      is_active: false, // Not active until approved
+      role: "member",
+      subscription_amount: 200, // Default
+      clerk_user_id: identity.subject,
+      approval_status: "pending",
+      created_at: Date.now(),
+      created_by: identity.subject,
+    });
+
+    return memberId;
+  },
+});
+
+// Approve a user (admin only)
+export const approveUser = mutation({
+  args: {
+    memberId: v.id("members"),
+    role: v.union(v.literal("admin"), v.literal("member")),
+  },
+  handler: async (ctx, args) => {
+    const { identity } = await requireAdmin(ctx);
+
+    await ctx.db.patch(args.memberId, {
+      approval_status: "approved",
+      is_active: true,
+      role: args.role,
+    });
+
+    await ctx.db.insert("audit_logs", {
+      member_id: args.memberId,
+      action: "approve_user",
+      performed_by: identity.subject,
+      details: `تمت الموافقة على العضو وتحديد الدور: ${args.role}`,
+      timestamp: Date.now(),
+    });
+
+    return args.memberId;
+  },
+});
+
+// Reject a user (admin only)
+export const rejectUser = mutation({
+  args: {
+    memberId: v.id("members"),
+  },
+  handler: async (ctx, args) => {
+    const { identity } = await requireAdmin(ctx);
+
+    await ctx.db.patch(args.memberId, {
+      approval_status: "rejected",
+    });
+
+    await ctx.db.insert("audit_logs", {
+      member_id: args.memberId,
+      action: "reject_user",
+      performed_by: identity.subject,
+      details: "تم رفض طلب العضوية",
+      timestamp: Date.now(),
+    });
+
+    return args.memberId;
+  },
+});
+
+// Get pending members (admin only)
+export const getPendingMembers = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    const pending = await ctx.db
+      .query("members")
+      .withIndex("by_approval_status", (q) => q.eq("approval_status", "pending"))
+      .collect();
+
+    return pending;
+  },
+});
