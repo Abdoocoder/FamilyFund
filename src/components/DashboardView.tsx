@@ -165,7 +165,7 @@ export const DashboardView: React.FC = () => {
                   </div>
                   <div className="w-full bg-fund-accent/80 rounded-full h-1.5 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-fund-green to-fund-green-light h-full rounded-full transition-all duration-1000 ease-out"
+                      className="bg-fund-green h-full rounded-full transition-all duration-1000 ease-out"
                       style={{ width: `${card.progressPct}%` }}
                     />
                   </div>
@@ -219,16 +219,16 @@ export const DashboardView: React.FC = () => {
               return (
                 <div key={monthName} className="w-full flex flex-col items-center gap-2 relative z-10 group">
                   {/* Tooltip */}
-                  <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-fund-text text-white text-[10px] px-2.5 py-1.5 rounded-lg shadow-lg pointer-events-none whitespace-nowrap z-20 scale-90 group-hover:scale-100">
+                  <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out bg-fund-text text-white text-[10px] px-2.5 py-1.5 rounded-lg shadow-lg pointer-events-none whitespace-nowrap z-20 scale-95 group-hover:scale-100">
                     {amount.toLocaleString('ar-JO')} د.أ
                     <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-fund-text rotate-45" />
                   </div>
 
-                  <div className="w-full max-w-[28px] bg-fund-accent/60 rounded-lg h-full flex items-end overflow-hidden">
+                    <div className="w-full max-w-[28px] bg-fund-accent/60 rounded-lg h-full flex items-end overflow-hidden">
                     <div
                       className={`chart-bar w-full rounded-t-md transition-all duration-700 ${
                         hasData
-                          ? 'bg-gradient-to-t from-fund-green to-fund-green-light group-hover:from-fund-green-light group-hover:to-fund-green'
+                          ? 'bg-fund-green'
                           : 'bg-fund-border/60'
                       }`}
                       style={{ height: `${Math.max(heightPct, 4)}%` }}

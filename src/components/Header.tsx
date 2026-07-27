@@ -18,6 +18,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
     return Date.now() - logTime < 3600000;
   }).length;
 
+  const formatRelativeTime = (timestamp: string) => {
+    const diff = Date.now() - new Date(timestamp).getTime();
+    const minutes = Math.floor(diff / 60000);
+    if (minutes < 1) return 'الآن';
+    if (minutes < 60) return `منذ ${minutes} دقيقة`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `منذ ${hours} ساعة`;
+    const days = Math.floor(hours / 24);
+    return `منذ ${days} يوم`;
+  };
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
@@ -91,7 +102,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
                       <div key={log.id} className="px-4 py-3 border-b border-fund-border/20 last:border-b-0 hover:bg-fund-accent/30 transition-colors">
                         <p className="text-xs font-bold text-fund-text">{log.action}</p>
                         <p className="text-[11px] text-fund-muted mt-0.5 truncate">{log.details}</p>
-                        <p className="text-[10px] text-fund-muted/60 mt-1">{log.timestamp}</p>
+                        <p className="text-[10px] text-fund-muted/60 mt-1">{formatRelativeTime(log.timestamp)}</p>
                       </div>
                     ))
                   )}

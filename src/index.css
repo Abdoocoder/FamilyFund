@@ -80,7 +80,7 @@
 
 /* Payment toggle micro-interaction */
 .payment-toggle {
-  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .payment-toggle:active {
@@ -135,5 +135,12 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Hover effects only on devices with fine pointer */
+@media (hover: hover) and (pointer: fine) {
+  .hover-fine:hover {
+    transform: translateY(-1px);
   }
 }

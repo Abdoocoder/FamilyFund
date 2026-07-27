@@ -125,7 +125,7 @@ export const HistoryView: React.FC = () => {
 
             <div className="h-3 w-full bg-fund-accent rounded-full overflow-hidden flex shadow-inner">
               <div
-                className="h-full bg-gradient-to-r from-fund-green to-fund-green-light transition-all duration-1000 ease-out"
+                className="h-full bg-fund-green transition-all duration-1000 ease-out"
                 style={{ width: `${(myPaidCount / 12) * 100}%` }}
               />
               {myPendingCount > 0 && (
