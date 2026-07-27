@@ -13,7 +13,7 @@ const INITIAL_MEMBERS = [
   { full_name: "امجد محمود أبوكف", phone: "", branch: "فرع محمود", subscription_amount: 200 },
   { full_name: "أحمد محمود أبوكف", phone: "", branch: "فرع محمود", subscription_amount: 200 },
   { full_name: "إبراهيم محمود أبوكف", phone: "", branch: "فرع محمود", subscription_amount: 200 },
-  { full_name: "سعيد محمود أبوكف", phone: "", branch: "فرع محمود", subscription_amount: 200 },
+  { full_name: "سعيد محمود أبوكف", phone: "", branch: "فرع محمود", role: "admin", subscription_amount: 200 },
   { full_name: "خالد جمال أبوكف", phone: "", branch: "فرع جمال", subscription_amount: 200 },
   { full_name: "نزال جمال أبوكف", phone: "", branch: "فرع جمال", subscription_amount: 200 },
   { full_name: "محمد جمال أبوكف", phone: "", branch: "فرع جمال", subscription_amount: 200 },
@@ -65,6 +65,7 @@ export const seedMembers = internalMutation({
         phone: member.phone,
         branch: member.branch,
         is_active: true,
+        role: member.role,
         subscription_amount: member.subscription_amount,
         created_at: Date.now(),
         created_by: "system",
@@ -139,5 +140,21 @@ export const seedAll = internalMutation({
       members: memberResults.length,
       payments: paymentResults.length,
     };
+  },
+});
+
+// Set admin role for سعيد محمود أبوكف
+export const setAdminRole = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const members = await ctx.db.query("members").collect();
+    const saeed = members.find(
+      (m) => m.full_name.includes("سعيد") && m.full_name.includes("محمود")
+    );
+
+    if (!saeed) throw new Error("Member not found: سعيد محمود أبوكف");
+
+    await ctx.db.patch(saeed._id, { role: "admin" });
+    return { member: saeed.full_name, role: "admin" };
   },
 });

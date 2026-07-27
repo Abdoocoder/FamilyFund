@@ -12,12 +12,16 @@ export default defineSchema({
     phone: v.optional(v.string()),
     branch: v.optional(v.string()), // e.g. آل محمد, آل عبد العزيز
     is_active: v.boolean(),
+    role: v.optional(v.string()), // "admin" or "member" (default)
     subscription_amount: v.number(), // e.g., 500 SAR/month
+    clerk_user_id: v.optional(v.string()), // Links to Clerk auth user
     created_at: v.number(),
     created_by: v.string(), // user ID who created the member
   })
     .index("by_is_active", ["is_active"])
-    .index("by_created_at", ["created_at"]),
+    .index("by_created_at", ["created_at"])
+    .index("by_role", ["role"])
+    .index("by_clerk_user_id", ["clerk_user_id"]),
 
   // Payments table
   payments: defineTable({

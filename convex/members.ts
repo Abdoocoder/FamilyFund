@@ -1,6 +1,22 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
+// Helper: Check if current user is admin
+async function requireAdmin(ctx: any) {
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity) throw new Error("Unauthorized");
+
+  const member = await ctx.db
+    .query("members")
+    .withIndex("by_clerk_user_id", (q: any) => q.eq("clerk_user_id", identity.subject))
+    .first();
+
+  if (!member) throw new Error("Member not found for this user");
+  if (member.role !== "admin") throw new Error("Forbidden: admin role required");
+
+  return { identity, member };
+}
+
 // Get all active members
 export const getActiveMembers = query({
   args: {},
@@ -43,11 +59,7 @@ export const addMember = mutation({
     subscription_amount: v.number(),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthorized");
-
-    // TODO: Check if user has admin role
-    // if (identity.role !== "admin") throw new Error("Forbidden");
+    const { identity } = await requireAdmin(ctx);
 
     const memberId = await ctx.db.insert("members", {
       full_name: args.full_name,
@@ -73,11 +85,7 @@ export const updateMember = mutation({
     subscription_amount: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthorized");
-
-    // TODO: Check if user has admin role
-    // if (identity.role !== "admin") throw new Error("Forbidden");
+    await requireAdmin(ctx);
 
     const { memberId, ...updates } = args;
     await ctx.db.patch(memberId, updates);
@@ -86,19 +94,14 @@ export const updateMember = mutation({
   },
 });
 
-// Archive a member (soft delete)
+// Archive a member (soft delete, admin only)
 export const archiveMember = mutation({
   args: { memberId: v.id("members") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthorized");
-
-    // TODO: Check if user has admin role
-    // if (identity.role !== "admin") throw new Error("Forbidden");
+    const { identity } = await requireAdmin(ctx);
 
     await ctx.db.patch(args.memberId, { is_active: false });
 
-    // Log the action
     await ctx.db.insert("audit_logs", {
       member_id: args.memberId,
       action: "archive_member",
@@ -111,19 +114,14 @@ export const archiveMember = mutation({
   },
 });
 
-// Restore an archived member
+// Restore an archived member (admin only)
 export const restoreMember = mutation({
   args: { memberId: v.id("members") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthorized");
-
-    // TODO: Check if user has admin role
-    // if (identity.role !== "admin") throw new Error("Forbidden");
+    const { identity } = await requireAdmin(ctx);
 
     await ctx.db.patch(args.memberId, { is_active: true });
 
-    // Log the action
     await ctx.db.insert("audit_logs", {
       member_id: args.memberId,
       action: "restore_member",
@@ -148,5 +146,36 @@ export const searchMembers = query({
         member.full_name.toLowerCase().includes(query) ||
         member.phone?.toLowerCase().includes(query)
     );
+  },
+});
+
+// Link Clerk user to member record
+export const linkClerkUser = mutation({
+  args: { memberId: v.id("members") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    await ctx.db.patch(args.memberId, {
+      clerk_user_id: identity.subject,
+    });
+
+    return args.memberId;
+  },
+});
+
+// Get current user's member record
+export const getCurrentMember = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_clerk_user_id", (q) => q.eq("clerk_user_id", identity.subject))
+      .first();
+
+    return member;
   },
 });
