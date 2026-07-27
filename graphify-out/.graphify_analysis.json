@@ -1,0 +1,282 @@
+{
+  "communities": {
+    "0": [
+      "src_app",
+      "src_app_app",
+      "src_app_maincontent",
+      "src_components_bottomnav_bottomnav",
+      "src_components_dashboardview",
+      "src_components_dashboardview_dashboardview",
+      "src_components_header",
+      "src_components_header_header",
+      "src_components_header_headerprops",
+      "src_components_historyview",
+      "src_components_historyview_historyview",
+      "src_components_membersview",
+      "src_components_membersview_membersview",
+      "src_components_membersview_membersviewprops",
+      "src_components_modals_addmembermodal",
+      "src_components_modals_addmembermodal_addmembermodal",
+      "src_components_modals_addmembermodal_addmembermodalprops",
+      "src_components_modals_newpaymentmodal_newpaymentmodal",
+      "src_components_paymentmatrixview_paymentmatrixview",
+      "src_components_sidebar_sidebar",
+      "src_context_fundcontext_usefund",
+      "src_main",
+      "src_types_member"
+    ],
+    "1": [
+      "src_components_bottomnav",
+      "src_components_modals_newpaymentmodal",
+      "src_components_modals_newpaymentmodal_newpaymentmodalprops",
+      "src_components_paymentmatrixview",
+      "src_components_paymentmatrixview_paymentmatrixprops",
+      "src_components_sidebar",
+      "src_context_fundcontext",
+      "src_context_fundcontext_fundcontext",
+      "src_context_fundcontext_fundcontexttype",
+      "src_context_fundcontext_fundprovider",
+      "src_context_fundcontext_storage_keys",
+      "src_data_initialmembers",
+      "src_data_initialmembers_arabic_months",
+      "src_data_initialmembers_generateinitialpayments",
+      "src_data_initialmembers_initial_members",
+      "src_data_initialmembers_initial_transactions",
+      "src_types",
+      "src_types_activetab",
+      "src_types_auditlog",
+      "src_types_monthnumber",
+      "src_types_paymentrecord",
+      "src_types_paymentstatus",
+      "src_types_transaction"
+    ],
+    "2": [
+      "dotenv",
+      "express",
+      "google_genai",
+      "lucide_react",
+      "motion",
+      "package_dependencies",
+      "package_dependencies_dotenv",
+      "package_dependencies_express",
+      "package_dependencies_google_genai",
+      "package_dependencies_lucide_react",
+      "package_dependencies_motion",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_tailwindcss_vite",
+      "package_dependencies_vitejs_plugin_react",
+      "react",
+      "react_dom",
+      "tailwindcss_vite",
+      "vitejs_plugin_react"
+    ],
+    "3": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_es2022",
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowimportingtsextensions",
+      "tsconfig_compileroptions_allowjs",
+      "tsconfig_compileroptions_experimentaldecorators",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduledetection",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_paths",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_usedefineforclassfields"
+    ],
+    "4": [
+      "autoprefixer",
+      "esbuild",
+      "package_dependencies_vite",
+      "package_devdependencies",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_esbuild",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_tsx",
+      "package_devdependencies_types_express",
+      "package_devdependencies_types_node",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "tailwindcss",
+      "tsx",
+      "types_express",
+      "types_node",
+      "typescript",
+      "vite"
+    ],
+    "5": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_clean",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_preview",
+      "package_type",
+      "package_version"
+    ],
+    "6": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.18181818181818182,
+    "1": 0.22134387351778656,
+    "2": 0.10526315789473684,
+    "3": 0.10526315789473684,
+    "4": 0.1111111111111111,
+    "5": 0.18181818181818182,
+    "6": 1.0
+  },
+  "gods": [
+    {
+      "id": "src_context_fundcontext_usefund",
+      "label": "useFund()",
+      "degree": 21
+    },
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 15
+    },
+    {
+      "id": "src_types_member",
+      "label": "Member",
+      "degree": 9
+    },
+    {
+      "id": "src_context_fundcontext_fundcontexttype",
+      "label": "FundContextType",
+      "degree": 8
+    },
+    {
+      "id": "src_data_initialmembers_arabic_months",
+      "label": "ARABIC_MONTHS",
+      "degree": 7
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 6
+    },
+    {
+      "id": "src_types_monthnumber",
+      "label": "MonthNumber",
+      "degree": 6
+    },
+    {
+      "id": "src_types_activetab",
+      "label": "ActiveTab",
+      "degree": 5
+    },
+    {
+      "id": "src_context_fundcontext_fundprovider",
+      "label": "FundProvider()",
+      "degree": 4
+    },
+    {
+      "id": "src_data_initialmembers_generateinitialpayments",
+      "label": "generateInitialPayments()",
+      "degree": 4
+    }
+  ],
+  "surprises": [
+    {
+      "source": "MainContent()",
+      "target": "useFund()",
+      "source_files": [
+        "src/App.tsx",
+        "src/context/FundContext.tsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "peripheral node `MainContent()` unexpectedly reaches hub `useFund()`"
+    },
+    {
+      "source": "MembersViewProps",
+      "target": "Member",
+      "source_files": [
+        "src/components/MembersView.tsx",
+        "src/types.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `MembersViewProps` unexpectedly reaches hub `Member`"
+    },
+    {
+      "source": "AddMemberModalProps",
+      "target": "Member",
+      "source_files": [
+        "src/components/modals/AddMemberModal.tsx",
+        "src/types.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `AddMemberModalProps` unexpectedly reaches hub `Member`"
+    },
+    {
+      "source": "FundContextType",
+      "target": "Member",
+      "source_files": [
+        "src/context/FundContext.tsx",
+        "src/types.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "BottomNav()",
+      "target": "useFund()",
+      "source_files": [
+        "src/components/BottomNav.tsx",
+        "src/context/FundContext.tsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `dependencies` connect `dependencies` to `devDependencies`, `package.json`?",
+      "why": "High betweenness centrality (0.109) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `devDependencies` connect `devDependencies` to `package.json`?",
+      "why": "High betweenness centrality (0.090) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `name`, `private`, `version` to the rest of the system?",
+      "why": "46 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `dependencies` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `compilerOptions` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `devDependencies` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

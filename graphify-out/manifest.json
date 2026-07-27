@@ -1,0 +1,92 @@
+{
+  "metadata.json": {
+    "mtime": 1785142122.4741712,
+    "ast_hash": "e7f36b025bd877906ef0eb24dea80762",
+    "semantic_hash": "e7f36b025bd877906ef0eb24dea80762"
+  },
+  "package.json": {
+    "mtime": 1785142122.4741712,
+    "ast_hash": "c749c75ec4a6827bacdfebe3013f2dee",
+    "semantic_hash": "c749c75ec4a6827bacdfebe3013f2dee"
+  },
+  "src/App.tsx": {
+    "mtime": 1785142122.4741712,
+    "ast_hash": "285210a8dd813ccb7f6085a11776129f",
+    "semantic_hash": "285210a8dd813ccb7f6085a11776129f"
+  },
+  "src/components/BottomNav.tsx": {
+    "mtime": 1785142122.4741712,
+    "ast_hash": "ce2f70548896c572ac995b5cd0de9e0d",
+    "semantic_hash": "ce2f70548896c572ac995b5cd0de9e0d"
+  },
+  "src/components/DashboardView.tsx": {
+    "mtime": 1785142122.4741712,
+    "ast_hash": "d3947bd97eaece2bd159493cbaa85b09",
+    "semantic_hash": "d3947bd97eaece2bd159493cbaa85b09"
+  },
+  "src/components/Header.tsx": {
+    "mtime": 1785142122.4741712,
+    "ast_hash": "7683f7d35c7b342409759154f0704e3b",
+    "semantic_hash": "7683f7d35c7b342409759154f0704e3b"
+  },
+  "src/components/HistoryView.tsx": {
+    "mtime": 1785142122.4741712,
+    "ast_hash": "7c5f2d74317acb44c0f4c1f67f6227d1",
+    "semantic_hash": "7c5f2d74317acb44c0f4c1f67f6227d1"
+  },
+  "src/components/MembersView.tsx": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "e3ada7f8bf2516d90e838f6a3404877d",
+    "semantic_hash": "e3ada7f8bf2516d90e838f6a3404877d"
+  },
+  "src/components/PaymentMatrixView.tsx": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "20f567ff421400d9237d3d349754c70a",
+    "semantic_hash": "20f567ff421400d9237d3d349754c70a"
+  },
+  "src/components/Sidebar.tsx": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "9a813470ed9bb9cfed859cb18bcab284",
+    "semantic_hash": "9a813470ed9bb9cfed859cb18bcab284"
+  },
+  "src/components/modals/AddMemberModal.tsx": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "d90684a21de1d92fd5b1b437e3af69b1",
+    "semantic_hash": "d90684a21de1d92fd5b1b437e3af69b1"
+  },
+  "src/components/modals/NewPaymentModal.tsx": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "dee9945067c42cf6bdb7bf823739b493",
+    "semantic_hash": "dee9945067c42cf6bdb7bf823739b493"
+  },
+  "src/context/FundContext.tsx": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "629a6be64ed201def6247ce8e4d2aa15",
+    "semantic_hash": "629a6be64ed201def6247ce8e4d2aa15"
+  },
+  "src/data/initialMembers.ts": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "4e17a5a79d28f2e2f73bf5400c0a7074",
+    "semantic_hash": "4e17a5a79d28f2e2f73bf5400c0a7074"
+  },
+  "src/main.tsx": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "a0bcc3ffa5e95e1965f94969ab488283",
+    "semantic_hash": "a0bcc3ffa5e95e1965f94969ab488283"
+  },
+  "src/types.ts": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "8c7497ed808f42c5f44256b9a09390e8",
+    "semantic_hash": "8c7497ed808f42c5f44256b9a09390e8"
+  },
+  "tsconfig.json": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "aca6cdac13db39d03d9b95866834d84f",
+    "semantic_hash": "aca6cdac13db39d03d9b95866834d84f"
+  },
+  "vite.config.ts": {
+    "mtime": 1785142122.48015,
+    "ast_hash": "cfc596836379397756c305b60b69ba06",
+    "semantic_hash": "cfc596836379397756c305b60b69ba06"
+  }
+}
