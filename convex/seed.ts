@@ -66,6 +66,7 @@ export const seedMembers = internalMutation({
         branch: member.branch,
         is_active: true,
         role: member.role,
+        approval_status: "approved",
         subscription_amount: member.subscription_amount,
         created_at: Date.now(),
         created_by: "system",

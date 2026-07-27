@@ -13,6 +13,11 @@ export default defineSchema({
     branch: v.optional(v.string()), // e.g. آل محمد, آل عبد العزيز
     is_active: v.boolean(),
     role: v.optional(v.string()), // "admin" or "member" (default)
+    approval_status: v.union(
+      v.literal("pending"),
+      v.literal("approved"),
+      v.literal("rejected")
+    ), // Default: "pending" for new registrations
     subscription_amount: v.number(), // e.g., 200 JOD/month
     clerk_user_id: v.optional(v.string()), // Links to Clerk auth user
     created_at: v.number(),
@@ -21,7 +26,8 @@ export default defineSchema({
     .index("by_is_active", ["is_active"])
     .index("by_created_at", ["created_at"])
     .index("by_role", ["role"])
-    .index("by_clerk_user_id", ["clerk_user_id"]),
+    .index("by_clerk_user_id", ["clerk_user_id"])
+    .index("by_approval_status", ["approval_status"]),
 
   // Payments table
   payments: defineTable({

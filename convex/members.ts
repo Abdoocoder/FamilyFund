@@ -66,6 +66,7 @@ export const addMember = mutation({
       phone: args.phone,
       branch: args.branch,
       is_active: true,
+      approval_status: "pending",
       subscription_amount: args.subscription_amount,
       created_at: Date.now(),
       created_by: identity.subject,
