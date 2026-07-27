@@ -92,6 +92,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
               id="member-name"
               type="text"
               required
+              maxLength={60}
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="مثال: أحمد عبدالله المحمد"
@@ -103,13 +104,16 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
             <label htmlFor="member-phone" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">رقم الهاتف الجوال *</label>
             <input
               id="member-phone"
-              type="text"
+              type="tel"
               required
+              pattern="[\+]?[0-9\s\-]{7,15}"
+              maxLength={15}
               value={phone}
               onChange={e => setPhone(e.target.value)}
               placeholder="+966 50 123 4567"
               className={`${inputClass} dir-ltr text-right`}
             />
+            <p className="text-[10px] text-fund-muted mt-1">صيغة صحيحة: +966 50 123 4567</p>
           </div>
 
           <div>
@@ -150,12 +154,14 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
               id="member-amount"
               type="number"
               min="50"
+              max="5000"
               step="50"
               required
               value={subscriptionAmount}
               onChange={e => setSubscriptionAmount(Number(e.target.value))}
               className={`${inputClass} font-bold text-fund-green`}
             />
+            <p className="text-[10px] text-fund-muted mt-1">الحد الأدنى: 50 د.أ | الحد الأقصى: 5,000 د.أ</p>
           </div>
 
           <div className="flex items-center justify-end gap-2 pt-4 border-t border-fund-border/40">

@@ -7,8 +7,8 @@ import gsap from 'gsap';
 export const HistoryView: React.FC = () => {
   const { members, payments, selectedYear, setSelectedYear, selectedMonth, setSelectedMonth, setActiveTab } = useFund();
 
-  const [historyYear, setHistoryYear] = useState<number>(2024);
-  const [historyMonth, setHistoryMonth] = useState<MonthNumber>(7);
+  const [historyYear, setHistoryYear] = useState<number>(new Date().getFullYear());
+  const [historyMonth, setHistoryMonth] = useState<MonthNumber>((new Date().getMonth() + 1) as MonthNumber);
 
   const headerRef = useRef<HTMLDivElement>(null);
   const bentoRef = useRef<HTMLDivElement>(null);
@@ -37,12 +37,12 @@ export const HistoryView: React.FC = () => {
     };
   });
 
-  // GSAP stagger
+  // GSAP entrance — fade-in with subtle scale for the bento layout
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(headerRef.current, {
         opacity: 0,
-        y: 16,
+        scale: 0.98,
         duration: 0.5,
         ease: 'power3.out',
       });
@@ -50,12 +50,11 @@ export const HistoryView: React.FC = () => {
       if (bentoRef.current) {
         gsap.from(bentoRef.current.children, {
           opacity: 0,
-          y: 20,
-          scale: 0.98,
+          scale: 0.97,
           duration: 0.5,
-          stagger: 0.1,
+          stagger: 0.08,
           ease: 'power3.out',
-          delay: 0.15,
+          delay: 0.1,
         });
       }
     });
@@ -98,7 +97,7 @@ export const HistoryView: React.FC = () => {
       {/* Bento Grid */}
       <div ref={bentoRef} className="grid grid-cols-1 md:grid-cols-12 gap-5">
         {/* Personal Summary (Large) */}
-        <div className="md:col-span-8 surface-elevated rounded-2xl p-6 flex flex-col justify-between hover-lift">
+        <div className="md:col-span-8 surface-elevated rounded-2xl p-6 flex flex-col justify-between">
           <div className="flex justify-between items-start">
             <div className="flex flex-col">
               <span className="text-sm text-fund-muted font-medium tracking-wide mb-1">مدفوعاتك هذا العام</span>
@@ -146,7 +145,7 @@ export const HistoryView: React.FC = () => {
         </div>
 
         {/* Fund Health KPI (Small) */}
-        <div className="md:col-span-4 surface-elevated rounded-2xl p-6 flex flex-col justify-between hover-lift">
+        <div className="md:col-span-4 surface-elevated rounded-2xl p-6 flex flex-col justify-between">
           <div className="flex flex-col gap-1 mb-4">
             <span className="text-sm text-fund-muted flex items-center gap-1.5 font-medium tracking-wide">
               <span className="material-symbols-outlined text-fund-green text-lg">account_balance</span>
@@ -215,7 +214,7 @@ export const HistoryView: React.FC = () => {
                 className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 py-3.5 items-center hover:bg-fund-accent/20 transition-colors duration-200 group"
               >
                 <div className="col-span-2 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 transition-all duration-300 group-hover:scale-110 ${
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 ${
                     status === 'paid' ? 'bg-fund-green text-white' : (status === 'pending' ? 'bg-status-pending-bg text-status-pending' : 'bg-status-danger-surface text-status-danger')
                   }`}>
                     {member.initials || member.name.charAt(0)}

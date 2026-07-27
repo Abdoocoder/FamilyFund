@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useFund } from '../context/FundContext';
 import { ARABIC_MONTHS } from '../data/initialMembers';
 import { MonthNumber } from '../types';
 import gsap from 'gsap';
+import { UndoToast } from './UndoToast';
 
 interface PaymentMatrixProps {
   onOpenNewPayment: () => void;
@@ -21,6 +22,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
 
   const [search, setSearch] = useState('');
   const [filterMode, setFilterMode] = useState<'all' | 'fully_paid' | 'overdue'>('all');
+  const [undoToast, setUndoToast] = useState<{ message: string; onUndo: () => void } | null>(null);
 
   const headerRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLDivElement>(null);
@@ -62,21 +64,38 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
 
   const grandTotal = activeMembers.reduce((sum, member) => sum + getMemberYearTotal(member.id, selectedYear), 0);
 
-  // GSAP entrance
+  const handleTogglePayment = useCallback((memberId: string, year: number, month: MonthNumber) => {
+    const existing = payments.find(p => p.memberId === memberId && p.year === year && p.month === month);
+    const prevStatus = existing?.status || 'unpaid';
+    const member = members.find(m => m.id === memberId);
+    const memberName = member?.name || '';
+    const monthName = ARABIC_MONTHS[month - 1];
+
+    togglePayment(memberId, year, month);
+
+    if (prevStatus !== 'paid') {
+      setUndoToast({
+        message: `تم تسجيل دفع ${memberName} — ${monthName} ${year}`,
+        onUndo: () => togglePayment(memberId, year, month),
+      });
+    }
+  }, [payments, members, togglePayment]);
+
+  // GSAP entrance — slide-from-right for the data-heavy matrix
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(headerRef.current, {
         opacity: 0,
-        y: 16,
+        x: 20,
         duration: 0.5,
         ease: 'power3.out',
       });
       gsap.from(tableRef.current, {
         opacity: 0,
-        y: 20,
+        x: 30,
         duration: 0.6,
         ease: 'power3.out',
-        delay: 0.15,
+        delay: 0.1,
       });
     });
     return () => ctx.revert();
@@ -205,7 +224,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                     <tr key={member.id} className="hover:bg-fund-accent/30 transition-all duration-200 group">
                       <td className="sticky right-0 bg-white group-hover:bg-fund-accent/30 py-2.5 px-4 border-l border-fund-border/40 shadow-[1px_0_3px_rgba(0,0,0,0.02)] transition-colors z-10">
                         <div className="flex items-center gap-3">
-                          <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 transition-all duration-300 group-hover:scale-110 ${
+                          <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 transition-colors duration-300 ${
                             isFullyPaid ? 'bg-status-paid-bg text-status-paid' : 'bg-fund-accent text-fund-green'
                           }`}>
                             {member.initials || member.name.charAt(0)}
@@ -226,8 +245,8 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                         return (
                           <td key={monthNum} className="py-2 px-1 text-center">
                             <button
-                              onClick={() => togglePayment(member.id, selectedYear, monthNum)}
-                              title={`${member.name} - ${ARABIC_MONTHS[idx]} ${selectedYear}: ${isPaid ? 'مسدد (انقر للإلغاء)' : 'غير مسدد (انقر للسداد)'}`}
+                              onClick={() => handleTogglePayment(member.id, selectedYear, monthNum)}
+                              aria-label={`${member.name} — ${ARABIC_MONTHS[idx]} ${selectedYear}: ${isPaid ? 'مسدد، انقر للإلغاء' : 'غير مسدد، انقر للسداد'}`}
                               className={`payment-toggle w-full min-h-[44px] rounded-lg border text-xs font-bold flex items-center justify-center ${
                                 isPaid
                                   ? 'bg-fund-green text-white border-fund-green shadow-sm shadow-fund-green/15 hover:bg-fund-green-light'
@@ -273,6 +292,14 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
           </table>
         </div>
       </div>
+
+      {undoToast && (
+        <UndoToast
+          message={undoToast.message}
+          onUndo={undoToast.onUndo}
+          onDismiss={() => setUndoToast(null)}
+        />
+      )}
     </div>
   );
 };

@@ -73,7 +73,7 @@ export const FundProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const [selectedYear, setSelectedYear] = useState<number>(2026);
-  const [selectedMonth, setSelectedMonth] = useState<MonthNumber>(7); // July default for History view
+  const [selectedMonth, setSelectedMonth] = useState<MonthNumber>((new Date().getMonth() + 1) as MonthNumber);
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'fully_paid' | 'overdue'>('all');

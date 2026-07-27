@@ -36,7 +36,6 @@ const MainContent: React.FC = () => {
         <Sidebar />
 
         <main className="flex-1 min-w-0 p-4 md:p-6 lg:p-8" key={activeTab}>
-          <div className="view-enter">
             {activeTab === 'dashboard' && <DashboardView />}
             {activeTab === 'payments' && (
               <PaymentMatrixView onOpenNewPayment={() => setIsNewPaymentOpen(true)} />
@@ -48,7 +47,6 @@ const MainContent: React.FC = () => {
               />
             )}
             {activeTab === 'history' && <HistoryView />}
-          </div>
         </main>
       </div>
 

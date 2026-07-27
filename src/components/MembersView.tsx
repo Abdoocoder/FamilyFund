@@ -15,6 +15,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
 
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
 
   const filteredMembers = members.filter(member => {
     const matchesTab = tabFilter === 'all' ? true : member.status === tabFilter;
@@ -27,7 +28,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
   const activeCount = members.filter(m => m.status === 'active').length;
   const archivedCount = members.filter(m => m.status === 'archived').length;
 
-  // GSAP stagger on cards
+  // GSAP stagger on cards — only on mount and tab change, not on search
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(headerRef.current, {
@@ -50,7 +51,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
       }
     });
     return () => ctx.revert();
-  }, [tabFilter, search]);
+  }, [tabFilter]);
 
   const filterTabs = [
     { id: 'active' as const, label: 'الاعضاء النشطين', count: activeCount },
@@ -126,19 +127,14 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
             return (
               <div
                 key={member.id}
-                className={`surface-elevated rounded-2xl p-5 flex flex-col justify-between hover-lift group relative overflow-hidden ${
+                className={`surface-elevated rounded-2xl p-5 flex flex-col justify-between group relative overflow-hidden ${
                   !isActive ? 'bg-fund-surface/70 opacity-80' : ''
                 }`}
               >
-                {/* Subtle ambient gradient on active cards */}
-                {isActive && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-fund-accent/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                )}
-
                 <div className="relative z-10">
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-base transition-all duration-500 group-hover:scale-110 group-hover:rotate-2 ${
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-base ${
                         isActive ? 'bg-fund-accent text-fund-green' : 'bg-fund-border/40 text-fund-muted'
                       }`}>
                         {member.initials || member.name.charAt(0)}
@@ -174,7 +170,11 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                         تعديل
                       </button>
                       <button
-                        onClick={() => toggleMemberArchive(member.id)}
+                        onClick={() => {
+                          if (window.confirm(`هل أنت متأكد من أرشفة العضو "${member.name}"؟`)) {
+                            toggleMemberArchive(member.id);
+                          }
+                        }}
                         className="flex-1 bg-white border border-status-danger/30 text-status-danger hover:bg-status-danger-surface text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97]"
                       >
                         <span className="material-symbols-outlined text-[16px]">archive</span>
@@ -183,7 +183,11 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                     </>
                   ) : (
                     <button
-                      onClick={() => toggleMemberArchive(member.id)}
+                      onClick={() => {
+                        if (window.confirm(`هل تريد استعادة العضو "${member.name}" إلى القائمة النشطة؟`)) {
+                          toggleMemberArchive(member.id);
+                        }
+                      }}
                       className="w-full bg-fund-green text-white hover:bg-fund-green-light text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97]"
                     >
                       <span className="material-symbols-outlined text-[16px]">unarchive</span>

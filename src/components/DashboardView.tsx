@@ -139,11 +139,11 @@ export const DashboardView: React.FC = () => {
         {kpiCards.map((card) => (
           <div
             key={card.label}
-            className="surface-elevated rounded-2xl p-5 flex flex-col justify-between hover-lift group cursor-default"
+            className="surface-elevated rounded-2xl p-5 flex flex-col justify-between cursor-default"
           >
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs md:text-sm text-fund-muted font-medium tracking-wide">{card.label}</span>
-              <div className={`w-9 h-9 rounded-xl ${card.iconBg} flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+              <div className={`w-9 h-9 rounded-xl ${card.iconBg} flex items-center justify-center`}>
                 <span className="material-symbols-outlined text-lg">{card.icon}</span>
               </div>
             </div>
@@ -271,7 +271,7 @@ export const DashboardView: React.FC = () => {
                 className="flex items-center gap-3 p-3 rounded-xl hover:bg-fund-accent/40 transition-all duration-300 group cursor-default"
                 style={{ animationDelay: `${idx * 60}ms` }}
               >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110 ${
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                   tx.status === 'completed' ? 'bg-status-paid-bg text-status-paid' :
                   tx.status === 'processing' ? 'bg-status-pending-bg text-status-pending' :
                   'bg-status-danger-surface text-status-danger'
