@@ -40,7 +40,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
 
   const activeMembers = members.filter(m => m.status === 'active');
 
-  const filteredMembers = activeMembers.filter(member => {
+  const filteredMembers = React.useMemo(() => activeMembers.filter(member => {
     const matchesSearch = member.name.toLowerCase().includes(search.toLowerCase()) ||
                           member.phone.includes(search) ||
                           (member.branch && member.branch.includes(search));
@@ -53,7 +53,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
     if (filterMode === 'fully_paid') return totalPaidMonths === 12;
     if (filterMode === 'overdue') return totalPaidMonths < 12;
     return true;
-  });
+  }), [activeMembers, search, payments, selectedYear, filterMode]);
 
   const getMonthlyTotal = (month: MonthNumber) => {
     return activeMembers.reduce((sum, member) => {

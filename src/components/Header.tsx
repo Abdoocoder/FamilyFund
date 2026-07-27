@@ -102,7 +102,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment }) => {
                       <div key={log.id} className="px-4 py-3 border-b border-fund-border/20 last:border-b-0 hover:bg-fund-accent/30 transition-colors">
                         <p className="text-xs font-bold text-fund-text">{log.action}</p>
                         <p className="text-[11px] text-fund-muted mt-0.5 truncate">{log.details}</p>
-                        <p className="text-[10px] text-fund-muted/60 mt-1">{formatRelativeTime(log.timestamp)}</p>
+                        <p className="text-[10px] text-fund-muted/80 mt-1">{formatRelativeTime(log.timestamp)}</p>
                       </div>
                     ))
                   )}

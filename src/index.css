@@ -68,10 +68,10 @@
 }
 
 /* Surface elevation system */
-.surface-0 { background: #ffffff; }
-.surface-1 { background: #f8f9ff; }
+.surface-0 { background: var(--color-fund-surface); }
+.surface-1 { background: var(--color-fund-surface); }
 .surface-elevated {
-  background: #ffffff;
+  background: var(--color-fund-surface);
   box-shadow:
     0 1px 2px rgba(11, 28, 48, 0.04),
     0 4px 12px rgba(45, 90, 39, 0.03),

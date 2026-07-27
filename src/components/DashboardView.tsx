@@ -112,11 +112,12 @@ export const DashboardView: React.FC = () => {
       suffix: '',
       sub: null,
       icon: 'trending_up',
-      iconBg: 'bg-status-paid-bg text-status-paid',
-      valueColor: 'text-fund-green',
+      iconBg: 'bg-white/20 text-white',
+      valueColor: 'text-white',
       hasProgress: true,
       progressPct: Math.min(stats.complianceRate, 100),
       trend: '+5%',
+      isFeatured: true,
     },
   ];
 
@@ -139,10 +140,12 @@ export const DashboardView: React.FC = () => {
         {kpiCards.map((card) => (
           <div
             key={card.label}
-            className="surface-elevated rounded-2xl p-5 flex flex-col justify-between cursor-default"
+            className={`surface-elevated rounded-2xl p-5 flex flex-col justify-between cursor-default ${
+              (card as any).isFeatured ? 'bg-fund-green text-white border-fund-green md:col-span-2 lg:col-span-1' : ''
+            }`}
           >
             <div className="flex justify-between items-start mb-4">
-              <span className="text-xs md:text-sm text-fund-muted font-medium tracking-wide">{card.label}</span>
+              <span className={`text-xs md:text-sm font-medium tracking-wide ${(card as any).isFeatured ? 'text-white/80' : 'text-fund-muted'}`}>{card.label}</span>
               <div className={`w-9 h-9 rounded-xl ${card.iconBg} flex items-center justify-center`}>
                 <span className="material-symbols-outlined text-lg">{card.icon}</span>
               </div>
@@ -153,19 +156,19 @@ export const DashboardView: React.FC = () => {
                 {card.suffix && <span className="text-sm text-fund-muted font-normal ml-1">{card.suffix}</span>}
               </div>
               {card.sub && (
-                <div className="text-[11px] text-fund-muted mt-1 tracking-wide">{card.sub}</div>
+                <div className={`text-[11px] mt-1 tracking-wide ${(card as any).isFeatured ? 'text-white/60' : 'text-fund-muted'}`}>{card.sub}</div>
               )}
               {card.hasProgress && (
                 <div className="mt-2 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-fund-green-light font-bold flex items-center gap-0.5">
+                    <span className="text-[11px] text-white/80 font-bold flex items-center gap-0.5">
                       <span className="material-symbols-outlined text-[12px]">arrow_upward</span>
                       {card.trend}
                     </span>
                   </div>
-                  <div className="w-full bg-fund-accent/80 rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-white/20 rounded-full h-1.5 overflow-hidden">
                     <div
-                      className="bg-fund-green h-full rounded-full transition-all duration-1000 ease-out"
+                      className="bg-white h-full rounded-full transition-all duration-1000 ease-out"
                       style={{ width: `${card.progressPct}%` }}
                     />
                   </div>
