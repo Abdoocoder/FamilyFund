@@ -40,6 +40,10 @@ export const HistoryView: React.FC = () => {
   // GSAP entrance — fade-in with subtle scale for the bento layout
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set(headerRef.current, { opacity: 1, scale: 1 });
+        return;
+      }
       gsap.from(headerRef.current, {
         opacity: 0,
         scale: 0.98,
@@ -50,7 +54,6 @@ export const HistoryView: React.FC = () => {
       if (bentoRef.current) {
         gsap.from(bentoRef.current.children, {
           opacity: 0,
-          scale: 0.97,
           duration: 0.5,
           stagger: 0.08,
           ease: 'power3.out',

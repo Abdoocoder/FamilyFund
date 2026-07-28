@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useFund } from '../context/FundContext';
 import { Member } from '../types';
 import gsap from 'gsap';
+import { ConfirmDialog } from './modals/ConfirmDialog';
 
 interface MembersViewProps {
   onOpenAddMember: () => void;
@@ -14,8 +15,17 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
   const [search, setSearch] = useState('');
   const [tabFilter, setTabFilter] = useState<'active' | 'archived' | 'all'>('active');
 
+  const [confirmAction, setConfirmAction] = useState<{ memberId: string; message: string } | null>(null);
+
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+
+  const handleConfirmArchive = useCallback(() => {
+    if (confirmAction) {
+      toggleMemberArchive(confirmAction.memberId);
+      setConfirmAction(null);
+    }
+  }, [confirmAction, toggleMemberArchive]);
 
   const filteredMembers = members.filter(member => {
     const matchesTab = tabFilter === 'all' ? true : member.status === tabFilter;
@@ -31,6 +41,10 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
   // GSAP stagger on cards — only on mount and tab change, not on search
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set(headerRef.current, { opacity: 1, y: 0 });
+        return;
+      }
       gsap.from(headerRef.current, {
         opacity: 0,
         y: 16,
@@ -42,7 +56,6 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
         gsap.from(cardsRef.current.children, {
           opacity: 0,
           y: 20,
-          scale: 0.97,
           duration: 0.4,
           stagger: 0.04,
           ease: 'power3.out',
@@ -175,11 +188,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                         </button>
                       )}
                       <button
-                        onClick={() => {
-                          if (window.confirm(`هل أنت متأكد من أرشفة العضو "${member.name}"؟`)) {
-                            toggleMemberArchive(member.id);
-                          }
-                        }}
+                        onClick={() => setConfirmAction({ memberId: member.id, message: `هل أنت متأكد من أرشفة العضو "${member.name}"؟` })}
                         className="flex-1 bg-white border border-status-danger/30 text-status-danger hover:bg-status-danger-surface text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
                       >
                         <span className="material-symbols-outlined text-[16px]">archive</span>
@@ -188,11 +197,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                     </>
                   ) : (
                     <button
-                      onClick={() => {
-                        if (window.confirm(`هل تريد استعادة العضو "${member.name}" إلى القائمة النشطة؟`)) {
-                          toggleMemberArchive(member.id);
-                        }
-                      }}
+                      onClick={() => setConfirmAction({ memberId: member.id, message: `هل تريد استعادة العضو "${member.name}" إلى القائمة النشطة؟` })}
                       className="w-full bg-fund-green text-white hover:bg-fund-green-light text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
                     >
                       <span className="material-symbols-outlined text-[16px]">unarchive</span>
@@ -205,6 +210,16 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
           })
         )}
       </div>
+
+      <ConfirmDialog
+        isOpen={!!confirmAction}
+        message={confirmAction?.message ?? ''}
+        confirmLabel="تأكيد"
+        cancelLabel="إلغاء"
+        variant="danger"
+        onConfirm={handleConfirmArchive}
+        onCancel={() => setConfirmAction(null)}
+      />
     </div>
   );
 };

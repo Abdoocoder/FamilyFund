@@ -61,7 +61,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isAdmin }) => {
                 onClick={() => setActiveTab('admin')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                   activeTab === 'admin'
-                    ? 'bg-amber-100 text-amber-800 shadow-lg shadow-amber-100/15'
+                    ? 'bg-fund-green text-white shadow-lg shadow-fund-green/15 glow-green'
                     : 'text-fund-muted hover:bg-fund-accent hover:text-fund-text hover:translate-x-[-2px]'
                 }`}
               >

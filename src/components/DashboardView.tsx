@@ -32,6 +32,11 @@ export const DashboardView: React.FC = () => {
   // GSAP staggered entrance
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set(welcomeRef.current, { opacity: 1, y: 0 });
+        gsap.set(chartRef.current, { opacity: 1, y: 0 });
+        return;
+      }
       // Welcome card
       gsap.from(welcomeRef.current, {
         opacity: 0,
@@ -45,7 +50,6 @@ export const DashboardView: React.FC = () => {
         gsap.from(kpiRef.current.children, {
           opacity: 0,
           y: 24,
-          scale: 0.97,
           duration: 0.5,
           stagger: 0.08,
           ease: 'power3.out',
@@ -114,9 +118,6 @@ export const DashboardView: React.FC = () => {
       icon: 'trending_up',
       iconBg: 'bg-white/20 text-white',
       valueColor: 'text-white',
-      hasProgress: true,
-      progressPct: Math.min(stats.complianceRate, 100),
-      trend: '+5%',
       isFeatured: true,
     },
   ];
@@ -158,22 +159,6 @@ export const DashboardView: React.FC = () => {
               {card.sub && (
                 <div className={`text-[11px] mt-1 tracking-wide ${(card as any).isFeatured ? 'text-white/60' : 'text-fund-muted'}`}>{card.sub}</div>
               )}
-              {card.hasProgress && (
-                <div className="mt-2 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-white/80 font-bold flex items-center gap-0.5">
-                      <span className="material-symbols-outlined text-[12px]">arrow_upward</span>
-                      {card.trend}
-                    </span>
-                  </div>
-                  <div className="w-full bg-white/20 rounded-full h-1.5 overflow-hidden">
-                    <div
-                      className="bg-white h-full rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${card.progressPct}%` }}
-                    />
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         ))}
@@ -182,7 +167,7 @@ export const DashboardView: React.FC = () => {
       {/* Grid: Chart & Recent Activity */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Chart Section */}
-        <div ref={chartRef} className="lg:col-span-2 surface-elevated rounded-2xl p-5 md:p-6 flex flex-col">
+        <div ref={chartRef} className="lg:col-span-2 surface-elevated rounded-2xl p-6 flex flex-col">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-lg font-bold text-fund-green tracking-tight" style={{ textWrap: 'balance' }}>تقدم التحصيل الشهري</h3>
             <div className="flex items-center gap-1.5 bg-fund-accent/50 p-1 rounded-xl">
@@ -255,7 +240,7 @@ export const DashboardView: React.FC = () => {
         </div>
 
         {/* Recent Activity */}
-        <div className="surface-elevated rounded-2xl p-5 md:p-6 flex flex-col">
+        <div className="surface-elevated rounded-2xl p-6 flex flex-col">
           <div className="flex justify-between items-center mb-5">
             <h3 className="text-lg font-bold text-fund-green tracking-tight" style={{ textWrap: 'balance' }}>أحدث العمليات</h3>
             <button

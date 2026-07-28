@@ -85,6 +85,11 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
   // GSAP entrance — slide-from-right for the data-heavy matrix
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set(headerRef.current, { opacity: 1, x: 0 });
+        gsap.set(tableRef.current, { opacity: 1, x: 0 });
+        return;
+      }
       gsap.from(headerRef.current, {
         opacity: 0,
         x: 20,
@@ -105,7 +110,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
   return (
     <div className="space-y-4 pb-24 md:pb-8 flex flex-col min-w-0">
       {/* Header & Controls */}
-      <div ref={headerRef} className="surface-elevated p-5 md:p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div ref={headerRef} className="surface-elevated p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold text-fund-text tracking-tight" style={{ textWrap: 'balance' }}>جدول المدفوعات</h2>
           <p className="text-sm text-fund-muted mt-1 tracking-wide">

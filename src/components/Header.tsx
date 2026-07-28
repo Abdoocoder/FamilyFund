@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment, isAdmin }) => 
         <div className="flex items-center gap-2">
           {isAdmin && (
             <button
-              className="flex items-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-800 px-3 py-2 rounded-lg text-sm font-medium"
+              className="flex items-center gap-2 bg-fund-green/8 hover:bg-fund-green/15 text-fund-green px-3 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               <span className="material-symbols-outlined text-lg">admin_panel_settings</span>
               <span>الإدارة</span>
@@ -81,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment, isAdmin }) => 
             <button
               onClick={() => setShowNotifications(!showNotifications)}
               aria-label={`الإشعارات${unreadCount > 0 ? `، ${unreadCount} جديدة` : ''}`}
-              className="text-fund-green hover:bg-fund-accent p-2.5 rounded-xl transition-all duration-300 relative flex items-center justify-center active:scale-95"
+              className="text-fund-green hover:bg-fund-accent p-2.5 rounded-xl transition-all duration-300 relative flex items-center justify-center active:scale-[0.97]"
             >
               <span className="material-symbols-outlined">notifications</span>
               {unreadCount > 0 && (

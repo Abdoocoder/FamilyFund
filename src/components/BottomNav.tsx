@@ -44,9 +44,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({ isAdmin }) => {
             <button
               onClick={() => setActiveTab('admin')}
               className={`flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-200 ${
-                activeTab === 'admin'
-                  ? 'bg-amber-100 text-amber-800 font-semibold shadow-lg shadow-amber-100/20'
-                  : 'text-fund-muted hover:bg-fund-accent'
+                  activeTab === 'admin'
+                    ? 'bg-fund-green text-white font-semibold shadow-lg shadow-fund-green/20'
+                    : 'text-fund-muted hover:bg-fund-accent'
               }`}
             >
               <span className={`material-symbols-outlined text-[22px] ${activeTab === 'admin' ? 'filled' : ''}`}>

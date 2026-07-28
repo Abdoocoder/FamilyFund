@@ -29,7 +29,10 @@ const MainContent: React.FC = () => {
   if (currentMember === undefined) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fund-green"></div>
+          <p className="text-fund-muted text-sm">جاري التحميل...</p>
+        </div>
       </div>
     );
   }
@@ -47,12 +50,17 @@ const MainContent: React.FC = () => {
   if (currentMember.approval_status === 'rejected') {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
+        <div className="text-center max-w-sm">
           <span className="material-symbols-outlined text-red-500 text-6xl mb-4">
             block
           </span>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">تم رفض طلبك</h1>
-          <p className="text-gray-600">تم رفض طلب العضوية الخاص بك</p>
+          <p className="text-gray-600 mb-4">تم رفض طلب العضوية الخاص بك</p>
+          <div className="bg-fund-accent rounded-xl p-4 text-right">
+            <p className="text-sm text-fund-text/80">
+              يمكنك التواصل مع الإدارة لمزيد من التفاصيل
+            </p>
+          </div>
         </div>
       </div>
     );
