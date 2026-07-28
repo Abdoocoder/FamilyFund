@@ -123,6 +123,18 @@ export const getAuditLogsByDateRange = query({
 export const getRecentAuditLogs = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    // Admin check (consistent with other audit log queries)
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_clerk_user_id", (q) => q.eq("clerk_user_id", identity.subject))
+      .first();
+    if (!member || member.role !== "admin") {
+      throw new Error("Forbidden: admin role required");
+    }
+
     const limit = args.limit ?? 5;
 
     const logs = await ctx.db

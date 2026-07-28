@@ -21,6 +21,9 @@ async function requireAdmin(ctx: any) {
 export const getActiveMembers = query({
   args: {},
   handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
     const members = await ctx.db
       .query("members")
       .withIndex("by_is_active", (q) => q.eq("is_active", true))
@@ -45,6 +48,9 @@ export const getAllMembers = query({
 export const getMember = query({
   args: { memberId: v.id("members") },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
     const member = await ctx.db.get("members", args.memberId);
     return member;
   },
@@ -139,6 +145,9 @@ export const restoreMember = mutation({
 export const searchMembers = query({
   args: { searchQuery: v.string() },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
     const allMembers = await ctx.db.query("members").collect();
     const query = args.searchQuery.toLowerCase();
 
@@ -156,6 +165,13 @@ export const linkClerkUser = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Unauthorized");
+
+    // Ownership check: user can only link their own Clerk ID to their own member record
+    const member = await ctx.db.get("members", args.memberId);
+    if (!member) throw new Error("Member not found");
+    if (member.clerk_user_id && member.clerk_user_id !== identity.subject) {
+      throw new Error("Forbidden: cannot link another user's account");
+    }
 
     await ctx.db.patch(args.memberId, {
       clerk_user_id: identity.subject,
@@ -288,8 +304,7 @@ export const rejectUser = mutation({
 export const getPendingMembers = query({
   args: {},
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthorized");
+    await requireAdmin(ctx);
 
     const pending = await ctx.db
       .query("members")

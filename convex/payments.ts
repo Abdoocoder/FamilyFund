@@ -5,6 +5,9 @@ import { v } from "convex/values";
 export const getPaymentsByMember = query({
   args: { memberId: v.id("members") },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
     const payments = await ctx.db
       .query("payments")
       .withIndex("by_member_id", (q) => q.eq("member_id", args.memberId))
@@ -17,6 +20,9 @@ export const getPaymentsByMember = query({
 export const getPaymentsByMonth = query({
   args: { year: v.number(), month: v.number() },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
     const payments = await ctx.db
       .query("payments")
       .withIndex("by_year_month", (q) =>
@@ -35,6 +41,9 @@ export const getPayment = query({
     month: v.number(),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
     const payment = await ctx.db
       .query("payments")
       .withIndex("by_member_year_month", (q) =>
@@ -264,6 +273,9 @@ export const batchUpdatePayments = mutation({
 export const getRecentPayments = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
     const limit = args.limit ?? 10;
 
     const payments = await ctx.db

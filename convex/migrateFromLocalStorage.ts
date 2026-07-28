@@ -1,9 +1,9 @@
-import { mutation } from "./_generated/server";
+import { internalMutation } from "./_generated/server";
 import { v } from "convex/values";
 
 // Migration script to import localStorage data into Convex
 // Run this ONCE after deploying the new schema
-export const migrateFromLocalStorage = mutation({
+export const migrateFromLocalStorage = internalMutation({
   args: {
     members: v.array(
       v.object({
