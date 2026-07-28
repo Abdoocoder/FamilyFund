@@ -147,3 +147,77 @@ export const setAdminRole = internalMutation({
     return { member: saeed.full_name, role: "admin" };
   },
 });
+
+// List all pending members with their Clerk user IDs
+// Run: npx convex run seed:listPendingMembers
+export const listPendingMembers = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const pending = await ctx.db
+      .query("members")
+      .withIndex("by_approval_status", (q) => q.eq("approval_status", "pending"))
+      .collect();
+
+    return pending.map((m) => ({
+      _id: m._id,
+      full_name: m.full_name,
+      clerk_user_id: m.clerk_user_id,
+      approval_status: m.approval_status,
+    }));
+  },
+});
+
+// List ALL members with their Clerk user IDs (for debugging)
+// Run: npx convex run seed:listAllMembers
+export const listAllMembers = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const members = await ctx.db.query("members").collect();
+    return members.map((m) => ({
+      _id: m._id,
+      full_name: m.full_name,
+      clerk_user_id: m.clerk_user_id,
+      role: m.role,
+      approval_status: m.approval_status,
+      is_active: m.is_active,
+    }));
+  },
+});
+
+// Promote a user to admin by their Clerk user ID
+// Run: npx convex run seed:promoteToAdmin '{"clerkUserId":"USER_ID_HERE","fullName":"Name"}'
+// If no member exists for that Clerk ID, one is created automatically.
+export const promoteToAdmin = internalMutation({
+  args: {
+    clerkUserId: v.string(),
+    fullName: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    let member = await ctx.db
+      .query("members")
+      .withIndex("by_clerk_user_id", (q) => q.eq("clerk_user_id", args.clerkUserId))
+      .first();
+
+    if (!member) {
+      const memberId = await ctx.db.insert("members", {
+        full_name: args.fullName || "عضو جديد",
+        is_active: true,
+        role: "admin",
+        subscription_amount: 200,
+        clerk_user_id: args.clerkUserId,
+        approval_status: "approved",
+        created_at: Date.now(),
+        created_by: "system",
+      });
+      return { member: args.fullName || "عضو جديد", role: "admin", status: "approved", created: true };
+    }
+
+    await ctx.db.patch(member._id, {
+      role: "admin",
+      approval_status: "approved",
+      is_active: true,
+    });
+
+    return { member: member.full_name, role: "admin", status: "approved", created: false };
+  },
+});
