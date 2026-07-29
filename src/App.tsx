@@ -30,8 +30,8 @@ const MainContent: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fund-green"></div>
-          <p className="text-fund-muted text-sm">جاري التحميل...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <p className="text-muted-foreground text-sm">جاري التحميل...</p>
         </div>
       </div>
     );
@@ -56,8 +56,8 @@ const MainContent: React.FC = () => {
           </span>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">تم رفض طلبك</h1>
           <p className="text-gray-600 mb-4">تم رفض طلب العضوية الخاص بك</p>
-          <div className="bg-fund-accent rounded-xl p-4 text-right">
-            <p className="text-sm text-fund-text/80">
+          <div className="bg-primary-subtle rounded-xl p-4 text-right">
+            <p className="text-sm text-foreground/80">
               يمكنك التواصل مع الإدارة لمزيد من التفاصيل
             </p>
           </div>

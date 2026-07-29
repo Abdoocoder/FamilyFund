@@ -30,7 +30,7 @@ export const PendingApproval: React.FC = () => {
       if (err.message?.includes('already registered')) {
         setIsRegistered(true);
       } else {
-        setError('حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.');
+        setError('تعذر التسجيل. الرجاء المحاولة لاحقاً.');
       }
     } finally {
       setIsSubmitting(false);

@@ -18,7 +18,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ isAdmin }) => {
 
   return (
     <nav className="md:hidden fixed bottom-4 left-4 right-4 z-50">
-      <div className="bg-white rounded-2xl border border-fund-border/40 shadow-lg shadow-black/8 px-2 py-2">
+      <div className="bg-white/95 backdrop-blur-sm border border-border/30 shadow-lg shadow-black/5 rounded-2xl px-3 py-2">
         <div className="flex flex-row-reverse justify-around items-center">
           {navItems.map(item => {
             const isActive = activeTab === item.id;
@@ -28,11 +28,11 @@ export const BottomNav: React.FC<BottomNavProps> = ({ isAdmin }) => {
                 onClick={() => setActiveTab(item.id)}
                 className={`flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-fund-green text-white font-semibold shadow-lg shadow-fund-green/20'
-                    : 'text-fund-muted hover:bg-fund-accent'
+                    ? 'bg-primary text-white font-semibold shadow-sm shadow-primary/20'
+                    : 'text-muted-foreground hover:bg-primary-subtle'
                 }`}
               >
-                <span className={`material-symbols-outlined text-[22px] ${isActive ? 'filled' : ''}`}>
+                <span className={`material-symbols-outlined text-[22px] ${isActive ? 'fill' : ''}`}>
                   {item.icon}
                 </span>
                 <span className="text-[10px] mt-0.5 tracking-wide">{item.label}</span>
@@ -45,11 +45,11 @@ export const BottomNav: React.FC<BottomNavProps> = ({ isAdmin }) => {
               onClick={() => setActiveTab('admin')}
               className={`flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-200 ${
                   activeTab === 'admin'
-                    ? 'bg-fund-green text-white font-semibold shadow-lg shadow-fund-green/20'
-                    : 'text-fund-muted hover:bg-fund-accent'
+                    ? 'bg-primary text-white font-semibold shadow-sm shadow-primary/20'
+                    : 'text-muted-foreground hover:bg-primary-subtle'
               }`}
             >
-              <span className={`material-symbols-outlined text-[22px] ${activeTab === 'admin' ? 'filled' : ''}`}>
+              <span className={`material-symbols-outlined text-[22px] ${activeTab === 'admin' ? 'fill' : ''}`}>
                 admin_panel_settings
               </span>
               <span className="text-[10px] mt-0.5 tracking-wide">الإدارة</span>

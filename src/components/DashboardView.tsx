@@ -37,7 +37,6 @@ export const DashboardView: React.FC = () => {
         gsap.set(chartRef.current, { opacity: 1, y: 0 });
         return;
       }
-      // Welcome card
       gsap.from(welcomeRef.current, {
         opacity: 0,
         y: 20,
@@ -45,7 +44,6 @@ export const DashboardView: React.FC = () => {
         ease: 'power3.out',
       });
 
-      // KPI cards stagger
       if (kpiRef.current) {
         gsap.from(kpiRef.current.children, {
           opacity: 0,
@@ -57,7 +55,6 @@ export const DashboardView: React.FC = () => {
         });
       }
 
-      // Chart section
       gsap.from(chartRef.current, {
         opacity: 0,
         y: 20,
@@ -66,7 +63,6 @@ export const DashboardView: React.FC = () => {
         delay: 0.4,
       });
 
-      // Bar chart bars grow up
       if (barsRef.current) {
         gsap.from(barsRef.current.querySelectorAll('.chart-bar'), {
           scaleY: 0,
@@ -89,8 +85,8 @@ export const DashboardView: React.FC = () => {
       suffix: 'د.أ',
       sub: 'سنوياً',
       icon: 'account_balance',
-      iconBg: 'bg-fund-accent text-fund-green',
-      valueColor: 'text-fund-green',
+      iconBg: 'bg-primary-subtle text-primary',
+      valueClass: 'text-foreground',
     },
     {
       label: 'إجمالي المحصل',
@@ -98,8 +94,8 @@ export const DashboardView: React.FC = () => {
       suffix: 'د.أ',
       sub: 'حتى الآن',
       icon: 'savings',
-      iconBg: 'bg-status-paid-bg text-status-paid',
-      valueColor: 'text-fund-green',
+      iconBg: 'bg-success-bg text-success',
+      valueClass: 'text-success',
     },
     {
       label: 'المبلغ المتبقي',
@@ -107,8 +103,8 @@ export const DashboardView: React.FC = () => {
       suffix: 'د.أ',
       sub: 'مستحق',
       icon: 'pending_actions',
-      iconBg: 'bg-status-danger-surface text-status-danger',
-      valueColor: 'text-status-danger',
+      iconBg: 'bg-danger-surface text-danger',
+      valueClass: 'text-danger',
     },
     {
       label: 'نسبة الالتزام',
@@ -117,7 +113,7 @@ export const DashboardView: React.FC = () => {
       sub: null,
       icon: 'trending_up',
       iconBg: 'bg-white/20 text-white',
-      valueColor: 'text-white',
+      valueClass: 'text-white',
       isFeatured: true,
     },
   ];
@@ -125,12 +121,13 @@ export const DashboardView: React.FC = () => {
   return (
     <div className="space-y-6 pb-24 md:pb-8">
       {/* Welcome Header */}
-      <section ref={welcomeRef} className="surface-elevated p-6 md:p-8 rounded-2xl relative overflow-hidden">
-        <div className="relative z-10">
-          <h2 className="text-2xl md:text-3xl text-fund-green font-bold tracking-tight" style={{ textWrap: 'balance' }}>
+      <section ref={welcomeRef} className="relative bg-white rounded-2xl overflow-hidden shadow-sm border border-border/40">
+        <div className="absolute right-0 top-0 bottom-0 w-1 bg-primary/30 rounded-r-lg" />
+        <div className="p-6 md:p-8 pr-7 md:pr-9">
+          <h2 className="text-2xl md:text-3xl text-foreground font-bold tracking-tight" style={{ textWrap: 'balance' }}>
             مرحباً بعودتك، المحاسب
           </h2>
-          <p className="text-sm md:text-base text-fund-muted mt-1.5 tracking-wide">
+          <p className="text-sm md:text-base text-muted-foreground mt-1.5 tracking-wide">
             إليك نظرة عامة على حالة الصندوق واشتراكات الأعضاء لعام {chartYear}.
           </p>
         </div>
@@ -141,23 +138,25 @@ export const DashboardView: React.FC = () => {
         {kpiCards.map((card) => (
           <div
             key={card.label}
-            className={`surface-elevated rounded-2xl p-5 flex flex-col justify-between cursor-default ${
-              (card as any).isFeatured ? 'bg-fund-green text-white border-fund-green md:col-span-2 lg:col-span-1' : ''
+            className={`rounded-2xl p-5 flex flex-col justify-between cursor-default border transition-shadow duration-300 ${
+              (card as any).isFeatured
+                ? 'bg-gradient-to-br from-primary to-primary-dark text-white border-primary shadow-md shadow-primary/15'
+                : 'bg-white border-border/60 hover:shadow-md hover:shadow-black/5'
             }`}
           >
             <div className="flex justify-between items-start mb-4">
-              <span className={`text-xs md:text-sm font-medium tracking-wide ${(card as any).isFeatured ? 'text-white/80' : 'text-fund-muted'}`}>{card.label}</span>
-              <div className={`w-9 h-9 rounded-xl ${card.iconBg} flex items-center justify-center`}>
+              <span className={`text-xs md:text-sm font-medium tracking-wide ${(card as any).isFeatured ? 'text-white/80' : 'text-muted-foreground'}`}>{card.label}</span>
+              <div className={`w-10 h-10 rounded-xl ${card.iconBg} flex items-center justify-center shadow-sm`}>
                 <span className="material-symbols-outlined text-lg">{card.icon}</span>
               </div>
             </div>
             <div>
-              <div className={`text-2xl md:text-3xl ${card.valueColor} font-bold tabular-nums tracking-tight`}>
+              <div className={`text-2xl md:text-3xl ${card.valueClass} font-bold tabular-nums tracking-tight`}>
                 {card.value}
-                {card.suffix && <span className="text-sm text-fund-muted font-normal ml-1">{card.suffix}</span>}
+                {card.suffix && <span className={`text-sm font-normal mr-1 ${(card as any).isFeatured ? 'text-white/70' : 'text-muted-foreground'}`}>{card.suffix}</span>}
               </div>
               {card.sub && (
-                <div className={`text-[11px] mt-1 tracking-wide ${(card as any).isFeatured ? 'text-white/60' : 'text-fund-muted'}`}>{card.sub}</div>
+                <div className={`text-[11px] mt-1 tracking-wide ${(card as any).isFeatured ? 'text-white/60' : 'text-muted-foreground'}`}>{card.sub}</div>
               )}
             </div>
           </div>
@@ -167,10 +166,10 @@ export const DashboardView: React.FC = () => {
       {/* Grid: Chart & Recent Activity */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Chart Section */}
-        <div ref={chartRef} className="lg:col-span-2 surface-elevated rounded-2xl p-6 flex flex-col">
+        <div ref={chartRef} className="lg:col-span-2 bg-white rounded-2xl p-6 border border-border/60 shadow-sm flex flex-col">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-fund-green tracking-tight" style={{ textWrap: 'balance' }}>تقدم التحصيل الشهري</h3>
-            <div className="flex items-center gap-1.5 bg-fund-accent/50 p-1 rounded-xl">
+            <h3 className="text-lg font-bold text-foreground tracking-tight" style={{ textWrap: 'balance' }}>تقدم التحصيل الشهري</h3>
+            <div className="flex items-center gap-1.5 bg-muted-surface/60 p-1 rounded-xl">
               {[2024, 2025, 2026].map(yr => (
                 <button
                   key={yr}
@@ -178,10 +177,10 @@ export const DashboardView: React.FC = () => {
                     setChartYear(yr);
                     setSelectedYear(yr);
                   }}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                     chartYear === yr
-                      ? 'bg-fund-green text-white shadow-sm shadow-fund-green/20'
-                      : 'text-fund-muted hover:bg-white/60'
+                      ? 'bg-primary text-white shadow-sm shadow-primary/20'
+                      : 'text-muted-foreground hover:bg-white/60'
                   }`}
                 >
                   {yr}
@@ -191,11 +190,11 @@ export const DashboardView: React.FC = () => {
           </div>
 
           {/* Bar Chart */}
-          <div ref={barsRef} className="flex-grow flex items-end justify-between gap-1.5 pt-6 h-[240px] border-b border-fund-border/60 relative">
+          <div ref={barsRef} className="flex-grow flex items-end justify-between gap-1.5 pt-6 h-[240px] border-b border-border/60 relative">
             {/* Grid lines */}
-            <div className="absolute inset-0 flex flex-col justify-between pointer-events-none pb-8 opacity-30">
+            <div className="absolute inset-0 flex flex-col justify-between pointer-events-none pb-8 opacity-20">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="border-t border-dashed border-fund-border w-full" />
+                <div key={i} className="border-t border-dashed border-border w-full" />
               ))}
             </div>
 
@@ -207,22 +206,22 @@ export const DashboardView: React.FC = () => {
               return (
                 <div key={monthName} className="w-full flex flex-col items-center gap-2 relative z-10 group">
                   {/* Tooltip */}
-                  <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out bg-fund-text text-white text-[10px] px-2.5 py-1.5 rounded-lg shadow-lg pointer-events-none whitespace-nowrap z-20 scale-95 group-hover:scale-100">
+                  <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out bg-foreground text-white text-[10px] px-2.5 py-1.5 rounded-lg shadow-lg pointer-events-none whitespace-nowrap z-20 scale-95 group-hover:scale-100">
                     {amount.toLocaleString('ar-JO')} د.أ
-                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-fund-text rotate-45" />
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45" />
                   </div>
 
-                    <div className="w-full max-w-[28px] bg-fund-accent/60 rounded-lg h-full flex items-end overflow-hidden">
+                    <div className="w-full max-w-[28px] bg-primary-subtle/70 rounded-lg h-full flex items-end overflow-hidden">
                     <div
                       className={`chart-bar w-full rounded-t-md transition-all duration-700 ${
                         hasData
-                          ? 'bg-fund-green'
-                          : 'bg-fund-border/60'
+                          ? 'bg-primary'
+                          : 'bg-border/50'
                       }`}
                       style={{ height: `${Math.max(heightPct, 4)}%` }}
                     />
                   </div>
-                  <span className="text-[10px] text-fund-muted truncate max-w-full font-medium tracking-tight">
+                  <span className="text-[10px] text-muted-foreground truncate max-w-full font-medium tracking-tight">
                     {monthName}
                   </span>
                 </div>
@@ -230,22 +229,22 @@ export const DashboardView: React.FC = () => {
             })}
           </div>
 
-          <div className="mt-4 flex items-center justify-between text-xs text-fund-muted">
+          <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
             <span className="tracking-wide">
               إجمالي تحصيل العام:{' '}
-              <strong className="text-fund-green font-bold">{formatAmount(stats.collected)} د.أ</strong>
+              <strong className="text-primary font-bold">{formatAmount(stats.collected)} د.أ</strong>
             </span>
             <span className="tracking-wide">الهدف السنوي: {formatAmount(stats.expected)} د.أ</span>
           </div>
         </div>
 
         {/* Recent Activity */}
-        <div className="surface-elevated rounded-2xl p-6 flex flex-col">
+        <div className="bg-white rounded-2xl p-6 border border-border/60 shadow-sm flex flex-col">
           <div className="flex justify-between items-center mb-5">
-            <h3 className="text-lg font-bold text-fund-green tracking-tight" style={{ textWrap: 'balance' }}>أحدث العمليات</h3>
+            <h3 className="text-lg font-bold text-foreground tracking-tight" style={{ textWrap: 'balance' }}>أحدث العمليات</h3>
             <button
               onClick={() => setActiveTab('history')}
-              className="text-fund-green text-xs font-bold hover:bg-fund-accent px-3 py-1.5 rounded-lg transition-colors duration-300 flex items-center gap-1 hover:gap-2"
+              className="text-primary text-xs font-bold hover:bg-primary-subtle px-3 py-1.5 rounded-lg transition-colors duration-300 flex items-center gap-1 hover:gap-2"
             >
               <span>عرض الكل</span>
               <span className="material-symbols-outlined text-[16px]">arrow_back</span>
@@ -256,13 +255,13 @@ export const DashboardView: React.FC = () => {
             {transactions.slice(0, 5).map((tx, idx) => (
               <div
                 key={tx.id}
-                className="flex items-center gap-3 p-3 rounded-xl hover:bg-fund-accent/40 transition-all duration-300 group cursor-default"
+                className="flex items-center gap-3 p-3 rounded-xl hover:bg-primary-subtle/40 transition-all duration-300 group cursor-default"
                 style={{ animationDelay: `${idx * 60}ms` }}
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                  tx.status === 'completed' ? 'bg-status-paid-bg text-status-paid' :
-                  tx.status === 'processing' ? 'bg-status-pending-bg text-status-pending' :
-                  'bg-status-danger-surface text-status-danger'
+                  tx.status === 'completed' ? 'bg-success-bg text-success' :
+                  tx.status === 'processing' ? 'bg-warning-bg text-warning' :
+                  'bg-danger-surface text-danger'
                 }`}>
                   <span className="material-symbols-outlined text-lg">
                     {tx.status === 'completed' ? 'check_circle' : tx.status === 'processing' ? 'schedule' : 'error'}
@@ -270,14 +269,14 @@ export const DashboardView: React.FC = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-start">
-                    <p className="text-sm font-bold text-fund-text truncate tracking-wide">{tx.memberName}</p>
-                    <p className="text-xs font-bold text-fund-green tabular-nums shrink-0 mr-2">
+                    <p className="text-sm font-bold text-foreground truncate tracking-wide">{tx.memberName}</p>
+                    <p className="text-xs font-bold text-primary tabular-nums shrink-0 mr-2">
                       {tx.amount.toLocaleString('ar-JO')} د.أ
                     </p>
                   </div>
                   <div className="flex justify-between items-center mt-0.5">
-                    <p className="text-[11px] text-fund-muted truncate">{tx.monthYear}</p>
-                    <p className="text-[10px] text-fund-muted shrink-0 mr-2">{tx.date}</p>
+                    <p className="text-[11px] text-muted-foreground truncate">{tx.monthYear}</p>
+                    <p className="text-[10px] text-muted-foreground shrink-0 mr-2">{tx.date}</p>
                   </div>
                 </div>
               </div>

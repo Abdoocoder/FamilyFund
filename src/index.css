@@ -1,23 +1,74 @@
 @import "tailwindcss";
 
 @theme {
-  --color-fund-green: #154212;
-  --color-fund-green-light: #2d5a27;
-  --color-fund-surface: #f8f9ff;
-  --color-fund-border: #e2e8f0;
-  --color-fund-muted: #5c6357;
-  --color-fund-text: #0b1c30;
-  --color-fund-accent: #eff4ff;
-  --color-shadow: rgba(11, 28, 48, 0.04);
-  --color-shadow-green: rgba(45, 90, 39, 0.03);
-  --color-border-subtle: rgba(226, 232, 240, 0.6);
-  --color-glow-green: rgba(21, 66, 18, 0.1);
-  --color-glow-green-soft: rgba(21, 66, 18, 0.12);
-  --color-glow-green-deep: rgba(21, 66, 18, 0.08);
-  --color-selection: rgba(21, 66, 18, 0.12);
-  --color-scrollbar-track: rgba(229, 238, 255, 0.5);
-  --color-scrollbar-thumb: rgba(194, 201, 187, 0.6);
-  --color-scrollbar-hover: rgba(114, 121, 110, 0.6);
+  --color-primary: #1a6bff;
+  --color-primary-light: #4a8bff;
+  --color-primary-dark: #0050d6;
+  --color-primary-subtle: #eef3ff;
+
+  --color-secondary: #059669;
+  --color-secondary-light: #10B981;
+
+  --color-accent: #D97706;
+  --color-accent-light: #F59E0B;
+
+  --color-surface: oklch(0.97 0.008 255);
+  --color-foreground: oklch(0.13 0.01 255);
+  --color-muted-surface: oklch(0.95 0.01 255);
+  --color-muted-foreground: oklch(0.52 0.015 255);
+  --color-border: oklch(0.91 0.012 255);
+
+  --color-success: #059669;
+  --color-success-bg: oklch(0.94 0.04 155);
+  --color-success-surface: oklch(0.96 0.02 155);
+  --color-warning: oklch(0.65 0.14 75);
+  --color-warning-bg: oklch(0.94 0.04 90);
+  --color-warning-surface: oklch(0.96 0.025 90);
+  --color-danger: oklch(0.55 0.18 25);
+  --color-danger-bg: oklch(0.93 0.05 30);
+  --color-danger-surface: oklch(0.91 0.08 30);
+
+  --color-fund-green: #1a6bff;
+  --color-fund-green-light: #4a8bff;
+  --color-fund-surface: oklch(0.97 0.008 255);
+  --color-fund-border: oklch(0.91 0.012 255);
+  --color-fund-muted: oklch(0.52 0.015 255);
+  --color-fund-text: oklch(0.13 0.01 255);
+  --color-fund-accent: #eef3ff;
+  --color-shadow: rgba(26, 107, 255, 0.06);
+  --color-shadow-green: rgba(26, 107, 255, 0.03);
+  --color-border-subtle: oklch(0.91 0.008 255 / 0.6);
+  --color-glow-green: rgba(26, 107, 255, 0.12);
+  --color-glow-green-soft: rgba(26, 107, 255, 0.10);
+  --color-glow-green-deep: rgba(26, 107, 255, 0.06);
+  --color-selection: rgba(26, 107, 255, 0.12);
+  --color-scrollbar-track: oklch(0.95 0.01 255 / 0.5);
+  --color-scrollbar-thumb: oklch(0.75 0.01 255 / 0.6);
+  --color-scrollbar-hover: oklch(0.65 0.015 255 / 0.6);
+
+  --color-status-paid: #059669;
+  --color-status-paid-bg: oklch(0.94 0.04 155);
+  --color-status-pending: oklch(0.65 0.14 75);
+  --color-status-pending-bg: oklch(0.94 0.04 90);
+  --color-status-danger: oklch(0.55 0.18 25);
+  --color-status-danger-bg: oklch(0.93 0.05 30);
+  --color-status-danger-surface: oklch(0.91 0.08 30);
+
+  --color-warm-black: #0f0d0b;
+  --color-warm-surface: #1a1714;
+  --color-warm-elevated: #24201c;
+  --color-warm-border: #2d2823;
+  --color-warm-text: #f5f0eb;
+  --color-warm-muted: #9a9288;
+  --color-warm-subtle: rgba(255, 255, 255, 0.03);
+  --color-gold: #c9952e;
+  --color-gold-bright: #e8b84b;
+  --color-gold-deep: #8a6a1e;
+  --color-gold-muted: #a8882a;
+  --color-gold-subtle: rgba(201, 149, 46, 0.08);
+  --color-gold-glass: rgba(201, 149, 46, 0.06);
+  --color-warm-red: #f87171;
+
   --font-family-arabic: 'IBM Plex Sans Arabic', sans-serif;
 }
 
@@ -36,20 +87,18 @@
 
   body {
     font-family: var(--font-family-arabic);
-    background-color: var(--color-fund-surface);
-    color: var(--color-fund-text);
+    background-color: var(--color-surface);
+    color: var(--color-foreground);
     overflow-x: hidden;
     position: relative;
   }
 
-  /* Selection styling */
   ::selection {
     background-color: var(--color-selection);
-    color: var(--color-fund-text);
+    color: var(--color-foreground);
   }
 }
 
-/* Material Symbols */
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
@@ -71,24 +120,37 @@
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-/* Solid surface utility (replaces glassmorphism) */
 .surface {
-  background: var(--color-fund-surface);
-  border: 1px solid var(--color-fund-border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
-/* Surface elevation system */
-.surface-0 { background: var(--color-fund-surface); }
-.surface-1 { background: var(--color-fund-surface); }
+.surface-0 { background: var(--color-surface); }
+.surface-1 { background: var(--color-surface); }
 .surface-elevated {
-  background: var(--color-fund-surface);
+  background: white;
   box-shadow:
     0 1px 2px var(--color-shadow),
-    0 4px 12px var(--color-shadow-green),
-    0 0 0 1px var(--color-border-subtle);
+    0 8px 24px -4px rgba(15, 23, 42, 0.04);
 }
 
-/* Payment toggle micro-interaction */
+.card-soft {
+  background: white;
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.03),
+    0 4px 16px -4px rgba(15, 23, 42, 0.04);
+}
+
+.card-soft-border {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.02),
+    0 4px 12px -4px rgba(15, 23, 42, 0.03);
+}
+
 .payment-toggle {
   transition: transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -97,7 +159,6 @@
   transform: scale(0.96);
 }
 
-/* Custom scrollbar */
 .matrix-scroll::-webkit-scrollbar {
   height: 6px;
   width: 6px;
@@ -117,7 +178,6 @@
   background: var(--color-scrollbar-hover);
 }
 
-/* Ambient glow for active elements */
 .glow-green {
   box-shadow:
     0 0 0 1px var(--color-glow-green),
@@ -125,18 +185,6 @@
     0 8px 32px -8px var(--color-glow-green-deep);
 }
 
-/* Semantic color tokens for status indicators */
-@theme {
-  --color-status-paid: #154212;
-  --color-status-paid-bg: #d1fae5;
-  --color-status-pending: #92400e;
-  --color-status-pending-bg: #fef3c7;
-  --color-status-danger: #991b1b;
-  --color-status-danger-bg: #fee2e2;
-  --color-status-danger-surface: #ffdad6;
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -148,7 +196,6 @@
   }
 }
 
-/* Hover effects only on devices with fine pointer */
 @media (hover: hover) and (pointer: fine) {
   .hover-fine:hover {
     transform: translateY(-1px);

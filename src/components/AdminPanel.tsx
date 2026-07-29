@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { Id } from '../../convex/_generated/dataModel';
+import { ConfirmDialog } from './modals/ConfirmDialog';
 
 interface PendingUser {
   _id: Id<'members'>;
@@ -17,103 +18,110 @@ export const AdminPanel: React.FC = () => {
   const approveUser = useMutation(api.members.approveUser);
   const rejectUser = useMutation(api.members.rejectUser);
   const [processingId, setProcessingId] = useState<Id<'members'> | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [rejectTarget, setRejectTarget] = useState<Id<'members'> | null>(null);
 
   const handleApprove = async (memberId: Id<'members'>) => {
     setProcessingId(memberId);
+    setErrorMsg(null);
     try {
       await approveUser({ memberId, role: selectedRole });
     } catch (error) {
       console.error('Error approving user:', error);
-      alert('حدث خطأ أثناء الموافقة');
+      setErrorMsg('تعذر قبول الطلب. الرجاء المحاولة لاحقاً.');
     } finally {
       setProcessingId(null);
     }
   };
 
   const handleReject = async (memberId: Id<'members'>) => {
-    if (!confirm('هل أنت متأكد من رفض هذا الطلب؟')) return;
-
     setProcessingId(memberId);
+    setErrorMsg(null);
     try {
       await rejectUser({ memberId });
     } catch (error) {
       console.error('Error rejecting user:', error);
-      alert('حدث خطأ أثناء الرفض');
+      setErrorMsg('تعذر رفض الطلب. الرجاء المحاولة لاحقاً.');
     } finally {
       setProcessingId(null);
+      setRejectTarget(null);
     }
   };
 
   if (pendingMembers === undefined) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-fund-green"></div>
       </div>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2" dir="rtl">
+      <div className="mb-6">
+        <h1 className="text-xl font-bold text-fund-text mb-1" dir="rtl">
           إدارة طلبات العضوية
         </h1>
-        <p className="text-gray-600" dir="rtl">
-          مراجعة والموافقة على طلبات الانضمام الجديدة
+        <p className="text-sm text-fund-muted" dir="rtl">
+          مراجعة طلبات الانضمام الجديدة
         </p>
       </div>
 
+      {errorMsg && (
+        <div className="mb-4 p-3 bg-status-danger-surface border border-status-danger/20 rounded-xl text-status-danger text-sm text-center" dir="rtl">
+          {errorMsg}
+        </div>
+      )}
+
       {pendingMembers.length === 0 ? (
-        <div className="bg-white rounded-lg shadow p-8 text-center">
-          <span className="material-symbols-outlined text-gray-400 text-5xl mb-4">
+        <div className="surface-elevated rounded-2xl p-8 text-center">
+          <span className="material-symbols-outlined text-fund-muted text-4xl mb-3">
             check_circle
           </span>
-          <p className="text-gray-600">لا توجد طلبات معلقة</p>
+          <p className="text-fund-muted">لا توجد طلبات معلقة</p>
+          <p className="text-xs text-fund-muted/60 mt-2">سيظهر هنا طلب كل عضو جديد يقوم بالتسجيل</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {pendingMembers.map((user) => (
-            <div key={user._id} className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900" dir="rtl">
+            <div key={user._id} className="surface-elevated rounded-2xl p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-fund-text" dir="rtl">
                     {user.full_name}
                   </h3>
                   {user.phone && (
-                    <p className="text-gray-600 text-sm mt-1" dir="ltr">
+                    <p className="text-fund-muted text-sm mt-0.5" dir="ltr">
                       {user.phone}
                     </p>
                   )}
-                  <p className="text-gray-400 text-xs mt-2">
-                    تم التسجيل: {new Date(user.created_at).toLocaleDateString('ar-JO')}
+                  <p className="text-fund-muted/50 text-xs mt-1">
+                    {new Date(user.created_at).toLocaleDateString('ar-JO')}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  {/* Role Selector */}
+                <div className="flex items-center gap-2 shrink-0">
                   <select
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value as 'admin' | 'member')}
-                    className="border rounded px-3 py-2 text-sm"
+                    className="border border-fund-border/40 rounded-xl px-3 py-2 text-xs text-fund-text bg-white cursor-pointer"
                   >
                     <option value="member">عضو</option>
                     <option value="admin">مسؤول</option>
                   </select>
 
-                  {/* Approve Button */}
                   <button
                     onClick={() => handleApprove(user._id)}
                     disabled={processingId === user._id}
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
+                    className="bg-fund-green text-white hover:bg-fund-green/90 px-4 py-2 rounded-xl text-xs font-medium transition-all active:scale-[0.97] disabled:opacity-50 cursor-pointer"
                   >
-                    {processingId === user._id ? 'جاري...' : 'موافقة'}
+                    {processingId === user._id ? 'قبول...' : 'قبول'}
                   </button>
 
-                  {/* Reject Button */}
                   <button
-                    onClick={() => handleReject(user._id)}
+                    onClick={() => setRejectTarget(user._id)}
                     disabled={processingId === user._id}
-                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
+                    className="bg-status-danger text-white hover:bg-status-danger/90 px-4 py-2 rounded-xl text-xs font-medium transition-all active:scale-[0.97] disabled:opacity-50 cursor-pointer"
                   >
                     رفض
                   </button>
@@ -123,6 +131,16 @@ export const AdminPanel: React.FC = () => {
           ))}
         </div>
       )}
+
+      <ConfirmDialog
+        isOpen={!!rejectTarget}
+        message="رفض الطلب؟ لن يتمكن العضو من الانضمام."
+        confirmLabel="رفض العضو"
+        cancelLabel="إلغاء"
+        variant="danger"
+        onConfirm={() => rejectTarget && handleReject(rejectTarget)}
+        onCancel={() => setRejectTarget(null)}
+      />
     </div>
   );
 };

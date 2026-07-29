@@ -15,7 +15,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
   const [search, setSearch] = useState('');
   const [tabFilter, setTabFilter] = useState<'active' | 'archived' | 'all'>('active');
 
-  const [confirmAction, setConfirmAction] = useState<{ memberId: string; message: string } | null>(null);
+  const [confirmAction, setConfirmAction] = useState<{ memberId: string; message: string; confirmLabel: string } | null>(null);
 
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -67,8 +67,8 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
   }, [tabFilter]);
 
   const filterTabs = [
-    { id: 'active' as const, label: 'الاعضاء النشطين', count: activeCount },
-    { id: 'archived' as const, label: 'المؤرشفين', count: archivedCount },
+    { id: 'active' as const, label: 'نشط', count: activeCount },
+    { id: 'archived' as const, label: 'مؤرشف', count: archivedCount },
     { id: 'all' as const, label: 'الكل', count: members.length },
   ];
 
@@ -134,7 +134,8 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
         {filteredMembers.length === 0 ? (
           <div className="col-span-full py-16 text-center surface-elevated rounded-2xl">
             <span className="material-symbols-outlined text-5xl text-fund-border block mb-3">group_off</span>
-            <p className="text-fund-muted">لا يوجد أعضاء يطابقون خيارات البحث.</p>
+            <p className="text-fund-muted">لا يوجد أعضاء يطابقون البحث.</p>
+              <p className="text-xs text-fund-muted/60 mt-2">جرّب مسح البحث أو تغيير علامة التبويب.</p>
           </div>
         ) : (
           filteredMembers.map(member => {
@@ -188,7 +189,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                         </button>
                       )}
                       <button
-                        onClick={() => setConfirmAction({ memberId: member.id, message: `هل أنت متأكد من أرشفة العضو "${member.name}"؟` })}
+                        onClick={() => setConfirmAction({ memberId: member.id, message: `أرشفة العضو "${member.name}"؟`, confirmLabel: 'أرشفة العضو' })}
                         className="flex-1 bg-white border border-status-danger/30 text-status-danger hover:bg-status-danger-surface text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
                       >
                         <span className="material-symbols-outlined text-[16px]">archive</span>
@@ -197,7 +198,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                     </>
                   ) : (
                     <button
-                      onClick={() => setConfirmAction({ memberId: member.id, message: `هل تريد استعادة العضو "${member.name}" إلى القائمة النشطة؟` })}
+                      onClick={() => setConfirmAction({ memberId: member.id, message: `استعادة العضو "${member.name}" إلى القائمة النشطة؟`, confirmLabel: 'استعادة العضو' })}
                       className="w-full bg-fund-green text-white hover:bg-fund-green-light text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
                     >
                       <span className="material-symbols-outlined text-[16px]">unarchive</span>
@@ -214,8 +215,8 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
       <ConfirmDialog
         isOpen={!!confirmAction}
         message={confirmAction?.message ?? ''}
-        confirmLabel="تأكيد"
-        cancelLabel="إلغاء"
+        confirmLabel={confirmAction?.confirmLabel ?? 'تأكيد'}
+        cancelLabel={confirmAction?.message.includes('أرشفة') ? 'إلغاء الأرشفة' : 'إبقاء العضو'}
         variant="danger"
         onConfirm={handleConfirmArchive}
         onCancel={() => setConfirmAction(null)}
