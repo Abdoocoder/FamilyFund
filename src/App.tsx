@@ -25,13 +25,29 @@ const MainContent: React.FC = () => {
   const [isNewPaymentOpen, setIsNewPaymentOpen] = useState(false);
   const [memberToEdit, setMemberToEdit] = useState<Member | null>(null);
 
-  // Loading state
+  // Loading state — skeleton matching app layout
   if (currentMember === undefined) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          <p className="text-muted-foreground text-sm">جاري التحميل...</p>
+      <div className="min-h-screen flex flex-col">
+        <div className="h-16 bg-white border-b border-border/50" />
+        <div className="flex-1 flex max-w-7xl w-full mx-auto">
+          <aside className="hidden md:flex flex-col w-64 bg-white border-l border-border/40 p-4 gap-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="h-11 rounded-xl bg-primary-subtle/60 animate-pulse" />
+            ))}
+          </aside>
+          <main className="flex-1 p-4 md:p-6 lg:p-8">
+            <div className="space-y-4 animate-pulse">
+              <div className="h-8 w-64 rounded-lg bg-primary-subtle/60" />
+              <div className="h-4 w-48 rounded bg-primary-subtle/40" />
+              <div className="grid grid-cols-3 gap-4 mt-8">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="h-28 rounded-2xl bg-primary-subtle/60" />
+                ))}
+              </div>
+              <div className="h-64 rounded-2xl bg-primary-subtle/40 mt-4" />
+            </div>
+          </main>
         </div>
       </div>
     );

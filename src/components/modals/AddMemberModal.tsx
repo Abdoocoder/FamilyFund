@@ -62,23 +62,23 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
     onClose();
   };
 
-  const inputClass = "w-full bg-fund-accent/40 border border-fund-border/60 rounded-xl px-3.5 py-2.5 text-sm text-fund-text focus:ring-2 focus:ring-fund-green/20 focus:border-fund-green outline-none transition-all placeholder-fund-muted/50";
+  const inputClass = "w-full bg-primary-subtle border border-border/60 rounded-xl px-3.5 py-2.5 text-sm text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder-muted-foreground/50";
 
   return (
     <dialog
       ref={dialogRef}
       onClose={onClose}
       onCancel={onClose}
-      className="backdrop:bg-black/40 rounded-2xl p-0 max-w-md w-full shadow-2xl border border-fund-border/30"
+      className="backdrop:bg-black/40 rounded-2xl p-0 max-w-md w-full shadow-2xl border border-border/30"
     >
       <div className="bg-white rounded-2xl p-6">
-        <div className="flex justify-between items-center mb-5 pb-3 border-b border-fund-border/40">
-          <h3 className="text-xl font-bold text-fund-green tracking-tight">
+        <div className="flex justify-between items-center mb-5 pb-3 border-b border-border/40">
+          <h3 className="text-xl font-bold text-primary tracking-tight">
             {memberToEdit ? 'تعديل بيانات العضو' : 'إضافة عضو جديد للصندوق'}
           </h3>
           <button
             onClick={onClose}
-            className="text-fund-muted hover:bg-fund-accent p-1.5 rounded-xl transition-colors"
+            className="text-muted-foreground hover:bg-primary-subtle p-1.5 rounded-xl transition-colors"
           >
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -86,7 +86,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="member-name" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">الاسم الكامل *</label>
+            <label htmlFor="member-name" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">الاسم الكامل *</label>
             <input
               ref={firstInputRef}
               id="member-name"
@@ -101,7 +101,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
           </div>
 
           <div>
-            <label htmlFor="member-phone" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">رقم الهاتف الجوال *</label>
+            <label htmlFor="member-phone" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">رقم الهاتف الجوال *</label>
             <input
               id="member-phone"
               type="tel"
@@ -113,11 +113,11 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
               placeholder="+966 50 123 4567"
               className={`${inputClass} dir-ltr text-right`}
             />
-            <p className="text-[10px] text-fund-muted mt-1">صيغة صحيحة: +966 50 123 4567</p>
+            <p className="text-[10px] text-muted-foreground mt-1">صيغة صحيحة: +966 50 123 4567</p>
           </div>
 
           <div>
-            <label htmlFor="member-branch" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">فرع العائلة / اللقب</label>
+            <label htmlFor="member-branch" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">فرع العائلة / اللقب</label>
             <input
               id="member-branch"
               type="text"
@@ -149,7 +149,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
           </div>
 
           <div>
-            <label htmlFor="member-amount" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">مبلغ الاشتراك الشهري (دينار أردني)</label>
+            <label htmlFor="member-amount" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">مبلغ الاشتراك الشهري (دينار أردني)</label>
             <input
               id="member-amount"
               type="number"
@@ -159,22 +159,22 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
               required
               value={subscriptionAmount}
               onChange={e => setSubscriptionAmount(Number(e.target.value))}
-              className={`${inputClass} font-bold text-fund-green`}
+              className={`${inputClass} font-bold text-success`}
             />
-            <p className="text-[10px] text-fund-muted mt-1">الحد الأدنى: 50 د.أ | الحد الأقصى: 5,000 د.أ</p>
+            <p className="text-[10px] text-muted-foreground mt-1">الحد الأدنى: 50 د.أ | الحد الأقصى: 5,000 د.أ</p>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-4 border-t border-fund-border/40">
+          <div className="flex items-center justify-end gap-2 pt-4 border-t border-border/40">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-fund-muted hover:bg-fund-accent rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-muted-foreground hover:bg-primary-subtle rounded-xl transition-colors"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold bg-fund-green hover:bg-fund-green-light text-white rounded-xl transition-all shadow-sm hover:shadow-md active:scale-[0.97]"
+              className="px-5 py-2 text-xs font-bold bg-primary hover:bg-primary-light text-white rounded-xl transition-all shadow-sm hover:shadow-md active:scale-[0.97]"
             >
               {memberToEdit ? 'حفظ التعديلات' : 'إضافة العضو'}
             </button>

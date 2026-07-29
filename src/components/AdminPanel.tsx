@@ -51,7 +51,7 @@ export const AdminPanel: React.FC = () => {
   if (pendingMembers === undefined) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-fund-green"></div>
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
       </div>
     );
   }

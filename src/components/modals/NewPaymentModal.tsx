@@ -49,24 +49,24 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
   };
 
   const selectedMember = activeMembers.find(m => m.id === memberId);
-  const inputClass = "w-full bg-fund-accent/40 border border-fund-border/60 rounded-xl px-3.5 py-2.5 text-sm text-fund-text focus:ring-2 focus:ring-fund-green/20 focus:border-fund-green outline-none transition-all";
+  const inputClass = "w-full bg-primary-subtle border border-border/60 rounded-xl px-3.5 py-2.5 text-sm text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all";
 
   return (
     <dialog
       ref={dialogRef}
       onClose={onClose}
       onCancel={onClose}
-      className="backdrop:bg-black/40 rounded-2xl p-0 max-w-md w-full shadow-2xl border border-fund-border/30"
+      className="backdrop:bg-black/40 rounded-2xl p-0 max-w-md w-full shadow-2xl border border-border/30"
     >
       <div className="bg-white rounded-2xl p-6">
-        <div className="flex justify-between items-center mb-5 pb-3 border-b border-fund-border/40">
-          <h3 className="text-xl font-bold text-fund-green flex items-center gap-2 tracking-tight">
-            <span className="material-symbols-outlined text-fund-green text-lg">payments</span>
+        <div className="flex justify-between items-center mb-5 pb-3 border-b border-border/40">
+          <h3 className="text-xl font-bold text-primary flex items-center gap-2 tracking-tight">
+            <span className="material-symbols-outlined text-primary text-lg">payments</span>
             <span>تسجيل دفعة جديدة</span>
           </h3>
           <button
             onClick={onClose}
-            className="text-fund-muted hover:bg-fund-accent p-1.5 rounded-xl transition-colors"
+            className="text-muted-foreground hover:bg-primary-subtle p-1.5 rounded-xl transition-colors"
           >
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -74,7 +74,7 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="payment-member" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">اختر العضو *</label>
+            <label htmlFor="payment-member" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">اختر العضو *</label>
             <select
               ref={firstInputRef}
               id="payment-member"
@@ -98,7 +98,7 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="payment-year" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">السنة *</label>
+              <label htmlFor="payment-year" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">السنة *</label>
               <select
                 id="payment-year"
                 value={year}
@@ -112,7 +112,7 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
             </div>
 
             <div>
-              <label htmlFor="payment-month" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">الشهر *</label>
+              <label htmlFor="payment-month" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">الشهر *</label>
               <select
                 id="payment-month"
                 value={month}
@@ -129,7 +129,7 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
           </div>
 
           <div>
-            <label htmlFor="payment-amount" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">المبلغ المدفوع (دينار أردني) *</label>
+            <label htmlFor="payment-amount" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">المبلغ المدفوع (دينار أردني) *</label>
             <input
               id="payment-amount"
               type="number"
@@ -137,17 +137,17 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
               required
               value={amount}
               onChange={e => setAmount(Number(e.target.value))}
-              className={`${inputClass} font-bold text-fund-green`}
+              className={`${inputClass} font-bold text-primary`}
             />
             {selectedMember && (
-              <p className="text-[11px] text-fund-muted mt-1.5 tracking-wide">
+              <p className="text-[11px] text-muted-foreground mt-1.5 tracking-wide">
                 الاشتراك الشهري المحدد للعضو: {selectedMember.subscriptionAmount} د.أ
               </p>
             )}
           </div>
 
           <div>
-            <label htmlFor="payment-note" className="block text-xs font-bold text-fund-text mb-1.5 tracking-wide">ملاحظات / رقم الحوالة</label>
+            <label htmlFor="payment-note" className="block text-xs font-bold text-foreground mb-1.5 tracking-wide">ملاحظات / رقم الحوالة</label>
             <input
               id="payment-note"
               type="text"
@@ -158,17 +158,17 @@ export const NewPaymentModal: React.FC<NewPaymentModalProps> = ({ isOpen, onClos
             />
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-4 border-t border-fund-border/40">
+          <div className="flex items-center justify-end gap-2 pt-4 border-t border-border/40">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-fund-muted hover:bg-fund-accent rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-muted-foreground hover:bg-primary-subtle rounded-xl transition-colors"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold bg-fund-green hover:bg-fund-green-light text-white rounded-xl transition-all shadow-sm hover:shadow-md active:scale-[0.97]"
+              className="px-5 py-2 text-xs font-bold bg-primary hover:bg-primary-light text-white rounded-xl transition-all shadow-sm hover:shadow-md active:scale-[0.97]"
             >
               تأكيد وتسجيل الدفعة
             </button>

@@ -1,47 +1,33 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
+  --font-family-arabic: 'IBM Plex Sans Arabic', sans-serif;
+
   --color-primary: #1a6bff;
   --color-primary-light: #4a8bff;
   --color-primary-dark: #0050d6;
   --color-primary-subtle: #eef3ff;
 
-  --color-secondary: #059669;
-  --color-secondary-light: #10B981;
-
-  --color-accent: #D97706;
-  --color-accent-light: #F59E0B;
-
-  --color-surface: oklch(0.97 0.008 255);
-  --color-foreground: oklch(0.13 0.01 255);
-  --color-muted-surface: oklch(0.95 0.01 255);
-  --color-muted-foreground: oklch(0.52 0.015 255);
-  --color-border: oklch(0.91 0.012 255);
-
   --color-success: #059669;
   --color-success-bg: oklch(0.94 0.04 155);
-  --color-success-surface: oklch(0.96 0.02 155);
   --color-warning: oklch(0.65 0.14 75);
   --color-warning-bg: oklch(0.94 0.04 90);
-  --color-warning-surface: oklch(0.96 0.025 90);
   --color-danger: oklch(0.55 0.18 25);
   --color-danger-bg: oklch(0.93 0.05 30);
-  --color-danger-surface: oklch(0.91 0.08 30);
 
-  --color-fund-green: #1a6bff;
-  --color-fund-green-light: #4a8bff;
-  --color-fund-surface: oklch(0.97 0.008 255);
-  --color-fund-border: oklch(0.91 0.012 255);
-  --color-fund-muted: oklch(0.52 0.015 255);
-  --color-fund-text: oklch(0.13 0.01 255);
-  --color-fund-accent: #eef3ff;
-  --color-shadow: rgba(26, 107, 255, 0.06);
-  --color-shadow-green: rgba(26, 107, 255, 0.03);
+  --color-surface: oklch(0.97 0.008 255);
+  --color-surface-elevated: white;
+  --color-foreground: oklch(0.13 0.01 255);
+  --color-muted: oklch(0.52 0.015 255);
+  --color-border: oklch(0.91 0.012 255);
   --color-border-subtle: oklch(0.91 0.008 255 / 0.6);
-  --color-glow-green: rgba(26, 107, 255, 0.12);
-  --color-glow-green-soft: rgba(26, 107, 255, 0.10);
-  --color-glow-green-deep: rgba(26, 107, 255, 0.06);
+
+  --color-shadow: rgba(15, 23, 42, 0.04);
+  --color-shadow-medium: rgba(15, 23, 42, 0.06);
   --color-selection: rgba(26, 107, 255, 0.12);
+
   --color-scrollbar-track: oklch(0.95 0.01 255 / 0.5);
   --color-scrollbar-thumb: oklch(0.75 0.01 255 / 0.6);
   --color-scrollbar-hover: oklch(0.65 0.015 255 / 0.6);
@@ -52,7 +38,14 @@
   --color-status-pending-bg: oklch(0.94 0.04 90);
   --color-status-danger: oklch(0.55 0.18 25);
   --color-status-danger-bg: oklch(0.93 0.05 30);
-  --color-status-danger-surface: oklch(0.91 0.08 30);
+
+  --color-fund-green: #1a6bff;
+  --color-fund-green-light: #4a8bff;
+  --color-fund-surface: oklch(0.97 0.008 255);
+  --color-fund-border: oklch(0.91 0.012 255);
+  --color-fund-muted: oklch(0.52 0.015 255);
+  --color-fund-text: oklch(0.13 0.01 255);
+  --color-fund-accent: #eef3ff;
 
   --color-warm-black: #0f0d0b;
   --color-warm-surface: #1a1714;
@@ -61,15 +54,54 @@
   --color-warm-text: #f5f0eb;
   --color-warm-muted: #9a9288;
   --color-warm-subtle: rgba(255, 255, 255, 0.03);
+  --color-warm-red: #f87171;
   --color-gold: #c9952e;
   --color-gold-bright: #e8b84b;
   --color-gold-deep: #8a6a1e;
-  --color-gold-muted: #a8882a;
-  --color-gold-subtle: rgba(201, 149, 46, 0.08);
-  --color-gold-glass: rgba(201, 149, 46, 0.06);
-  --color-warm-red: #f87171;
 
-  --font-family-arabic: 'IBM Plex Sans Arabic', sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+}
+
+[data-theme="dark"] {
+  --color-primary: #4a8bff;
+  --color-primary-light: #6ba5ff;
+  --color-primary-dark: #1a6bff;
+  --color-primary-subtle: oklch(0.2 0.04 265);
+
+  --color-success: #10b981;
+  --color-success-bg: oklch(0.25 0.04 155);
+  --color-warning: #f59e0b;
+  --color-warning-bg: oklch(0.28 0.06 75);
+  --color-danger: #f87171;
+  --color-danger-bg: oklch(0.28 0.08 25);
+
+  --color-surface: oklch(0.15 0.01 265);
+  --color-surface-elevated: oklch(0.19 0.015 265);
+  --color-foreground: oklch(0.93 0.008 265);
+  --color-muted: oklch(0.6 0.01 265);
+  --color-border: oklch(0.25 0.015 265);
+  --color-border-subtle: oklch(0.25 0.01 265 / 0.6);
+
+  --color-shadow: rgba(0, 0, 0, 0.2);
+  --color-shadow-medium: rgba(0, 0, 0, 0.3);
+  --color-selection: rgba(74, 139, 255, 0.25);
+
+  --color-scrollbar-track: oklch(0.2 0.01 265 / 0.5);
+  --color-scrollbar-thumb: oklch(0.35 0.01 265 / 0.6);
+  --color-scrollbar-hover: oklch(0.4 0.015 265 / 0.6);
+
+  --color-status-paid: #10b981;
+  --color-status-paid-bg: oklch(0.25 0.04 155);
+  --color-status-pending: #f59e0b;
+  --color-status-pending-bg: oklch(0.28 0.06 75);
+  --color-status-danger: #f87171;
+  --color-status-danger-bg: oklch(0.28 0.08 25);
 }
 
 @layer base {
@@ -120,35 +152,13 @@
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-.surface {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-}
-
-.surface-0 { background: var(--color-surface); }
-.surface-1 { background: var(--color-surface); }
 .surface-elevated {
-  background: white;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
   box-shadow:
     0 1px 2px var(--color-shadow),
-    0 8px 24px -4px rgba(15, 23, 42, 0.04);
-}
-
-.card-soft {
-  background: white;
-  border-radius: 1rem;
-  box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.03),
-    0 4px 16px -4px rgba(15, 23, 42, 0.04);
-}
-
-.card-soft-border {
-  background: white;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.02),
-    0 4px 12px -4px rgba(15, 23, 42, 0.03);
+    0 4px 12px -4px var(--color-shadow-medium);
 }
 
 .payment-toggle {
@@ -178,11 +188,10 @@
   background: var(--color-scrollbar-hover);
 }
 
-.glow-green {
-  box-shadow:
-    0 0 0 1px var(--color-glow-green),
-    0 0 20px -4px var(--color-glow-green-soft),
-    0 8px 32px -8px var(--color-glow-green-deep);
+@layer utilities {
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -193,11 +202,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hover-fine:hover {
-    transform: translateY(-1px);
   }
 }

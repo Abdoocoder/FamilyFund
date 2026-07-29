@@ -252,7 +252,14 @@ export const DashboardView: React.FC = () => {
           </div>
 
           <div className="flex-1 flex flex-col gap-3">
-            {transactions.slice(0, 5).map((tx, idx) => (
+            {transactions.length === 0 ? (
+              <div className="flex-1 flex flex-col items-center justify-center text-center py-10">
+                <span className="material-symbols-outlined text-4xl text-border mb-3">receipt_long</span>
+                <p className="text-sm text-muted-foreground">لا توجد عمليات مسجلة بعد</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">قم بتسجيل دفعة جديدة لظهورها هنا</p>
+              </div>
+            ) : (
+              transactions.slice(0, 5).map((tx, idx) => (
               <div
                 key={tx.id}
                 className="flex items-center gap-3 p-3 rounded-xl hover:bg-primary-subtle/40 transition-all duration-300 group cursor-default"
@@ -280,7 +287,7 @@ export const DashboardView: React.FC = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            )))}
           </div>
         </div>
       </section>

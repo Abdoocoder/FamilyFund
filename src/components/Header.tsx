@@ -60,7 +60,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment, isAdmin }) => 
         <div className="flex items-center gap-2">
           {isAdmin && (
             <button
-              className="flex items-center gap-2 bg-primary-subtle hover:bg-primary/10 text-primary px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+              onClick={() => setActiveTab('admin')}
+              className="flex items-center gap-2 bg-primary-subtle hover:bg-primary/10 text-primary px-3 py-2 rounded-lg text-sm font-medium transition-colors active:scale-[0.97]"
             >
               <span className="material-symbols-outlined text-lg">admin_panel_settings</span>
               <span>الإدارة</span>
