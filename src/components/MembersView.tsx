@@ -97,7 +97,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
       </div>
 
       {/* Search & Filter Tabs */}
-      <div className="bg-white p-3 rounded-2xl border border-fund-border/40 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+      <div className="bg-surface-elevated p-3 rounded-2xl border border-border/40 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
         <div className="relative flex-1">
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-fund-muted">
             <span className="material-symbols-outlined text-lg">search</span>
@@ -108,11 +108,11 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
             onChange={e => setSearch(e.target.value)}
             placeholder="البحث بالاسم، رقم الهاتف، أو فرع العائلة..."
             aria-label="البحث عن عضو"
-            className="w-full bg-white border border-fund-border/60 text-sm text-fund-text rounded-xl py-2.5 pr-10 pl-4 focus:ring-2 focus:ring-fund-green/20 focus:border-fund-green transition-all placeholder-fund-muted/60 shadow-sm"
+            className="w-full bg-surface-elevated border border-border/60 text-sm text-foreground rounded-xl py-2.5 pr-10 pl-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder-muted/60 shadow-sm"
           />
         </div>
 
-        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-fund-border/40 shadow-sm">
+        <div className="flex items-center gap-1 bg-surface-elevated p-1 rounded-xl border border-border/40 shadow-sm">
           {filterTabs.map(tab => (
             <button
               key={tab.id}
@@ -182,7 +182,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                       {isAdmin && (
                         <button
                           onClick={() => onEditMember(member)}
-                          className="flex-1 bg-white border border-fund-green/30 text-fund-green hover:bg-fund-accent text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
+                          className="flex-1 bg-surface-elevated border border-primary/30 text-primary hover:bg-primary-subtle text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
                         >
                           <span className="material-symbols-outlined text-[16px]">edit</span>
                           تعديل
@@ -190,7 +190,7 @@ export const MembersView: React.FC<MembersViewProps> = ({ onOpenAddMember, onEdi
                       )}
                       <button
                         onClick={() => setConfirmAction({ memberId: member.id, message: `أرشفة العضو "${member.name}"؟`, confirmLabel: 'أرشفة العضو' })}
-                        className="flex-1 bg-white border border-status-danger/30 text-status-danger hover:bg-status-danger-surface text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none"
+                        className="flex-1 bg-surface-elevated border border-danger/30 text-danger hover:bg-danger-bg text-xs font-bold py-2 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
                       >
                         <span className="material-symbols-outlined text-[16px]">archive</span>
                         أرشفة

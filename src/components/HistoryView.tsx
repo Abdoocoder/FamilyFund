@@ -87,7 +87,7 @@ export const HistoryView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 focus-visible:ring-2 focus-visible:ring-fund-green focus-visible:outline-none ${
                   historyYear === yr
                     ? 'bg-fund-green text-white shadow-sm shadow-fund-green/20'
-                    : 'text-fund-muted hover:bg-white/60'
+                    : 'text-muted hover:bg-surface-elevated/60'
                 }`}
               >
                 {yr}
@@ -166,7 +166,7 @@ export const HistoryView: React.FC = () => {
               <span className="text-sm font-bold text-fund-green tabular-nums">{totalFundTarget.toLocaleString('ar-JO')} د.أ</span>
             </div>
 
-            <div className="w-12 h-12 rounded-full border-[3px] border-fund-green border-t-transparent flex items-center justify-center relative bg-white shadow-sm">
+            <div className="w-12 h-12 rounded-full border-[3px] border-primary border-t-transparent flex items-center justify-center relative bg-surface-elevated shadow-sm">
               <span className="text-[11px] font-bold text-fund-green tabular-nums">{fundHealthPct}%</span>
             </div>
           </div>
@@ -189,7 +189,7 @@ export const HistoryView: React.FC = () => {
                     setHistoryMonth(m);
                     setSelectedMonth(m);
                   }}
-                  className="bg-white border border-fund-border/60 text-fund-text text-xs font-bold rounded-xl pl-8 pr-3 py-1.5 appearance-none focus:outline-none focus:ring-2 focus:ring-fund-green/20 cursor-pointer shadow-sm"
+                  className="bg-surface-elevated border border-border/60 text-foreground text-xs font-bold rounded-xl pl-8 pr-3 py-1.5 appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-sm"
                 >
                   {ARABIC_MONTHS.map((mName, idx) => (
                     <option key={mName} value={idx + 1}>

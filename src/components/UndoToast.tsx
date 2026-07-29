@@ -40,7 +40,7 @@ export const UndoToast: React.FC<UndoToastProps> = ({
       <span className="text-sm font-medium tracking-wide">{message}</span>
       <button
         onClick={handleUndo}
-        className="text-primary-light font-bold text-sm px-3 py-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+        className="text-primary-light font-bold text-sm px-3 py-1 rounded-lg hover:bg-surface-elevated/10 transition-colors cursor-pointer"
       >
         تراجع
       </button>

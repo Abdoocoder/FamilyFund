@@ -78,7 +78,8 @@ export const DashboardView: React.FC = () => {
     return () => ctx.revert();
   }, [chartYear]);
 
-  const kpiCards = [
+  interface KpiCard { label: string; value: string; suffix: string; sub: string | null; icon: string; iconBg: string; valueClass: string; isFeatured?: boolean; }
+  const kpiCards: KpiCard[] = [
     {
       label: 'إجمالي المتوقع',
       value: formatAmount(stats.expected),
@@ -112,7 +113,7 @@ export const DashboardView: React.FC = () => {
       suffix: '',
       sub: null,
       icon: 'trending_up',
-      iconBg: 'bg-white/20 text-white',
+      iconBg: 'bg-surface-elevated/20 text-white',
       valueClass: 'text-white',
       isFeatured: true,
     },
@@ -121,7 +122,7 @@ export const DashboardView: React.FC = () => {
   return (
     <div className="space-y-6 pb-24 md:pb-8">
       {/* Welcome Header */}
-      <section ref={welcomeRef} className="relative bg-white rounded-2xl overflow-hidden shadow-sm border border-border/40">
+      <section ref={welcomeRef} className="relative bg-surface-elevated rounded-2xl overflow-hidden shadow-sm border border-border/40">
         <div className="absolute right-0 top-0 bottom-0 w-1 bg-primary/30 rounded-r-lg" />
         <div className="p-6 md:p-8 pr-7 md:pr-9">
           <h2 className="text-2xl md:text-3xl text-foreground font-bold tracking-tight" style={{ textWrap: 'balance' }}>
@@ -139,13 +140,13 @@ export const DashboardView: React.FC = () => {
           <div
             key={card.label}
             className={`rounded-2xl p-5 flex flex-col justify-between cursor-default border transition-shadow duration-300 ${
-              (card as any).isFeatured
+              card.isFeatured
                 ? 'bg-gradient-to-br from-primary to-primary-dark text-white border-primary shadow-md shadow-primary/15'
-                : 'bg-white border-border/60 hover:shadow-md hover:shadow-black/5'
+                : 'bg-surface-elevated border-border/60 hover:shadow-md hover:shadow-black/5'
             }`}
           >
             <div className="flex justify-between items-start mb-4">
-              <span className={`text-xs md:text-sm font-medium tracking-wide ${(card as any).isFeatured ? 'text-white/80' : 'text-muted-foreground'}`}>{card.label}</span>
+              <span className={`text-xs md:text-sm font-medium tracking-wide ${card.isFeatured ? 'text-white/80' : 'text-muted-foreground'}`}>{card.label}</span>
               <div className={`w-10 h-10 rounded-xl ${card.iconBg} flex items-center justify-center shadow-sm`}>
                 <span className="material-symbols-outlined text-lg">{card.icon}</span>
               </div>
@@ -153,10 +154,10 @@ export const DashboardView: React.FC = () => {
             <div>
               <div className={`text-2xl md:text-3xl ${card.valueClass} font-bold tabular-nums tracking-tight`}>
                 {card.value}
-                {card.suffix && <span className={`text-sm font-normal mr-1 ${(card as any).isFeatured ? 'text-white/70' : 'text-muted-foreground'}`}>{card.suffix}</span>}
+                {card.suffix && <span className={`text-sm font-normal mr-1 ${card.isFeatured ? 'text-white/70' : 'text-muted-foreground'}`}>{card.suffix}</span>}
               </div>
               {card.sub && (
-                <div className={`text-[11px] mt-1 tracking-wide ${(card as any).isFeatured ? 'text-white/60' : 'text-muted-foreground'}`}>{card.sub}</div>
+                <div className={`text-[11px] mt-1 tracking-wide ${card.isFeatured ? 'text-white/60' : 'text-muted-foreground'}`}>{card.sub}</div>
               )}
             </div>
           </div>
@@ -166,7 +167,7 @@ export const DashboardView: React.FC = () => {
       {/* Grid: Chart & Recent Activity */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Chart Section */}
-        <div ref={chartRef} className="lg:col-span-2 bg-white rounded-2xl p-6 border border-border/60 shadow-sm flex flex-col">
+        <div ref={chartRef} className="lg:col-span-2 bg-surface-elevated rounded-2xl p-6 border border-border/60 shadow-sm flex flex-col">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-lg font-bold text-foreground tracking-tight" style={{ textWrap: 'balance' }}>تقدم التحصيل الشهري</h3>
             <div className="flex items-center gap-1.5 bg-muted-surface/60 p-1 rounded-xl">
@@ -180,7 +181,7 @@ export const DashboardView: React.FC = () => {
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                     chartYear === yr
                       ? 'bg-primary text-white shadow-sm shadow-primary/20'
-                      : 'text-muted-foreground hover:bg-white/60'
+                      : 'text-muted-foreground hover:bg-surface-elevated/60'
                   }`}
                 >
                   {yr}
@@ -239,7 +240,7 @@ export const DashboardView: React.FC = () => {
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-white rounded-2xl p-6 border border-border/60 shadow-sm flex flex-col">
+        <div className="bg-surface-elevated rounded-2xl p-6 border border-border/60 shadow-sm flex flex-col">
           <div className="flex justify-between items-center mb-5">
             <h3 className="text-lg font-bold text-foreground tracking-tight" style={{ textWrap: 'balance' }}>أحدث العمليات</h3>
             <button

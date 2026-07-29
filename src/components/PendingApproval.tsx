@@ -26,8 +26,8 @@ export const PendingApproval: React.FC = () => {
         phone: phone.trim() || undefined,
       });
       setIsRegistered(true);
-    } catch (err: any) {
-      if (err.message?.includes('already registered')) {
+    } catch (err: unknown) {
+      if (err instanceof Error && err.message?.includes('already registered')) {
         setIsRegistered(true);
       } else {
         setError('تعذر التسجيل. الرجاء المحاولة لاحقاً.');
@@ -39,32 +39,32 @@ export const PendingApproval: React.FC = () => {
 
   if (isRegistered) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-surface">
         <div className="max-w-md w-full mx-4">
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-            <div className="mx-auto w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mb-6">
-              <span className="material-symbols-outlined text-amber-600 text-3xl">
+          <div className="surface-elevated p-8 text-center">
+            <div className="mx-auto w-16 h-16 bg-warning-bg rounded-full flex items-center justify-center mb-6">
+              <span className="material-symbols-outlined text-warning text-3xl">
                 hourglass_empty
               </span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2" dir="rtl">
+            <h1 className="text-2xl font-bold text-foreground mb-2" dir="rtl">
               في انتظار الموافقة
             </h1>
-            <p className="text-gray-600 mb-6" dir="rtl">
+            <p className="text-muted mb-6" dir="rtl">
               تم تسجيل حسابك بنجاح. يرجى انتظار موافقة المسؤول على طلبك للوصول إلى النظام.
             </p>
-            <div className="bg-gray-50 rounded-lg p-4 mb-6">
-              <p className="text-sm text-gray-500">البريد الإلكتروني</p>
-              <p className="text-gray-900 font-medium" dir="ltr">
+            <div className="bg-primary-subtle rounded-lg p-4 mb-6">
+              <p className="text-sm text-muted">البريد الإلكتروني</p>
+              <p className="text-foreground font-medium" dir="ltr">
                 {user?.emailAddresses[0]?.emailAddress}
               </p>
             </div>
-            <div className="flex items-center justify-center gap-2 text-amber-600 mb-6">
+            <div className="flex items-center justify-center gap-2 text-warning mb-6">
               <span className="material-symbols-outlined">pending</span>
               <span className="font-medium">قيد المراجعة</span>
             </div>
-            <div className="bg-blue-50 rounded-lg p-4 text-right mb-6">
-              <p className="text-sm text-blue-800" dir="rtl">
+            <div className="bg-primary-subtle rounded-lg p-4 text-right mb-6 border border-primary/10">
+              <p className="text-sm text-primary" dir="rtl">
                 <strong>الخطوات التالية:</strong>
                 <br />
                 1. سيقوم المسؤول بمراجعة طلبك
@@ -75,7 +75,7 @@ export const PendingApproval: React.FC = () => {
               </p>
             </div>
             <SignOutButton>
-              <button className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
+              <button className="w-full bg-primary-subtle hover:bg-border text-foreground font-medium py-2.5 px-4 rounded-xl transition-all active:scale-[0.97]">
                 تسجيل الخروج
               </button>
             </SignOutButton>
@@ -86,65 +86,65 @@ export const PendingApproval: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-surface">
       <div className="max-w-md w-full mx-4">
-        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-          <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-            <span className="material-symbols-outlined text-blue-600 text-3xl">
+        <div className="surface-elevated p-8 text-center">
+          <div className="mx-auto w-16 h-16 bg-primary-subtle rounded-full flex items-center justify-center mb-6">
+            <span className="material-symbols-outlined text-primary text-3xl">
               person_add
             </span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2" dir="rtl">
+          <h1 className="text-2xl font-bold text-foreground mb-2" dir="rtl">
             تسجيل عضوية جديدة
           </h1>
-          <p className="text-gray-600 mb-6" dir="rtl">
+          <p className="text-muted mb-6" dir="rtl">
             أهلاً {user?.firstName}! يرجى إكمال بياناتك للتسجيل في صندوق العائلة.
           </p>
-          <div className="bg-gray-50 rounded-lg p-4 mb-6">
-            <p className="text-sm text-gray-500">البريد الإلكتروني</p>
-            <p className="text-gray-900 font-medium" dir="ltr">
+          <div className="bg-primary-subtle rounded-lg p-4 mb-6">
+            <p className="text-sm text-muted">البريد الإلكتروني</p>
+            <p className="text-foreground font-medium" dir="ltr">
               {user?.emailAddresses[0]?.emailAddress}
             </p>
           </div>
           <form onSubmit={handleSubmit} className="text-right space-y-4" dir="rtl">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">الاسم الكامل *</label>
+              <label className="block text-sm font-medium text-foreground mb-1">الاسم الكامل *</label>
               <input
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-fund-green focus:border-fund-green outline-none"
+                className="w-full bg-primary-subtle border border-border/60 rounded-xl px-3.5 py-2.5 text-sm text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                 placeholder="أدخل الاسم الكامل"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">رقم الهاتف</label>
+              <label className="block text-sm font-medium text-foreground mb-1">رقم الهاتف</label>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-fund-green focus:border-fund-green outline-none"
+                className="w-full bg-primary-subtle border border-border/60 rounded-xl px-3.5 py-2.5 text-sm text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                 placeholder="أدخل رقم الهاتف (اختياري)"
                 dir="ltr"
               />
             </div>
             {error && (
-              <div className="bg-red-50 text-red-700 text-sm rounded-lg p-3 text-center">
+              <div className="bg-danger-bg text-danger text-sm rounded-lg p-3 text-center">
                 {error}
               </div>
             )}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-fund-green hover:bg-fund-green/90 disabled:bg-fund-green/40 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              className="w-full bg-primary hover:bg-primary-light disabled:opacity-40 text-white font-medium py-2.5 px-4 rounded-xl transition-all active:scale-[0.97]"
             >
               {isSubmitting ? 'جاري التسجيل...' : 'تسجيل العضوية'}
             </button>
           </form>
           <div className="mt-4">
             <SignOutButton>
-              <button className="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+              <button className="text-sm text-muted hover:text-foreground transition-colors">
                 تسجيل الخروج
               </button>
             </SignOutButton>

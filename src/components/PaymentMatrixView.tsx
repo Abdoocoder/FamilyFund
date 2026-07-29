@@ -108,7 +108,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
   return (
     <div className="space-y-4 pb-24 md:pb-8 flex flex-col min-w-0">
       {/* Header & Controls */}
-      <div ref={headerRef} className="bg-white border border-border/60 shadow-sm rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div ref={headerRef} className="bg-surface-elevated border border-border/60 shadow-sm rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight" style={{ textWrap: 'balance' }}>جدول المدفوعات</h2>
           <p className="text-sm text-muted-foreground mt-1 tracking-wide">
@@ -119,7 +119,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
         <div className="flex items-center gap-2">
           <button
             onClick={exportToCSV}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white border border-border rounded-xl text-foreground hover:bg-primary-subtle transition-all duration-300 text-sm font-semibold shadow-sm hover:shadow-md active:scale-[0.97]"
+            className="flex items-center gap-2 px-4 py-2.5 bg-surface-elevated border border-border rounded-xl text-foreground hover:bg-primary-subtle transition-all duration-300 text-sm font-semibold shadow-sm hover:shadow-md active:scale-[0.97]"
           >
             <span className="material-symbols-outlined text-lg">download</span>
             <span>تصدير CSV</span>
@@ -138,7 +138,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
       </div>
 
       {/* Toolbar */}
-      <div className="bg-white border border-border/50 shadow-sm rounded-2xl p-4 flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+      <div className="bg-surface-elevated border border-border/50 shadow-sm rounded-2xl p-4 flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
         <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-3">
           <div className="relative w-full sm:w-64">
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-muted-foreground">
@@ -150,7 +150,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
               onChange={e => setSearch(e.target.value)}
               placeholder="البحث عن عضو..."
               aria-label="البحث عن عضو"
-              className="w-full bg-white border border-border/60 text-foreground text-sm rounded-xl py-2.5 pr-10 pl-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder-muted-foreground/60 shadow-sm"
+              className="w-full bg-surface-elevated border border-border/60 text-foreground text-sm rounded-xl py-2.5 pr-10 pl-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder-muted-foreground/60 shadow-sm"
             />
           </div>
 
@@ -158,7 +158,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
             <select
               value={selectedYear}
               onChange={e => setSelectedYear(Number(e.target.value))}
-              className="w-full bg-white border border-border/60 text-foreground text-sm font-bold rounded-xl py-2.5 pl-8 pr-4 appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer shadow-sm"
+              className="w-full bg-surface-elevated border border-border/60 text-foreground text-sm font-bold rounded-xl py-2.5 pl-8 pr-4 appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer shadow-sm"
             >
               <option value={2026}>2026</option>
               <option value={2025}>2025</option>
@@ -182,7 +182,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
               className={`px-4 py-1.5 rounded-full text-xs font-bold border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                 filterMode === chip.mode
                   ? `${chip.color} shadow-sm`
-                  : 'bg-white text-muted-foreground border-border/60 hover:bg-primary-subtle hover:border-primary/20'
+                  : 'bg-surface-elevated text-muted-foreground border-border/60 hover:bg-primary-subtle hover:border-primary/20'
               }`}
             >
               {chip.label}
@@ -192,7 +192,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
       </div>
 
       {/* Matrix Canvas */}
-      <div ref={tableRef} className="bg-white border border-border/60 shadow-sm rounded-2xl overflow-hidden flex flex-col min-w-0">
+      <div ref={tableRef} className="bg-surface-elevated border border-border/60 shadow-sm rounded-2xl overflow-hidden flex flex-col min-w-0">
         <div className="overflow-x-auto matrix-scroll">
           <table className="w-full text-right border-collapse whitespace-nowrap min-w-[1100px]">
             <thead className="bg-primary-subtle/90 sticky top-0 z-10 border-b border-border/60">
@@ -229,7 +229,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
 
                   return (
                     <tr key={member.id} className="hover:bg-primary-subtle/30 transition-all duration-200 group">
-                      <td className="sticky right-0 bg-white group-hover:bg-primary-subtle/30 py-2.5 px-4 border-l border-border/40 shadow-[1px_0_3px_rgba(0,0,0,0.02)] transition-colors z-10">
+                      <td className="sticky right-0 bg-surface-elevated group-hover:bg-primary-subtle/30 py-2.5 px-4 border-l border-border/40 shadow-[1px_0_3px_rgba(0,0,0,0.02)] transition-colors z-10">
                         <div className="flex items-center gap-3">
                           <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 transition-colors duration-300 ${
                             isFullyPaid ? 'bg-success-bg text-success' : 'bg-primary-subtle text-primary'
@@ -268,7 +268,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                         );
                       })}
 
-                      <td className="py-2.5 px-4 text-center font-bold text-sm text-primary bg-white group-hover:bg-primary-subtle/30 tabular-nums transition-colors">
+                      <td className="py-2.5 px-4 text-center font-bold text-sm text-primary bg-surface-elevated group-hover:bg-primary-subtle/30 tabular-nums transition-colors">
                         {memberTotal.toLocaleString('ar-JO')}
                       </td>
                     </tr>

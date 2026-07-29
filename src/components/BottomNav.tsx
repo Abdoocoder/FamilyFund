@@ -18,7 +18,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ isAdmin }) => {
 
   return (
     <nav className="md:hidden fixed bottom-4 left-4 right-4 z-50">
-      <div className="bg-white/95 backdrop-blur-sm border border-border/30 shadow-lg shadow-black/5 rounded-2xl px-3 py-2">
+      <div className="bg-surface-elevated/95 backdrop-blur-sm border border-border/30 shadow-lg shadow-black/5 rounded-2xl px-3 py-2">
         <div className="flex flex-row-reverse justify-around items-center">
           {navItems.map(item => {
             const isActive = activeTab === item.id;

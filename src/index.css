@@ -68,7 +68,7 @@
   --text-3xl: 1.875rem;
 }
 
-[data-theme="dark"] {
+.dark {
   --color-primary: #4a8bff;
   --color-primary-light: #6ba5ff;
   --color-primary-dark: #1a6bff;

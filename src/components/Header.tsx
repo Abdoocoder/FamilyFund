@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment, isAdmin }) => 
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-sm border-b border-border/40">
+    <header className="sticky top-0 z-40 w-full bg-surface-elevated/95 backdrop-blur-sm border-b border-border/40">
       <div className="flex flex-row-reverse justify-between items-center px-4 md:px-12 py-3 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-3.5">
           <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/40 shrink-0 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shadow-sm shadow-primary/10">
@@ -93,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenNewPayment, isAdmin }) => 
             </button>
 
             {showNotifications && (
-              <div className="absolute left-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-lg border border-border/40 overflow-hidden z-50">
+              <div className="absolute left-0 top-full mt-2 w-80 bg-surface-elevated rounded-2xl shadow-lg border border-border/40 overflow-hidden z-50">
                 <div className="px-4 py-3 border-b border-border/40 flex justify-between items-center">
                   <span className="text-sm font-bold text-foreground">آخر العمليات</span>
                   {auditLogs.length > 0 && (

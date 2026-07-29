@@ -19,7 +19,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isAdmin }) => {
   const activeMembersCount = members.filter(m => m.status === 'active').length;
 
   return (
-    <aside className="hidden md:flex flex-col w-64 bg-white border-l border-border/40 h-screen sticky top-0 shrink-0 z-30">
+    <aside className="hidden md:flex flex-col w-64 bg-surface-elevated border-l border-border/40 h-screen sticky top-0 shrink-0 z-30">
       <div className="p-6 border-b border-border/50">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shadow-sm shadow-primary/10">
@@ -52,7 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isAdmin }) => {
                   <span className="tracking-wide">{item.label}</span>
                   {item.id === 'members' && (
                     <span className={`mr-auto px-2.5 py-0.5 text-[11px] rounded-full font-bold tabular-nums ${
-                      isActive ? 'bg-white/20 text-white' : 'bg-primary-subtle text-primary'
+                      isActive ? 'bg-surface-elevated/20 text-white' : 'bg-primary-subtle text-primary'
                     }`}>
                       {activeMembersCount}
                     </span>

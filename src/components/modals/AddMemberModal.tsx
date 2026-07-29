@@ -71,7 +71,7 @@ export const AddMemberModal: React.FC<AddMemberModalProps> = ({ isOpen, onClose,
       onCancel={onClose}
       className="backdrop:bg-black/40 rounded-2xl p-0 max-w-md w-full shadow-2xl border border-border/30"
     >
-      <div className="bg-white rounded-2xl p-6">
+      <div className="bg-surface-elevated rounded-2xl p-6">
         <div className="flex justify-between items-center mb-5 pb-3 border-b border-border/40">
           <h3 className="text-xl font-bold text-primary tracking-tight">
             {memberToEdit ? 'تعديل بيانات العضو' : 'إضافة عضو جديد للصندوق'}

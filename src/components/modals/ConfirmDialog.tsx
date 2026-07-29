@@ -39,7 +39,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       onClick={handleBackdrop}
       className="backdrop:bg-black/40 rounded-2xl p-0 max-w-sm w-full shadow-2xl border border-fund-border/30"
     >
-      <div className="bg-white rounded-2xl p-6">
+      <div className="bg-surface-elevated rounded-2xl p-6">
         <div className="text-right">
           <div className="flex items-center gap-3 mb-4">
             <span className={`material-symbols-outlined ${variant === 'danger' ? 'text-status-danger' : 'text-fund-muted'}`}>

@@ -104,7 +104,7 @@ export const AdminPanel: React.FC = () => {
                   <select
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value as 'admin' | 'member')}
-                    className="border border-fund-border/40 rounded-xl px-3 py-2 text-xs text-fund-text bg-white cursor-pointer"
+                    className="border border-fund-border/40 rounded-xl px-3 py-2 text-xs text-fund-text bg-surface-elevated cursor-pointer"
                   >
                     <option value="member">عضو</option>
                     <option value="admin">مسؤول</option>

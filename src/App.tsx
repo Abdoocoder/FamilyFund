@@ -29,9 +29,9 @@ const MainContent: React.FC = () => {
   if (currentMember === undefined) {
     return (
       <div className="min-h-screen flex flex-col">
-        <div className="h-16 bg-white border-b border-border/50" />
+        <div className="h-16 bg-surface-elevated border-b border-border/50" />
         <div className="flex-1 flex max-w-7xl w-full mx-auto">
-          <aside className="hidden md:flex flex-col w-64 bg-white border-l border-border/40 p-4 gap-4">
+          <aside className="hidden md:flex flex-col w-64 bg-surface-elevated border-l border-border/40 p-4 gap-4">
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="h-11 rounded-xl bg-primary-subtle/60 animate-pulse" />
             ))}
