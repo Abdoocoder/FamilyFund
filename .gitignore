@@ -7,3 +7,7 @@ coverage/
 .env*
 !.env.example
 .vercel
+
+# Copilot-impeccable skill files (local to each dev machine)
+.github/hooks/
+.github/skills/
