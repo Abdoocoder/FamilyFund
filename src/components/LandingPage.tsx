@@ -166,12 +166,12 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-warm-black text-warm-text" dir="rtl">
-      {/* Skip to content — visually hidden until focused */}
+      {/* Skip to content */}
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-gold focus:text-warm-black focus:rounded-xl focus:text-sm focus:font-semibold">
         تخطى إلى المحتوى الرئيسي
       </a>
 
-      {/* Scroll Progress Bar — RTL-correct right-anchored */}
+      {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 right-0 w-full h-[2px] z-50 pointer-events-none">
         <div className="progress-bar-fill h-full bg-gold origin-right scale-x-0" />
       </div>
@@ -184,7 +184,7 @@ export const LandingPage: React.FC = () => {
               <span className="material-symbols-outlined text-gold text-xl">family_restroom</span>
             </div>
             <div>
-                <span className="text-lg font-bold text-warm-text leading-tight">صندوق العائلة</span>
+              <span className="text-lg font-bold text-warm-text leading-tight">صندوق العائلة</span>
               <p className="text-[10px] text-warm-muted hidden sm:block">نظام إدارة الاشتراكات</p>
             </div>
           </div>
@@ -216,7 +216,6 @@ export const LandingPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
           <div role="dialog" aria-modal="true" aria-label="القائمة الرئيسية" className="md:hidden border-t border-warm-border/50 bg-warm-surface">
             <div className="px-4 py-3 flex flex-col gap-2">
@@ -240,7 +239,11 @@ export const LandingPage: React.FC = () => {
       <main id="main-content">
 
       {/* Hero Section */}
-      <section id="hero" ref={heroRef} aria-label="القسم الرئيسي" className="relative overflow-hidden min-h-[70dvh] sm:min-h-[90dvh] flex items-center">
+      <section id="hero" ref={heroRef} aria-label="القسم الرئيسي" className="relative overflow-hidden min-h-[70dvh] sm:min-h-[90dvh] flex items-center section-grain">
+        {/* Ambient gold glow */}
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gold/4 rounded-full blur-[120px] pointer-events-none z-[1]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/2 rounded-full blur-[100px] pointer-events-none z-[1]" />
+
         <div className="absolute inset-0 z-0 hidden md:block">
           <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-b from-warm-black/95 via-warm-black/70 to-warm-black" />}>
             <ThreeBackground />
@@ -274,7 +277,7 @@ export const LandingPage: React.FC = () => {
                 <SignInButton mode="modal">
                   <button className="group w-full sm:w-auto bg-gold text-warm-black font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 hover:bg-gold-bright active:scale-[0.97] text-base cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-warm-black">
                     <span className="flex items-center justify-center gap-2">
-                      <span className="material-symbols-outlined text-xl" aria-hidden="true">rocket_launch</span>
+                      <span className="material-symbols-outlined text-xl" aria-hidden="true">dashboard</span>
                       افتح لوحة التحكم
                     </span>
                   </button>
@@ -300,7 +303,7 @@ export const LandingPage: React.FC = () => {
             <div className="hero-mockup">
               <div
                 ref={mockupRef}
-                className="rounded-2xl bg-warm-surface border border-warm-border overflow-hidden"
+                className="rounded-2xl bg-warm-surface/90 border border-warm-border overflow-hidden shadow-[0_8px_40px_-8px_rgba(0,0,0,0.5)]"
               >
                 <div className="p-4 md:p-6">
                   <div className="flex items-center justify-between mb-6">
@@ -361,8 +364,9 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" aria-label="المميزات" className="py-20 md:py-28 relative">
-        <div className="max-w-6xl mx-auto px-4 md:px-8">
+      <section id="features" aria-label="المميزات" className="py-20 md:py-28 relative section-grain">
+        <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-gold/3 to-transparent pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-14">
             <h3 className="text-3xl md:text-4xl font-bold text-warm-text mb-4 text-balance">
               كل ما تحتاجه لإدارة الصندوق
@@ -375,19 +379,22 @@ export const LandingPage: React.FC = () => {
           <div ref={featuresRef} className="space-y-8">
             <div className="grid md:grid-cols-2 gap-5">
               {features.filter(f => f.prominent).map((feature, i) => (
-                <div key={i} className="feature-block rounded-xl bg-warm-elevated border border-warm-border p-6 md:p-8">
-                  <div className="w-12 h-12 mb-5 rounded-xl bg-gold-subtle flex items-center justify-center">
-                    <span className="material-symbols-outlined text-gold text-xl" aria-hidden="true">{feature.icon}</span>
+                <div key={i} className="feature-block rounded-xl bg-warm-elevated border border-warm-border/80 p-6 md:p-8 relative overflow-hidden group">
+                  <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gold/5 rounded-full blur-2xl group-hover:bg-gold/10 transition-all duration-500" />
+                  <div className="relative z-10">
+                    <div className="w-12 h-12 mb-5 rounded-xl bg-gold-subtle flex items-center justify-center">
+                      <span className="material-symbols-outlined text-gold text-xl" aria-hidden="true">{feature.icon}</span>
+                    </div>
+                    <h4 className="text-xl font-bold text-warm-text mb-2">{feature.title}</h4>
+                    <p className="text-sm text-warm-muted leading-relaxed">{feature.description}</p>
                   </div>
-                  <h4 className="text-xl font-bold text-warm-text mb-2">{feature.title}</h4>
-                  <p className="text-sm text-warm-muted leading-relaxed">{feature.description}</p>
                 </div>
               ))}
             </div>
 
             <div className="grid sm:grid-cols-2 gap-3">
               {features.filter(f => !f.prominent).map((feature, i) => (
-                <div key={i} className="feature-item rounded-xl bg-warm-elevated border border-warm-border p-4 flex items-center gap-4">
+                <div key={i} className="feature-item rounded-xl bg-warm-elevated border border-warm-border/80 p-4 flex items-center gap-4 hover:border-gold/20 transition-colors duration-300">
                   <div className="w-10 h-10 shrink-0 rounded-lg bg-gold-subtle flex items-center justify-center">
                     <span className="material-symbols-outlined text-gold text-lg" aria-hidden="true">{feature.icon}</span>
                   </div>
@@ -403,8 +410,9 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" aria-label="كيف يعمل" className="py-20 md:py-28 bg-warm-surface/80 border-y border-warm-border/50 relative">
-        <div className="max-w-6xl mx-auto px-4 md:px-8">
+      <section id="how-it-works" aria-label="كيف يعمل" className="py-16 md:py-24 bg-warm-surface/80 border-y border-warm-border/50 relative section-grain">
+        <div className="absolute inset-0 bg-gradient-to-t from-warm-black/20 to-transparent pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-14">
             <h3 className="text-3xl md:text-4xl font-bold text-warm-text mb-4 text-balance">
               كيف يعمل النظام؟
@@ -418,10 +426,13 @@ export const LandingPage: React.FC = () => {
             {steps.map((step, i) => (
               <div key={i} className="step-card text-center relative">
                 {i < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-0 w-full h-px bg-gradient-to-l from-warm-border to-transparent -z-0" />
+                  <div className="hidden md:block absolute top-8 right-[calc(50%+2.5rem)] left-[calc(-50%+2.5rem)] h-px bg-gradient-to-l from-gold/40 via-warm-border to-transparent -z-0" />
                 )}
-                <div className="relative z-10 w-16 h-16 rounded-full bg-warm-elevated border border-warm-border flex items-center justify-center mx-auto mb-5">
-                  <span className="material-symbols-outlined text-gold text-2xl" aria-hidden="true">{step.icon}</span>
+                <div className="relative z-10 w-16 h-16 rounded-full bg-warm-elevated border-2 border-gold/20 flex items-center justify-center mx-auto mb-5">
+                  <span className="material-symbols-outlined text-gold text-xl" aria-hidden="true">{step.icon}</span>
+                  <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gold text-warm-black text-[10px] font-bold flex items-center justify-center">
+                    {['١', '٢', '٣'][i]}
+                  </span>
                 </div>
                 <h4 className="text-lg font-bold text-warm-text mb-2">{step.title}</h4>
                 <p className="text-sm text-warm-muted leading-relaxed">{step.description}</p>
@@ -432,17 +443,18 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section ref={ctaRef} className="py-20 md:py-28">
+      <section ref={ctaRef} className="py-16 md:py-20 relative section-grain">
         <div className="max-w-6xl mx-auto px-4 md:px-8">
           <div className="cta-content relative rounded-2xl p-10 md:p-16 text-center overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-gold via-gold-bright to-gold-deep" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-gold-deep/30 via-transparent to-warm-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-gold-deep/40 via-transparent to-warm-black/20" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_60%)] pointer-events-none" />
 
             <div className="relative z-10">
               <h3 className="text-3xl md:text-4xl font-bold text-warm-black mb-4 text-balance">
                 ابدأ إدارة صندوق عائلتك الآن
               </h3>
-              <p className="text-warm-black max-w-lg mx-auto mb-8 text-base md:text-lg text-pretty">
+              <p className="text-warm-black/80 max-w-lg mx-auto mb-8 text-base md:text-lg text-pretty">
                 وفّر وقتك وجهدك في تتبع المدفوعات. احصل على لوحة تحكم شاملة
                 تضمن الشفافية والدقة في إدارة اشتراكات العائلة
               </p>
@@ -450,7 +462,7 @@ export const LandingPage: React.FC = () => {
               <SignInButton mode="modal">
                 <button className="group bg-warm-black text-gold-bright font-bold px-10 py-4 rounded-xl transition-all duration-300 hover:bg-warm-elevated active:scale-[0.97] text-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-text focus-visible:ring-offset-2 focus-visible:ring-offset-gold-deep">
                   <span className="flex items-center justify-center gap-2">
-                    <span className="material-symbols-outlined text-xl" aria-hidden="true">rocket_launch</span>
+                    <span className="material-symbols-outlined text-xl" aria-hidden="true">login</span>
                     افتح لوحة التحكم
                   </span>
                 </button>
@@ -463,17 +475,22 @@ export const LandingPage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-warm-border/50 bg-warm-black">
+      <footer className="border-t border-warm-border/50 bg-warm-black section-grain">
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center">
                 <span className="material-symbols-outlined text-gold text-sm">family_restroom</span>
               </div>
               <span className="text-sm font-bold text-warm-text">صندوق العائلة</span>
             </div>
+            <div className="flex items-center gap-4">
+              <a href="#" className="text-xs text-warm-muted hover:text-gold transition-colors duration-200">سياسة الخصوصية</a>
+              <span className="text-warm-border/50" aria-hidden="true">|</span>
+              <a href="#" className="text-xs text-warm-muted hover:text-gold transition-colors duration-200">الشروط والأحكام</a>
+            </div>
             <p className="text-xs text-warm-muted">
-              نظام إدارة اشتراكات الصندوق العائلي — جميع الحقوق محفوظة
+              جميع الحقوق محفوظة
             </p>
           </div>
         </div>
