@@ -218,7 +218,7 @@ export const HistoryView: React.FC = () => {
               >
                 <div className="col-span-2 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 ${
-                    status === 'paid' ? 'bg-fund-green text-white' : (status === 'pending' ? 'bg-status-pending-bg text-status-pending' : 'bg-status-danger-surface text-status-danger')
+                    status === 'paid' ? 'bg-status-paid-bg text-status-paid' : (status === 'pending' ? 'bg-status-pending-bg text-status-pending' : 'bg-status-danger-bg text-status-danger')
                   }`}>
                     {member.initials || member.name.charAt(0)}
                   </div>

@@ -256,7 +256,7 @@ export const PaymentMatrixView: React.FC<PaymentMatrixProps> = ({ onOpenNewPayme
                               aria-label={`${member.name} — ${ARABIC_MONTHS[idx]} ${selectedYear}: ${isPaid ? 'مسدد، انقر للإلغاء' : 'غير مسدد، انقر للسداد'}`}
                               className={`payment-toggle w-full min-h-[44px] rounded-lg border text-xs font-bold flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                                 isPaid
-                                  ? 'bg-primary text-white border-primary shadow-sm shadow-primary/15 hover:bg-primary-dark'
+                                  ? 'bg-status-paid-bg text-status-paid border-status-paid hover:bg-status-paid-bg/80'
                                   : isPending
                                   ? 'bg-warning-bg text-warning border-warning-bg/80 hover:bg-warning-bg/80'
                                   : 'bg-primary-subtle/60 text-muted-foreground border-border/40 hover:bg-primary-subtle hover:text-foreground hover:border-primary/20'

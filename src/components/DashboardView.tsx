@@ -104,7 +104,7 @@ export const DashboardView: React.FC = () => {
       suffix: 'د.أ',
       sub: 'مستحق',
       icon: 'pending_actions',
-      iconBg: 'bg-danger-surface text-danger',
+      iconBg: 'bg-danger-bg text-danger',
       valueClass: 'text-danger',
     },
     {
@@ -268,8 +268,8 @@ export const DashboardView: React.FC = () => {
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                   tx.status === 'completed' ? 'bg-success-bg text-success' :
-                  tx.status === 'processing' ? 'bg-warning-bg text-warning' :
-                  'bg-danger-surface text-danger'
+                   tx.status === 'processing' ? 'bg-warning-bg text-warning' :
+                   'bg-danger-bg text-danger'
                 }`}>
                   <span className="material-symbols-outlined text-lg">
                     {tx.status === 'completed' ? 'check_circle' : tx.status === 'processing' ? 'schedule' : 'error'}

@@ -68,7 +68,7 @@ export const AdminPanel: React.FC = () => {
       </div>
 
       {errorMsg && (
-        <div className="mb-4 p-3 bg-status-danger-surface border border-status-danger/20 rounded-xl text-status-danger text-sm text-center" dir="rtl">
+        <div className="mb-4 p-3 bg-status-danger-bg border border-status-danger/20 rounded-xl text-status-danger text-sm text-center" dir="rtl">
           {errorMsg}
         </div>
       )}

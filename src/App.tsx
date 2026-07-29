@@ -67,11 +67,11 @@ const MainContent: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center max-w-sm">
-          <span className="material-symbols-outlined text-red-500 text-6xl mb-4">
+          <span className="material-symbols-outlined text-danger text-6xl mb-4">
             block
           </span>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">تم رفض طلبك</h1>
-          <p className="text-gray-600 mb-4">تم رفض طلب العضوية الخاص بك</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">تم رفض طلبك</h1>
+          <p className="text-muted mb-4">تم رفض طلب العضوية الخاص بك</p>
           <div className="bg-primary-subtle rounded-xl p-4 text-right">
             <p className="text-sm text-foreground/80">
               يمكنك التواصل مع الإدارة لمزيد من التفاصيل
